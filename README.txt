@@ -1,1 +1,1 @@
-Processador do trio João Pedro, Henderson e Weverson
+Processador do trio João Pedro, Henderson e Weverson .
