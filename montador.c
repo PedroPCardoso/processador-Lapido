@@ -15,9 +15,11 @@ int main(){
 	celula c, *ini;
 	c.prox = NULL;
 	ini = &c;
+	char funcao[200];
+	scanf("%s",funcao);
 	printf("ola");
 	inserir(ini);
-	compare (ini,funcao[200]);
+	compare (ini,funcao);
 	celula *p;  
 	for (p = ini->prox; p != NULL; p = p->prox) {
 		 char *ola = p->conteudo; 
@@ -31,7 +33,7 @@ int main(){
 
 		
 	void inserir(celula *ini){
-		char url[] = "ola.txt";
+		char url[] = "funcoes.txt";
 		char ch[200]; // dado a ser inserido na lista
 		FILE *arc;
 		printf( " entrou");
@@ -41,8 +43,6 @@ int main(){
 		
 		while(fgets(ch,200 ,arc)){
 		// metodo para inserir na lista, percorendo
-		
-		printf("%s",ch);	
 		
 		
 		celula *p;
@@ -62,7 +62,7 @@ int main(){
 				if (p->prox==NULL){
 					
 					p->prox = nova;
-					
+					printf("%s",p->conteudo);
 					
 					} 
 		   
