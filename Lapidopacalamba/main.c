@@ -169,6 +169,7 @@ void doControl(char *instruction) {
             control.ALUOp[3] = '0';
             control.ALUOp[4] = '\0';
             control.ALUSrc = 1;
+            control.memToReg = 0;
         }
         // Se for addinc
         if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 1) {
@@ -279,8 +280,35 @@ void compute() {
     }
 }
 
+void doWriteBack() {
+    // Se for para usar o dado proveniente da ALU
+    if(control.memToReg == 0) {
+        int i, WC, dec = 0, bin;
+        
+        for(i=0; i<4; i++) {
+            bin = registers.writeRegister[i];
+            if (bin == '1') {
+                dec = dec * 2 + 1;
+            } else if(bin == '0') {
+                dec *= 2;
+            }
+        }
+        WC = dec;
+        printf("WC = r %d\n", WC);
+        
+        for(i = 0; i < 32; i++) {
+            registers.writeData[i] = alu.ALUResult[i];
+            registers.r[WC][i] = alu.ALUResult[i];
+        }
+        registers.r[WC][32] = '\0';
+        printf("Valor de r %s\n", registers.r[WC]);
+    // Se for para usar o dado proveniente da Memória
+    } else {
+        
+    }
+}
+
 int main(int argc, char *argv[]) {
-    
     loadInstructionsOnMemory();
     system("PAUSE");
     char *instruction = doInstructionFetch();
@@ -290,6 +318,8 @@ int main(int argc, char *argv[]) {
     system("PAUSE");
     doControl(instruction);
     compute();
+    system("PAUSE");
+    doWriteBack();
     system("PAUSE");
     return 0;
 }
