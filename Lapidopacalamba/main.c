@@ -341,6 +341,18 @@ void compute() {
                 }
             }
             printf("InvertedB: %s\n",operatorB);
+            char one[] = "1";
+            char result[32];
+            sum(one,operatorB,result);
+            printf("Complement: %s\n",result);
+            int sizeB = strlen(result);
+            i = 0;
+            while(sizeB != 0) {
+                operatorB[i] = result[32 - sizeB];
+                sizeB--;
+                i++;
+            }
+            operatorB[i] = '\0';
             sum(operatorA,operatorB,alu.ALUResult);
             printf("RESULT: %s\n",alu.ALUResult);
         } else {// Se for usar saída do extensor de sinal
