@@ -203,6 +203,16 @@ void doControl(char *instruction) {
             control.ALUSrc = 0;
             control.memToReg = 0;
         }
+        // Se for lsl
+        if(instruction[28] == '0' && instruction[27] == '1' && instruction[26] == '0' && instruction[25] == '0' && instruction[24] == '0') {
+            control.ALUOp[0] = '0';
+            control.ALUOp[1] = '1';
+            control.ALUOp[2] = '0';
+            control.ALUOp[3] = '0';
+            control.ALUOp[4] = '\0';
+            control.ALUSrc = 0;
+            control.memToReg = 0;
+        }
     }
 }
 
@@ -376,6 +386,18 @@ void compute() {
         }
         alu.ALUResult[32] = '\0';
         printf("AND OPERATION RESULT: %s\n", alu.ALUResult);
+    }
+    // Se for shiftl
+    else if(control.ALUOp[0] == '0' && control.ALUOp[1] == '1' && control.ALUOp[2] == '0' && control.ALUOp[3] == '0') {
+        printf("ULA OPERATION - SHIFTL\n");
+        int i;
+        
+        for(i = 0; i < 31; i++) {
+            alu.ALUResult[i] = registers.readDataA[i + 1];
+        }
+        alu.ALUResult[31] = registers.readDataA[0];
+        alu.ALUResult[32] = '\0';
+        printf("SHIFTL OPERATION RESULT: %s\n", alu.ALUResult);
     }
 }
 
