@@ -173,8 +173,8 @@ void doControl(char *instruction) {
             control.ALUSrc = 0;
             control.memToReg = 0;
         }
-        // Se for nega
-        if(instruction[28] == '0' && instruction[27] == '0' && instruction[26] == '1' && instruction[25] == '0' && instruction[24] == '1') {
+        // Se for passnota
+        if(instruction[28] == '1' && instruction[27] == '1' && instruction[26] == '0' && instruction[25] == '1' && instruction[24] == '0') {
             control.ALUOp[0] = '0';
             control.ALUOp[1] = '0';
             control.ALUOp[2] = '0';
@@ -184,7 +184,7 @@ void doControl(char *instruction) {
             control.memToReg = 0;
         }
         // Se for or
-        if(instruction[28] == '1' && instruction[27] == '1' && instruction[26] == '0' && instruction[25] == '1' && instruction[24] == '0') {
+        if(instruction[28] == '1' && instruction[27] == '0' && instruction[26] == '1' && instruction[25] == '1' && instruction[24] == '1') {
             control.ALUOp[0] = '0';
             control.ALUOp[1] = '0';
             control.ALUOp[2] = '1';
@@ -253,7 +253,7 @@ void sum(char bin1[], char bin2[], char result[]) {
 void compute() {
     // Se for add
     if(control.ALUOp[0] == '0' && control.ALUOp[1] == '0' && control.ALUOp[2] == '0' && control.ALUOp[3] == '0') {
-        printf("ADD\n");
+        printf("ULA OPERATION - ADD\n");
         int i;
         int counter = 0, sizeA, sizeB;
         for(i = 0; i < 32, registers.readDataA[i] == '0'; i++) {
@@ -296,7 +296,7 @@ void compute() {
     }
     // Se for nega
     else if(control.ALUOp[0] == '0' && control.ALUOp[1] == '0' && control.ALUOp[2] == '0' && control.ALUOp[3] == '1') {
-        printf("NEGA\n");
+        printf("ULA OPERATION - NEGA\n");
         int i;
         
         for(i = 0; i < 32; i++) {
@@ -308,6 +308,35 @@ void compute() {
         }
         alu.ALUResult[32] = '\0';
         printf("InvertedA: %s\n", alu.ALUResult);
+    }
+    // Se for or
+    else if(control.ALUOp[0] == '0' && control.ALUOp[1] == '0' && control.ALUOp[2] == '1' && control.ALUOp[3] == '0') {
+        printf("ULA OPERATION - OR\n");
+        int i;
+        int auxA[32], auxB[32], auxR[32];
+        for(i = 0; i < 32; i++) {
+            if(registers.readDataA[i] == '0') {
+                auxA[i] = 0;
+            } else {
+                auxA[i] = 1;
+            }
+            if(registers.readDataB[i] == '0') {
+                auxB[i] = 0;
+            } else {
+                auxB[i] = 1;
+            }
+        }
+        auxA[32] = '\0';
+        auxB[32] = '\0';
+        for(i = 0; i < 32; i++) {
+            if(auxA[i] || auxB[i]) {
+                alu.ALUResult[i] = '1';
+            } else {
+                alu.ALUResult[i] = '0';
+            }
+        }
+        alu.ALUResult[32] = '\0';
+        printf("OR OPERATION RESULT: %s\n", alu.ALUResult);
     }
 }
 
