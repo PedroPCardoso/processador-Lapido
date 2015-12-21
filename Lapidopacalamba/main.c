@@ -146,9 +146,11 @@ void doInstructionDecoding(char *instruction) {
     printf("O WC eh o r %d\n", WC);
     
     strncpy(registers.readDataA, registers.r[RA], 32);
+    registers.readDataA[32] = '\0';
     printf("ReadDataA: %s\n", registers.readDataA);
     
     strncpy(registers.readDataB, registers.r[RB], 32);
+    registers.readDataB[32] = '\0';
     printf("ReadDataB: %s\n", registers.readDataB);
 }
 
@@ -430,17 +432,23 @@ void doWriteBack() {
 }
 
 int main(int argc, char *argv[]) {
-    loadInstructionsOnMemory();
-    system("PAUSE");
-    char *instruction = doInstructionFetch();
-    printf("Instruction: %s\n", instruction);
-    system("PAUSE");
-    doInstructionDecoding(instruction);
-    system("PAUSE");
-    doControl(instruction);
-    compute();
-    system("PAUSE");
-    doWriteBack();
-    system("PAUSE");
+    int num;
+    int i;
+    printf("Digito o numero de instrucoes: ");
+    scanf("%d", &num);
+    for(i = 0; i < num; i++) {
+        loadInstructionsOnMemory();
+        system("PAUSE");
+        char *instruction = doInstructionFetch();
+        printf("Instruction: %s\n", instruction);
+        system("PAUSE");
+        doInstructionDecoding(instruction);
+        system("PAUSE");
+        doControl(instruction);
+        compute();
+        system("PAUSE");
+        doWriteBack();
+        system("PAUSE");
+    }
     return 0;
 }
