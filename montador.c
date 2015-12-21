@@ -1,91 +1,136 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include<string.h>
-   struct cel {
-      char   conteudo[200]; 
-      struct cel *prox;
-   };
-   
-   typedef struct cel celula;  // célula
-   void inserir(celula *ini);
-   char *compare (celula *ini, char funcao[200] );
-  
+#include <string.h>
   
 int main(){
-	celula c, *ini;
-	c.prox = NULL;
-	ini = &c;
-	char funcao[200];
-	scanf("%s",funcao);
-	printf("ola");
-	inserir(ini);
-	compare (ini,funcao);
-	celula *p;  
-	for (p = ini->prox; p != NULL; p = p->prox) {
-		 char *ola = p->conteudo; 
-		 printf ("%s",ola );
-		}
+char url[]="test.asm";
+
+	char ch;
+	FILE *arq;
+	char instrucao[7];
+	arq = fopen(url, "r");
+	if(arq == NULL)
+	    printf("Erro, nao foi possivel abrir o arquivo\n");
+	else{
+		int cont=0;
+	    while( (ch=fgetc(arq))!= EOF ){
 		
+				if (ch==32){    // esse if é pra quando eu achar a instrução completa.
+					putchar(ch);
+				printf("%s",instrucao);
+					
+					break;
+					}
+				else{
+					instrucao[cont]=ch;
+					cont++;
+					
+					
+					}
+				
+			}		
+	}
+	fclose(arq);
+	
 	return 0;
+
+
+int identifica_instrucao(char *operacao)
+{
+	if(!strcmp(operacao,"zeros"))
+		return ZEROS;
+	if(!strcmp(operacao,"and"))
+		return AND;
+	if(!strcmp(operacao,"andnota"))
+		return ANDNOTA;
+	if(!strcmp(operacao,"passa"))
+		return PASSA;
+	if(!strcmp(operacao,"xor"))
+		return XOR;
+	if(!strcmp(operacao,"or"))
+		return OR;
+	if(!strcmp(operacao,"nor"))
+		return NOR;
+	if(!strcmp(operacao,"xnor"))
+		return XNOR;
+	if(!strcmp(operacao,"passnota"))
+		return PASSNOTA;
+	if(!strcmp(operacao,"ornotb"))
+		return ORNOTB;
+	if(!strcmp(operacao,"nand"))
+		return NAND;
+	if(!strcmp(operacao,"ones"))
+		return ONES;
+	if(!strcmp(operacao,"add"))
+		return ADD;
+	if(!strcmp(operacao,"addinc"))
+		return ADDINC;
+	if(!strcmp(operacao,"inca"))
+		return INCA;
+	if(!strcmp(operacao,"subdec"))
+		return SUBDEC;
+	if(!strcmp(operacao,"sub"))
+		return SUB;
+	if(!strcmp(operacao,"deca"))
+		return DECA;
+	if(!strcmp(operacao,"lsl"))
+		return LSL;
+	if(!strcmp(operacao,"lsr"))
+		return LSR;
+	if(!strcmp(operacao,"asr"))
+		return ASR;
+	if(!strcmp(operacao,"asl"))
+		return ASL;
+	if(!strcmp(operacao,"loadlit"))
+		return LOADLIT;
+	if(!strcmp(operacao,"lc"))
+		return LC;
+	if(!strcmp(operacao,"lcl"))
+		return LCL;
+	if(!strcmp(operacao,"lch"))
+		return LCH;
+	if(!strcmp(operacao,"jf.neg"))
+		return JFNEG;
+	if(!strcmp(operacao,"jf.zero"))
+		return JFZERO;
+	if(!strcmp(operacao,"jf.carry"))
+		return JFCARRY;
+	if(!strcmp(operacao,"jf.negzero"))
+		return JFNEGZERO;
+	if(!strcmp(operacao,"jf.true"))
+		return JFTRUE;
+	if(!strcmp(operacao,"jf.overflow"))
+		return JFOVERFLOW;
+	if(!strcmp(operacao,"jt.neg"))
+		return JTNEG;
+	if(!strcmp(operacao,"jt.zero"))
+		return JTZERO;
+	if(!strcmp(operacao,"jt.carry"))
+		return JTCARRY;
+	if(!strcmp(operacao,"jt.negzero"))
+		return JTNEGZERO;
+	if(!strcmp(operacao,"jt.true"))
+		return JTTRUE;
+	if(!strcmp(operacao,"jt.overflow"))
+		return JTOVERFLOW;
+	if(!strcmp(operacao,"j"))
+		return J;
+	if(!strcmp(operacao,"jal"))
+		return JAL;
+	if(!strcmp(operacao,"jr"))
+		return JR;
+	if(!strcmp(operacao,"load"))
+		return LOAD;
+	if(!strcmp(operacao,"ld"))
+		return LD;
+	if(!strcmp(operacao,"store"))
+		return STORE;
+	if(!strcmp(operacao,"st"))
+		return ST;
+	if(!strcmp(operacao,"nop"))
+		return NOP;
+	if(!strcmp(operacao,".end"))
+		return HALT;
+	
 	
 }
-
-
-		
-	void inserir(celula *ini){
-		char url[] = "funcoes.txt";
-		char ch[200]; // dado a ser inserido na lista
-		FILE *arc;
-		printf( " entrou");
-		arc = fopen(url, "r");
-		
-		
-		
-		while(fgets(ch,200 ,arc)){
-		// metodo para inserir na lista, percorendo
-		
-		
-		celula *p;
-		p = ini->prox;
-		
-		
-	    celula *nova;
-	    nova = malloc (sizeof (celula));
-	    
-	    for(int i=0;i<200;i++){
-		nova->conteudo[i]= ch[i];
-	   
-			}
-	    
-	    
-	    while (p != NULL) 
-				if (p->prox==NULL){
-					
-					p->prox = nova;
-					printf("%s",p->conteudo);
-					
-					} 
-		   
-		p= p->prox;
-		
-		}
-	
-		
-	}
-	
-	
-	
-
-	// Retonar a função caso ela esteeja na lista.
-	char *compare (celula *ini, char funcao[200] ) {
-	   celula *p;
-	   for (p = ini->prox; p != NULL; p = p->prox) {
-		   if ( strcmp (p->conteudo,funcao)){
-			   return funcao;
-			   }
-		  printf ("%s\n", p->conteudo);
-	  }
-	  return "nao encontrada";
-	}	
-	
-	
