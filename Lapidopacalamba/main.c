@@ -173,7 +173,7 @@ void doControl(char *instruction) {
             control.ALUSrc = 0;
             control.memToReg = 0;
         }
-        // Se for sub
+        // Se for nega
         if(instruction[28] == '0' && instruction[27] == '0' && instruction[26] == '1' && instruction[25] == '0' && instruction[24] == '1') {
             control.ALUOp[0] = '0';
             control.ALUOp[1] = '0';
@@ -183,7 +183,7 @@ void doControl(char *instruction) {
             control.ALUSrc = 0;
             control.memToReg = 0;
         }
-        // Se for passnota
+        // Se for or
         if(instruction[28] == '1' && instruction[27] == '1' && instruction[26] == '0' && instruction[25] == '1' && instruction[24] == '0') {
             control.ALUOp[0] = '0';
             control.ALUOp[1] = '0';
@@ -294,70 +294,20 @@ void compute() {
             printf("ALUSrc = 1\n");
         }
     }
-    // Se for subtract
+    // Se for nega
     else if(control.ALUOp[0] == '0' && control.ALUOp[1] == '0' && control.ALUOp[2] == '0' && control.ALUOp[3] == '1') {
-        printf("SUBTRACT\n");
+        printf("NEGA\n");
         int i;
-        int counter = 0, sizeA, sizeB;
-        for(i = 0; i < 32, registers.readDataA[i] == '0'; i++) {
-            counter++;
-        }
-        i = 0;
-        sizeA = 32 - counter;
-        char operatorA[sizeA];
-        while(sizeA != 0) {
-            operatorA[i] = registers.readDataA[32 - sizeA];
-            sizeA--;
-            i++;
-        }
-        operatorA[i] = '\0';
         
-        counter = 0;
-        for(i = 0; i < 32, registers.readDataB[i] == '0'; i++) {
-            counter++;
-        }
-        i = 0;
-        sizeB = 32 - counter;
-        int aux = 32 - counter;
-        char operatorB[sizeB];
-        while(sizeB != 0) {
-            operatorB[i] = registers.readDataB[32 - sizeB];
-            sizeB--;
-            i++;
-        }
-        operatorB[i] = '\0';
-        
-        // Se for para usar ReadDataB
-        if(control.ALUSrc == 0) {
-            sizeB=aux;
-            printf("ALUSrc = 0\n");
-            printf("OperatorA: %s\n",operatorA);
-            printf("OperatorB: %s\n",operatorB);
-            for(i = 0; i < sizeB; i++) {
-                if(operatorB[i] == '0') {
-                    operatorB[i] = '1';
-                } else {
-                    operatorB[i] = '0';
-                }
+        for(i = 0; i < 32; i++) {
+            if(registers.readDataA[i] == '0') {
+                alu.ALUResult[i] = '1';
+            } else {
+                alu.ALUResult[i] = '0';
             }
-            printf("InvertedB: %s\n",operatorB);
-            char one[] = "1";
-            char result[32];
-            sum(one,operatorB,result);
-            printf("Complement: %s\n",result);
-            int sizeB = strlen(result);
-            i = 0;
-            while(sizeB != 0) {
-                operatorB[i] = result[32 - sizeB];
-                sizeB--;
-                i++;
-            }
-            operatorB[i] = '\0';
-            sum(operatorA,operatorB,alu.ALUResult);
-            printf("RESULT: %s\n",alu.ALUResult);
-        } else {// Se for usar saída do extensor de sinal
-            printf("ALUSrc = 1\n");
         }
+        alu.ALUResult[32] = '\0';
+        printf("InvertedA: %s\n", alu.ALUResult);
     }
 }
 
