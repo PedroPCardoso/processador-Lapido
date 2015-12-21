@@ -193,6 +193,16 @@ void doControl(char *instruction) {
             control.ALUSrc = 0;
             control.memToReg = 0;
         }
+        // Se for and
+        if(instruction[28] == '1' && instruction[27] == '0' && instruction[26] == '0' && instruction[25] == '0' && instruction[24] == '1') {
+            control.ALUOp[0] = '0';
+            control.ALUOp[1] = '0';
+            control.ALUOp[2] = '1';
+            control.ALUOp[3] = '1';
+            control.ALUOp[4] = '\0';
+            control.ALUSrc = 0;
+            control.memToReg = 0;
+        }
     }
 }
 
@@ -337,6 +347,35 @@ void compute() {
         }
         alu.ALUResult[32] = '\0';
         printf("OR OPERATION RESULT: %s\n", alu.ALUResult);
+    }
+    // Se for and
+    else if(control.ALUOp[0] == '0' && control.ALUOp[1] == '0' && control.ALUOp[2] == '1' && control.ALUOp[3] == '1') {
+        printf("ULA OPERATION - AND\n");
+        int i;
+        int auxA[32], auxB[32], auxR[32];
+        for(i = 0; i < 32; i++) {
+            if(registers.readDataA[i] == '0') {
+                auxA[i] = 0;
+            } else {
+                auxA[i] = 1;
+            }
+            if(registers.readDataB[i] == '0') {
+                auxB[i] = 0;
+            } else {
+                auxB[i] = 1;
+            }
+        }
+        auxA[32] = '\0';
+        auxB[32] = '\0';
+        for(i = 0; i < 32; i++) {
+            if(auxA[i] && auxB[i]) {
+                alu.ALUResult[i] = '1';
+            } else {
+                alu.ALUResult[i] = '0';
+            }
+        }
+        alu.ALUResult[32] = '\0';
+        printf("AND OPERATION RESULT: %s\n", alu.ALUResult);
     }
 }
 
