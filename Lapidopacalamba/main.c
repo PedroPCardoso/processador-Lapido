@@ -14,6 +14,10 @@ struct DataMemory {
     char writeData[32];             // Dados escritos da memória de dados
 } dataMemory;
 
+struct SignalExtend {
+    char signalExtended[32];        // Sinal extendido
+} signalExtend;
+
 struct Registers {
     char readRegisterA[4];           // RA
     char readRegisterB[4];           // RB
@@ -77,7 +81,18 @@ char * doInstructionFetch() {
 void doInstructionDecoding(char *instruction) {
     int t;
     int u;
-    for(t=0; t<16; t++) {
+    
+    // Extende sinal e atribui ao extensor
+    for(t=0, u=31; t<32; u--, t++) {
+        if(t<16) {
+            signalExtend.signalExtended[u] = instruction[t];
+        } else {
+            signalExtend.signalExtended[u] = '0';
+        }
+    }
+    signalExtend.signalExtended[32] = '\0';
+        
+    /*for(t=0; t<16; t++) {
         for(u=0; u<32; u++) {
             registers.r[t][u] = '0';
         }
@@ -88,7 +103,7 @@ void doInstructionDecoding(char *instruction) {
     registers.r[11][28] = '0';
     registers.r[11][29] = '0';
     registers.r[11][30] = '0';
-    registers.r[11][31] = '1';
+    registers.r[11][31] = '1';*/
     
     registers.writeRegister[3] = instruction[23];
     registers.writeRegister[2] = instruction[22];
@@ -157,13 +172,13 @@ void doInstructionDecoding(char *instruction) {
 void doControl(char *instruction) {
     /*  
         Ação da ULA         ALU Control Input
-        ADD                 0010
-        SUBTRACT            0110
-        AND                 0000
-        OR                  0001
-        SET ON LESS THAN    0111
+        ADD                 0000
+        NEGA                0001
+        OR                  0010
+        AND                 0011
+        SHIFTL              0100
     */
-    // Se for a instrução do tipo lógica ou aritmética
+    // Se for instrução do tipo lógica ou aritmética
     if(instruction[31] == '0' && instruction[30] == '0' && instruction[29] == '1') {
         // Se for add
         if(instruction[28] == '0' && instruction[27] == '0' && instruction[26] == '0' && instruction[25] == '0' && instruction[24] == '0') {
@@ -213,6 +228,19 @@ void doControl(char *instruction) {
             control.ALUOp[3] = '0';
             control.ALUOp[4] = '\0';
             control.ALUSrc = 0;
+            control.memToReg = 0;
+        }
+    }
+    // Se for instrução do tipo constante
+    else if(instruction[31] == '0' && instruction[30] == '1' && instruction[29] == '0') {
+        // Se for lch
+        if(instruction[25] == '1' && instruction[24] == '1') {
+            control.ALUOp[0] = '1';
+            control.ALUOp[1] = '1';
+            control.ALUOp[2] = '1';
+            control.ALUOp[3] = '1';
+            control.ALUOp[4] = '\0';
+            control.ALUSrc = 1;
             control.memToReg = 0;
         }
     }
@@ -275,7 +303,7 @@ void sum(char bin1[], char bin2[], char result[]) {
 void compute() {
     // Se for add
     if(control.ALUOp[0] == '0' && control.ALUOp[1] == '0' && control.ALUOp[2] == '0' && control.ALUOp[3] == '0') {
-        printf("ULA OPERATION - ADD\n");
+        printf("ALU OPERATION - ADD\n");
         int i;
         int counter = 0, sizeA, sizeB;
         for(i = 0; i < 32, registers.readDataA[i] == '0'; i++) {
@@ -318,7 +346,7 @@ void compute() {
     }
     // Se for nega
     else if(control.ALUOp[0] == '0' && control.ALUOp[1] == '0' && control.ALUOp[2] == '0' && control.ALUOp[3] == '1') {
-        printf("ULA OPERATION - NEGA\n");
+        printf("ALU OPERATION - NEGA\n");
         int i;
         
         for(i = 0; i < 32; i++) {
@@ -333,7 +361,7 @@ void compute() {
     }
     // Se for or
     else if(control.ALUOp[0] == '0' && control.ALUOp[1] == '0' && control.ALUOp[2] == '1' && control.ALUOp[3] == '0') {
-        printf("ULA OPERATION - OR\n");
+        printf("ALU OPERATION - OR\n");
         int i;
         int auxA[32], auxB[32], auxR[32];
         for(i = 0; i < 32; i++) {
@@ -362,7 +390,7 @@ void compute() {
     }
     // Se for and
     else if(control.ALUOp[0] == '0' && control.ALUOp[1] == '0' && control.ALUOp[2] == '1' && control.ALUOp[3] == '1') {
-        printf("ULA OPERATION - AND\n");
+        printf("ALU OPERATION - AND\n");
         int i;
         int auxA[32], auxB[32], auxR[32];
         for(i = 0; i < 32; i++) {
@@ -391,7 +419,7 @@ void compute() {
     }
     // Se for shiftl
     else if(control.ALUOp[0] == '0' && control.ALUOp[1] == '1' && control.ALUOp[2] == '0' && control.ALUOp[3] == '0') {
-        printf("ULA OPERATION - SHIFTL\n");
+        printf("ALU OPERATION - SHIFTL\n");
         int i;
         
         for(i = 0; i < 31; i++) {
@@ -400,6 +428,22 @@ void compute() {
         alu.ALUResult[31] = registers.readDataA[0];
         alu.ALUResult[32] = '\0';
         printf("SHIFTL OPERATION RESULT: %s\n", alu.ALUResult);
+    }
+    // Se for IN=OUToperation
+    // Saída da ULA igual à entrada B
+    else if(control.ALUOp[0] == '1' && control.ALUOp[1] == '1' && control.ALUOp[2] == '1' && control.ALUOp[3] == '1') {
+        printf("ALU OPERATION - NO IN=OUT\n");
+        int i;
+        if(control.ALUSrc==1) {
+            for(i = 0; i < 32; i++) {
+                alu.ALUResult[i] = signalExtend.signalExtended[i];
+            }
+        } else {
+            for(i = 0; i < 32; i++) {
+                alu.ALUResult[i] = registers.readDataB[i];
+            }
+        }
+        alu.ALUResult[32] = '\0';
     }
 }
 
@@ -433,7 +477,12 @@ void doWriteBack() {
 
 int main(int argc, char *argv[]) {
     int num;
-    int i;
+    int i, t, u;
+    for(t=0; t<16; t++) {
+        for(u=0; u<32; u++) {
+            registers.r[t][u] = '0';
+        }
+    }
     printf("Digito o numero de instrucoes: ");
     scanf("%d", &num);
     for(i = 0; i < num; i++) {
