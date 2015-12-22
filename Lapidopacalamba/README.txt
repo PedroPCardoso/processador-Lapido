@@ -20,3 +20,8 @@ Este documento visa especificar como utilizar o simulador do processador LAPI DO
 
 - Instruções
 . O processador executa as instruções: lch, add, nega, or, and, shift.
+
+- Parâmetros
+. Dois parâmetros são requisitados para o funcionamento do simulador:
+  1. arquivo input.txt contendo as instruções
+  2. número de instruções presentes no arquivo (requisitado ao iniciar a simulação)
