@@ -2,43 +2,83 @@
 #include <stdlib.h>
 #include <string.h>
   
-int main(){
-char url[]="test.asm";
+ 
 
-	char ch;
-	FILE *arq;
-	char instrucao[7];
-	arq = fopen(url, "r");
-	if(arq == NULL)
-	    printf("Erro, nao foi possivel abrir o arquivo\n");
-	else{
-		int cont=0;
-	    while( (ch=fgetc(arq))!= EOF ){
-		
-				if (ch==32){    // esse if é pra quando eu achar a instrução completa.
-					putchar(ch);
-				printf("%s",instrucao);
-					
-					break;
-					}
-				else{
-					instrucao[cont]=ch;
-					cont++;
-					
-					
-					}
-				
-			}		
-	}
-	fclose(arq);
+char * identifica_instrucao(char *operacao)   // Codigo OP das instruções
+ { 
+	// aritmeticas
+	char *zeros="00110000";
+	char *AND= "00110001";
+	char *ANDNOTA = "00110010";
+	char *PASSA ="00110101";
+	char *XOR= "00110110";
+	char *OR= "00110111";
+	char *NOR="00111110";
+	char *XNOR="00111001";
+	char *PASSNOTA= "00111010";
+	char *ORNOTB= "00111101";
+	char *NAND ="00111000";
+	char *ONES="00111111";
+	char *ADD="00100000";
+	char *ADDINC="00100001";
+	char *INCA="00100011";
+	char *SUBDEC ="00100100";
+	char *SUB = "00100101";
+	char *DECA="00100110";
+	char *ASR="00101001";
+	char *LSL="00101000";
 	
-	return 0;
-
-
-int identifica_instrucao(char *operacao)
-{
+	
+	char *PASSB = "00110011" ;
+	char *ANDNOTB="00110100"; 
+	char *ORNOTA ="00111011 ";
+	char *PASSNOTB= "00111100 ";
+	
+	char *LSR="001";
+	char *ASL="001";
+	char *LOADLIT;
+	char *LC;
+	char *LCL;
+	char *LCH;
+	char* JFNEG;
+	char *JFZERO;
+	char* JFCARRY;
+	char* JFNEGZERO;
+	char* JFTRUE;
+	char* JFOVERFLOW;
+	char *JTNEG;
+	char *JTZERO;
+	char * JTCARRY;
+	char *JTNEGZERO;
+	char *JTTRUE;
+	char *JTOVERFLOW;
+	char *J;
+	char *JAL;
+	char *JR;
+	char *LOAD;
+	char *LD;
+	char *STORE;
+	char *ST;
+	char *NOP;
+	char *HALT;
+	
+	
+	
+	if(!strcmp(operacao,"passb"))
+		 return PASSB;
+	 
+	if(!strcmp(operacao,"andnotb"))
+		 return ANDNOTB;
+	 
+	if(!strcmp(operacao,"ornota"))
+		 return ORNOTA;
+	 
+	if(!strcmp(operacao,"passnotb"))
+		 return PASSNOTB;
+	 
 	if(!strcmp(operacao,"zeros"))
-		return ZEROS;
+		 return zeros;
+	 
 	if(!strcmp(operacao,"and"))
 		return AND;
 	if(!strcmp(operacao,"andnota"))
@@ -132,5 +172,86 @@ int identifica_instrucao(char *operacao)
 	if(!strcmp(operacao,".end"))
 		return HALT;
 	
+	return 'n';
+} 
+
+void escrevendo(char *dado ){  // Escreve num arquivo 
+	char url[]="codigo.txt";
+	FILE *arq;
+	arq = fopen(url, "a");
+	if(arq == NULL)
+			printf("Erro, nao foi possivel abrir o arquivo\n");
+			
+	else{
+		fprintf(arq, dado);
+	}
 	
+	}
+  
+int main(){
+char url[]="test.asm";   // nome do arquivo a ser decoficado 
+	char ch;
+	FILE *arq;
+	char instrucao[7];
+	arq = fopen(url, "r");
+	if(arq == NULL)
+	    printf("Erro, nao foi possivel abrir o arquivo\n");
+	else{
+		int cont=0;
+	    while( (ch=fgetc(arq))!= EOF ){
+		
+				if (ch==32){    // esse if é pra quando eu achar a instrução completa.
+					putchar(ch);
+					printf(" a instrução é ");
+					printf("%s",instrucao);
+					char *op;
+					op= identifica_instrucao(instrucao);
+					printf ("vaaai poxaaa");
+					printf("%s",op);
+					escrevendo(op);	
+					cont=0;	
+					
+					for(int i=0;i<7;i++)
+						instrucao[i]='\0';
+					
+					}
+					
+				if(ch==44){
+					
+					
+					if(strcmp(instrucao,"r1")==0){
+						escrevendo("foium");
+						
+						escrevendo("0001");
+						
+						}
+					if(strncmp(instrucao,"r2",3)==0){
+						escrevendo("foidois");
+						
+						escrevendo("0021");
+						
+						} 
+					if(strncmp(instrucao,"r3",3)==0){
+								escrevendo("foitres");
+						
+						escrevendo("0031");
+						
+						} 
+					
+					
+					
+					}
+				else{
+					instrucao[cont]=ch;
+					cont++;
+					
+					
+					}
+				
+				
+			}		
+	}
+	fclose(arq);
+	
+	return 0;
 }
