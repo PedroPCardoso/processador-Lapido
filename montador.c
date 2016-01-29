@@ -3,7 +3,7 @@
 #include <string.h>
   
  
-
+ 	
 char * identifica_instrucao(char *operacao)   // Codigo OP das instruções
  { 
 	// aritmeticas
@@ -62,7 +62,7 @@ char * identifica_instrucao(char *operacao)   // Codigo OP das instruções
 	char *NOP;
 	char *HALT;
 	
-	
+	char *nada;
 	
 	if(!strcmp(operacao,"passb"))
 		 return PASSB;
@@ -171,14 +171,13 @@ char * identifica_instrucao(char *operacao)   // Codigo OP das instruções
 		return NOP;
 	if(!strcmp(operacao,".end"))
 		return HALT;
-	
-	return 'n';
+	else {return nada;}
 } 
 
 void escrevendo(char *dado ){  // Escreve num arquivo 
 	char url[]="codigo.txt";
 	FILE *arq;
-	arq = fopen(url, "a");
+	arq = fopen(url, "a+");
 	if(arq == NULL)
 			printf("Erro, nao foi possivel abrir o arquivo\n");
 			
@@ -191,67 +190,93 @@ void escrevendo(char *dado ){  // Escreve num arquivo
 int main(){
 char url[]="test.asm";   // nome do arquivo a ser decoficado 
 	char ch;
+	const char s[2] = ",";
+	char *token;
+	 
 	FILE *arq;
 	char instrucao[7];
+	for(int i=0;i<7;i++)
+	instrucao[i]='\0';
+	
 	arq = fopen(url, "r");
 	if(arq == NULL)
 	    printf("Erro, nao foi possivel abrir o arquivo\n");
 	else{
+		
 		int cont=0;
 	    while( (ch=fgetc(arq))!= EOF ){
-		
+		printf("Instrução é essa %s \n ",instrucao);
+		printf("Numero do Ch : %d \n",ch);	
 				if (ch==32){    // esse if é pra quando eu achar a instrução completa.
-					putchar(ch);
-					printf(" a instrução é ");
+					//putchar(ch);
 					printf("%s",instrucao);
 					char *op;
 					op= identifica_instrucao(instrucao);
-					printf ("vaaai poxaaa");
-					printf("%s",op);
+					printf("A instrução %s",op);
 					escrevendo(op);	
 					cont=0;	
 					
 					for(int i=0;i<7;i++)
 						instrucao[i]='\0';
 					
-					}
-					
-				if(ch==44){
-					
-					
-					if(strcmp(instrucao,"r1")==0){
-						escrevendo("foium");
-						
-						escrevendo("0001");
-						
 						}
-					if(strncmp(instrucao,"r2",3)==0){
-						escrevendo("foidois");
-						
-						escrevendo("0021");
-						
-						} 
-					if(strncmp(instrucao,"r3",3)==0){
-								escrevendo("foitres");
-						
-						escrevendo("0031");
-						
-						} 
+
+			
 					
-					
-					
-					}
-				else{
+					else{
+						
+					printf ("\n");
+					printf ("%i",ch);
 					instrucao[cont]=ch;
+					
 					cont++;
+						
 					
-					
+						}
+				
 					}
-				
-				
-			}		
+					
+					
+	  
+					   /* get the first token */
+					   token = strtok(instrucao, s);
+					   
+					   /* walk through other tokens */
+					   while( token != NULL ) 
+					   {
+						  printf( "vai um  %s\n", token );
+						
+						
+
+
+
+
+						if(strcmp(token,"r1")==0){
+										escrevendo("foium");
+										
+										//escrevendo("0001");
+										
+										}
+								if(strncmp(token,"r2",3)==0){
+										escrevendo("foidois");
+										
+									//	escrevendo("0021");
+										
+										} 
+								if(strncmp(token,"r3",3)==0){
+												escrevendo("foitres");
+										
+									//	escrevendo("0031");
+										
+										} 
+									
+						
+						
+						  token = strtok(NULL, s);
+					   }				
+		fclose(arq);
 	}
-	fclose(arq);
 	
 	return 0;
 }
+
