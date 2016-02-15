@@ -1,0 +1,66 @@
+C:/Users/usuario/Documents/GitHub/processador-Lapido/ULA_TB.v {0 {vlog -work work C:/Users/usuario/Documents/GitHub/processador-Lapido/ULA_TB.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module ULA_TB
+** Error: C:/Users/usuario/Documents/GitHub/processador-Lapido/ULA_TB.v(5): near "[": syntax error, unexpected '[', expecting IDENTIFIER or TYPE_IDENTIFIER
+** Error: C:/Users/usuario/Documents/GitHub/processador-Lapido/ULA_TB.v(13): near ".": syntax error, unexpected '.', expecting ')'
+** Error: C:/Users/usuario/Documents/GitHub/processador-Lapido/ULA_TB.v(18): near "b": syntax error, unexpected IDENTIFIER, expecting ';'
+** Error: C:/Users/usuario/Documents/GitHub/processador-Lapido/ULA_TB.v(21): near "opcode": syntax error, unexpected IDENTIFIER, expecting ';'
+** Error: C:/Users/usuario/Documents/GitHub/processador-Lapido/ULA_TB.v(25): near "begin": syntax error, unexpected begin
+
+} {4.0 9.0} {}} C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v {0 {vlog -work work C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module Banco_Registro
+** Error: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(17): Port mode is incompatible with declaration: IN_OUT_A
+** Error: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(17): Port mode is incompatible with declaration: OUT_B
+** Error: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(19): Port mode is incompatible with declaration: Hab_Escrita
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(26): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(27): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(28): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(29): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(30): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(31): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(32): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(33): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(35): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(36): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(37): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(38): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(39): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(40): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(41): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(42): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Error: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(45): (vlog-2730) Undefined variable: 'Habilita'.
+
+** Error: C:/Users/usuario/Documents/GitHub/processador-Lapido/banco_registrador.v(2): Identifier must be declared with a port mode: Habilita.
+
+} {4.0 7.0 39.0 40.0 41.0 42.0} {}} C:/Users/usuario/Documents/GitHub/processador-Lapido/ULA.v {0 {vlog -work work {C:\Users\usuario\Documents\GitHub\processador-Lapido\ULA.v}
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module ULA
+** Error: C:\Users\usuario\Documents\GitHub\processador-Lapido\ULA.v(1): Identifier must be declared with a port mode: A.
+** Error: C:\Users\usuario\Documents\GitHub\processador-Lapido\ULA.v(1): Identifier must be declared with a port mode: B.
+** Error: C:\Users\usuario\Documents\GitHub\processador-Lapido\ULA.v(1): Identifier must be declared with a port mode: opcode.
+
+} {4.0 7.0} {}} C:/Users/usuario/Documents/GitHub/processador-Lapido/mux.v {1 {vlog -work work C:/Users/usuario/Documents/GitHub/processador-Lapido/mux.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module MUX1
+
+Top level modules:
+	MUX1
+
+} {} {}}
