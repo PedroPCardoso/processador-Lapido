@@ -38,7 +38,7 @@ struct Control {
     int regDst;
     int branch;
     int memRead;
-    int menWrite;
+    int memWrite;
     int memToReg;
     int ALUSrc;                     // Define se a ALU deve usar o ReadDataB (1) ou dado proveniente do extensor de sinal(0)
     int regWrite;
