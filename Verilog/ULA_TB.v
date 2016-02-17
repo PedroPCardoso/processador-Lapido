@@ -1,42 +1,38 @@
 module ULA_TB();
 
   reg [31:0] a, b;
-  reg Flag;
-  logic [31:0] out;
-  reg opcode;
+  wire flag;
+  wire [31:0] out;
+  reg [4:0] opcode;
 
    ULA ULA(
       .A(a),
       .B(b),
       .opcode(opcode),
-      .Flag(Flag)
-      .Out(out),
+      .Flag(flag),
+      .Out(out)
       );
 
     initial begin
-      a=32'b00000000000000000000000000000000
-      b=32'b00000000000000000000000000000000
-      Flag=0;
-      out=32'b00000000000000000000000000000000
-      opcode=0;
+      a=32'b00000000000000000000000000000001;
+      b=32'b00000000000000000000000000000000;
+      opcode=5'b0000;
+      $display(out);
+      #100 ;
+      a=32'b00000000000000000000000000000001;
+      b=32'b00000000000000000000000000000000;
+      opcode=5'b00001;
 
-    end
 
-    always opcode begin
+      $display (out);
 
-      case (opcode) begin
-      5'b00000 : break;
-      5'b00001: break;
-      5'b00011:break;
 
-      default : $display("Fodeu")
-      endcase
+      end
 
 
 
 
 
 
-    end
 
 endmodule

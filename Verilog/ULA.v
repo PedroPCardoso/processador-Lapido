@@ -1,14 +1,19 @@
 module  ULA (A, B, opcode, Flag, Out);
 
-  input [WIDTH-31:0] A, B;
-  input opcode[WIDTH-4:0];
-  output [WIDTH-31:0] Out, Flag;
+  input  [31:0] A;
+  input  [31:0] B;
+  input  [4:0] opcode;
+  output [31:0] Out;
+  output Flag;
 
+
+  wire signed [31:0] A, B; // dados para operacao
+	wire [4:0] opcode;
+	reg signed [31:0] Out;
+	reg Flag;
 
   initial begin
-    A=32'b00000000000000000000000000000000;
-    B=32'b00000000000000000000000000000000;
-    opcode=0;
+    Flag=0;
   end
 
   always @ ( opcode ) begin
@@ -28,7 +33,7 @@ module  ULA (A, B, opcode, Flag, Out);
         10001:begin  Out = (A&B); end// and
         10010:begin  Out = (~A&B); end // andnota
         10011:begin  Out = B; end // passb
-        10100:begin  Out = (A&~B); // andnotb
+        10100:begin  Out = (A&~B);end // andnotb
         10101:begin  Out = A;end // passa
         10110:begin  Out = (A^B);end // xor
         10111:begin  Out = (A|B);end // or
@@ -39,8 +44,8 @@ module  ULA (A, B, opcode, Flag, Out);
         11100:begin  Out = ~B; end
         11101:begin  Out = A|(~B); end
         11110:begin  Out = ~A|~B;end
-        11111:begin  Out = 1; //ones
-        default:break;
+        11111:begin  Out = 1;end //ones
+        default:;
         endcase
   end
 
