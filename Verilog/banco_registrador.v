@@ -11,18 +11,18 @@ module Banco_Registro (
   parameter bits_palavra = 32;
   parameter end_registros = 4; // Quantidade de bits necessários para endereçar os registros
   parameter num_registros = 16; // Quantidade de registros do Banco de Registros (num_registros = (end_registros^2)-1;)
-
+  input wire Habilita;
   output reg [bits_palavra-1:0] A, B;
-  input [bits_palavra-1:0] E;
-  input reg [2:0] IN_OUT_A, OUT_B;
-  input reset, clock;
-  input reg Hab_Escrita;
+  input wire [bits_palavra-1:0] E;
+  input wire  [2:0] IN_OUT_A, OUT_B;
+  input wire  reset, clock;
+  wire  Hab_Escrita;
   reg [bits_palavra-1:0] registro [num_registros-1:0];	// Um vetor de "num_registros" palavras de "bits_palavra" bits
 
 
 	always @(negedge clock, posedge reset) begin
 
-			if(reset) begin
+			if(reset) begin  // zera os registradores
         registro[0] = 16'b00000000000000000000000000000000;
 				registro[1] = 16'b00000000000000000000000000000000;
 				registro[2] = 16'b00000000000000000000000000000000;
