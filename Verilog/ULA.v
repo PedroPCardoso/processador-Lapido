@@ -1,4 +1,4 @@
-module  ULA (A, B, opcode, Flag, Out);
+  module  ULA (A, B, opcode, Flag, Out);
 
   input  [31:0] A;
   input  [31:0] B;
