@@ -9,7 +9,7 @@ module sign_extend_tb();
 	);
 
 	initial begin
-				extend = 16'b1000111111111111;
+				extend = 16'b0000111111111111;
 				#100;
 				$display("%b",extend);
 				$display("%b",extended);
