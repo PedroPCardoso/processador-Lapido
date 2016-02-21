@@ -82,14 +82,7 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 ** Error: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/bios.v(4): In, out, or inout does not appear in port list: D.
 ** Error: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/bios.v(5): In, out, or inout does not appear in port list: Q.
 
-} {4.0 6.0} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA_TB.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA_TB.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module ULA_TB
-
-Top level modules:
-	ULA_TB
-
-} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v
+} {4.0 6.0} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module sign_extend
 
