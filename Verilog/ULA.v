@@ -21,30 +21,30 @@
 
     case (opcode )
 
-        00000:begin  Out = (A+B); end  // add
-        00001:begin  Out = (A+B+1); end // addinc
-        00011:begin  Out = (A+1); end // inca
-        00100:begin  Out = (A-B-1); end // subdec
-        00101:begin  Out = (A-B);  end // Sub
-        00110:begin  Out = (A-1); end // deca
-        01000:begin  Out = (A+B); end  // lsl
-        01001:begin  Out = (A+B); end // asr
-        10000:begin  Out = 0; end // zeros
-        10001:begin  Out = (A&B); end// and
-        10010:begin  Out = (~A&B); end // andnota
-        10011:begin  Out = B; end // passb
-        10100:begin  Out = (A&~B);end // andnotb
-        10101:begin  Out = A;end // passa
-        10110:begin  Out = (A^B);end // xor
-        10111:begin  Out = (A|B);end // or
-        11000:begin  Out = (~A&~B);end // nand
-        11001:begin  Out = ~(A^B); end // xnor
-        11010:begin  Out = ~A; end // passnota
-        11011:begin  Out = (~A)|B; end
-        11100:begin  Out = ~B; end
-        11101:begin  Out = A|(~B); end
-        11110:begin  Out = ~A|~B;end
-        11111:begin  Out = 1;end //ones
+        5'b00000:begin  Out = (A+B); end  // add
+        5'b00001:begin  Out = (A+B+32'b01); end // addinc
+        5'b00011:begin  Out = (A+32'b01); end // inca
+        5'b00100:begin  Out = (A-B-32'b01); end // subdec
+        5'b00101:begin  Out = (A-B);  end // Sub
+        5'b00110:begin  Out = (A-32'b01); end // deca
+        5'b01000:begin  Out = (A+B); end  // lsl
+        5'b01001:begin  Out = (A+B); end // asr
+        5'b10000:begin  Out = 32'b0; end // zeros
+        5'b10001:begin  Out = (A&B); end// and
+        5'b10010:begin  Out = (~A&B); end // andnota
+        5'b10011:begin  Out = B; end // passb
+        5'b10100:begin  Out = (A&~B);end // andnotb
+        5'b10101:begin  Out = A;end // passa
+        5'b10110:begin  Out = (A^B);end // xor
+        5'b10111:begin  Out = (A|B);end // or
+        5'b11000:begin  Out = (~A&~B);end // nand
+        5'b11001:begin  Out = ~(A^B); end // xnor
+        5'b11010:begin  Out = ~A; end // passnota
+        5'b11011:begin  Out = (~A)|B; end
+        5'b11100:begin  Out = ~B; end
+        5'b11101:begin  Out = A|(~B); end
+        5'b11110:begin  Out = ~A|~B;end
+        5'b11111:begin  Out = 1;end //ones
         default:;
         endcase
   end
