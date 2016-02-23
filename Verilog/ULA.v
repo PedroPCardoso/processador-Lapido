@@ -27,8 +27,8 @@
         5'b00100:begin  Out = (A-B-32'b01); end // subdec
         5'b00101:begin  Out = (A-B);  end // Sub
         5'b00110:begin  Out = (A-32'b01); end // deca
-        5'b01000:begin  Out = (A+B); end  // lsl  //FAZER
-        5'b01001:begin  Out = (A+B); end // asr  //FAZER
+        5'b01000:begin  Out = (A<<1); end  // lsl
+        5'b01001:begin  Out = (A>>>1); end // asr
         5'b10000:begin  Out = 32'b0; end // zeros
         5'b10001:begin  Out = (A&B); end// and
         5'b10010:begin  Out = (~A)&B; end // andnota
