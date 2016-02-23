@@ -8,7 +8,7 @@ Z1 !s100 7RXoj=^?bjj8hdiM1:<>F2
 Z2 IHgNSQB^HZY<Hj5@jf>cfG2
 Z3 VY@<X1Nz@KA1:eV6OL;:cA1
 Z4 dC:\Users\Pedro\Documents\GitHub\processador-Lapido\work
-Z5 w1455690436
+Z5 w1456186016
 Z6 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v
 Z7 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v
 L0 1
@@ -17,7 +17,7 @@ r1
 31
 Z9 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v|
 Z10 o-work work -O0
-Z11 !s108 1456073392.491000
+Z11 !s108 1456192613.501000
 Z12 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v|
 !i10b 1
 !s85 0
@@ -27,213 +27,213 @@ Z13 !s100 XJfJ_1h]e_V4EKeao79RN0
 Z14 I:LgbQ^TP=i5D;EA]A_CTE2
 Z15 V`zSzFDC?QbzQbT6UfM^mZ3
 R4
-Z16 w1455781281
-Z17 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v
-Z18 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v
+R5
+Z16 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v
+Z17 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v
 L0 1
 R8
 r1
 31
-Z19 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v|
+Z18 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v|
 R10
-Z20 !s108 1456073392.909000
-Z21 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v|
+Z19 !s108 1456192613.810000
+Z20 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vBanco_Registro
-Z22 !s100 N2YB`Qf3ZnD=WA847X<J91
-Z23 I2jKUR1@3]lBR7b2oN]VfY3
-Z24 V32gcaM8]e@K6[NX>W0X]91
+Z21 !s100 N2YB`Qf3ZnD=WA847X<J91
+Z22 I2jKUR1@3]lBR7b2oN]VfY3
+Z23 V32gcaM8]e@K6[NX>W0X]91
 R4
-Z25 w1455776859
-Z26 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v
-Z27 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v
+R5
+Z24 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v
+Z25 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v
 L0 1
 R8
 r1
 31
-Z28 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v|
+Z26 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v|
 R10
-Z29 n@banco_@registro
-Z30 !s108 1456073393.260000
-Z31 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v|
+Z27 n@banco_@registro
+Z28 !s108 1456192614.064000
+Z29 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vclockFSM
-Z32 !s100 `2?SUmz9[j[2FllJdC3U_1
-Z33 IX_UiLD[F9RF@[6]fKOi8>0
-Z34 VMTf6A_P:n9ZhIVH>P2[lN1
+Z30 !s100 `2?SUmz9[j[2FllJdC3U_1
+Z31 IX_UiLD[F9RF@[6]fKOi8>0
+Z32 VMTf6A_P:n9ZhIVH>P2[lN1
 R4
-Z35 w1455827213
-Z36 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v
-Z37 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v
+R5
+Z33 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v
+Z34 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v
 L0 1
 R8
 r1
 31
-Z38 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v|
+Z35 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v|
 R10
-Z39 nclock@f@s@m
-Z40 !s108 1456073396.364000
-Z41 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v|
+Z36 nclock@f@s@m
+Z37 !s108 1456192617.086000
+Z38 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vfsm_using_single_always
-Z42 !s100 [oG1X2D1mF3QGH[go2MBC2
-Z43 I9o:8zUEkd9VzIlM;fGVa;0
-Z44 VAVLJhL9]>h8lEfLoMIgEB3
+Z39 !s100 [oG1X2D1mF3QGH[go2MBC2
+Z40 I9o:8zUEkd9VzIlM;fGVa;0
+Z41 VAVLJhL9]>h8lEfLoMIgEB3
 R4
-Z45 w1455825656
-Z46 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v
-Z47 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v
+R5
+Z42 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v
+Z43 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v
 L0 7
 R8
 r1
 31
-Z48 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v|
+Z44 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v|
 R10
+Z45 !s108 1456192617.446000
+Z46 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v|
 !i10b 1
 !s85 0
-Z49 !s108 1456073396.839000
-Z50 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v|
 !s101 -O0
 vIMEM
-!i10b 1
-!s100 FSlUE:C18ji0HmZeQeAf>3
-IN9G?nU]kBNzY7YP5]a[Vb2
-VZ:G;XUWB4<bNRFi97o<Nk0
+Z47 !s100 FSlUE:C18ji0HmZeQeAf>3
+Z48 IN9G?nU]kBNzY7YP5]a[Vb2
+Z49 VZ:G;XUWB4<bNRFi97o<Nk0
 R4
-w1456072887
-8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v
-FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v
+R5
+Z50 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v
+Z51 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v
 L0 11
 R8
 r1
-!s85 0
 31
-!s108 1456073397.332000
-!s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v|
-!s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v|
-!s101 -O0
+Z52 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v|
 R10
-n@i@m@e@m
+Z53 n@i@m@e@m
+Z54 !s108 1456192617.989000
+Z55 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v|
+!i10b 1
+!s85 0
+!s101 -O0
 vMUX1
-Z51 !s100 l8Fc?Y_eVI[5E^>FAifiU3
-Z52 IdI[`fI1;1o_aO;BEcGG9M1
-Z53 V8h5^TAk6:c4DN@h0?8Pd?1
+Z56 !s100 l8Fc?Y_eVI[5E^>FAifiU3
+Z57 IdI[`fI1;1o_aO;BEcGG9M1
+Z58 V8h5^TAk6:c4DN@h0?8Pd?1
 R4
-Z54 w1455776662
-Z55 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v
-Z56 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v
+R5
+Z59 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v
+Z60 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v
 L0 1
 R8
 r1
 31
-Z57 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v|
+Z61 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v|
 R10
-Z58 n@m@u@x1
-Z59 !s108 1456073393.737000
-Z60 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v|
+Z62 n@m@u@x1
+Z63 !s108 1456192614.898000
+Z64 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vprogramcounter
-Z61 !s100 lm;MB@9PhOT157f_k0NUJ3
-Z62 Im4T3bK5H@hOg0^<9SgLX42
-Z63 VDJQo`jZ7njSiRWfn7f27F2
+Z65 !s100 lm;MB@9PhOT157f_k0NUJ3
+Z66 Im4T3bK5H@hOg0^<9SgLX42
+Z67 VDJQo`jZ7njSiRWfn7f27F2
 R4
 R5
-Z64 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v
-Z65 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v
+Z68 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v
+Z69 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v
 L0 1
 R8
 r1
 31
-Z66 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v|
+Z70 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v|
 R10
-Z67 !s108 1456073394.077000
-Z68 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v|
+Z71 !s108 1456192615.332000
+Z72 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vsign_extend
-Z69 !s100 jRIf:VffB05_;NGTa4:^l3
-Z70 IPIB]OmkRkE=IcbgZJUL4m3
-Z71 V=lG2n^:SG<:MU[mAP^GaA1
+Z73 !s100 jRIf:VffB05_;NGTa4:^l3
+Z74 IPIB]OmkRkE=IcbgZJUL4m3
+Z75 V=lG2n^:SG<:MU[mAP^GaA1
 R4
-Z72 w1455833755
-Z73 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v
-Z74 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v
+R5
+Z76 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v
+Z77 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v
 L0 1
 R8
 r1
 31
-Z75 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v|
+Z78 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v|
 R10
-Z76 !s108 1456073394.522000
-Z77 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v|
+Z79 !s108 1456192615.724000
+Z80 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vsign_extend_tb
-Z78 !s100 ^3Li5DO?97Iico>jUPYIb3
-Z79 IX>kIJeVNlY?7KP^1C;S[N0
-Z80 VbH9<T6b^7A6`z:[DVCnPR0
+Z81 !s100 ^3Li5DO?97Iico>jUPYIb3
+Z82 IX>kIJeVNlY?7KP^1C;S[N0
+Z83 VbH9<T6b^7A6`z:[DVCnPR0
 R4
-Z81 w1455833899
-Z82 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v
-Z83 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v
+R5
+Z84 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v
+Z85 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v
 L0 1
 R8
 r1
 31
-Z84 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v|
+Z86 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v|
 R10
-Z85 !s108 1456073394.994000
-Z86 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v|
+Z87 !s108 1456192616.106000
+Z88 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vULA
-Z87 !s100 _d]W5BheHod^6W:Jz0fK?3
-Z88 I15QEW:3gDe6ZfbK@iab=00
-Z89 Vb9j=f6OI=V85;F;_LDj?>1
+Z89 IeEf<^?ooUXQ]]oO7DB9YA0
+Z90 Vb9j=f6OI=V85;F;_LDj?>1
 R4
-Z90 w1455783738
-Z91 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v
-Z92 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v
+Z91 w1456192609
+Z92 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v
+Z93 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v
 L0 1
 R8
 r1
 31
-Z93 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v|
+Z94 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v|
 R10
-Z94 n@u@l@a
-Z95 !s108 1456073395.436000
-Z96 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v|
+Z95 n@u@l@a
+Z96 !s100 1OTohnlInFRWIgAZhWONO2
+Z97 !s108 1456192616.448000
+Z98 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vULA_TB
-Z97 I@a1>0iIbb@H5i:EKLde;R2
-Z98 VK=D2;_fYAX0CA<576n_O_0
+!i10b 1
+!s100 zh8jSTc>^i6[Mj:LX5C1A0
+I^NGR2L3`d:d;Na92_@Uko0
+Z99 VK=D2;_fYAX0CA<576n_O_0
 R4
-Z99 w1456072884
+w1456193242
 Z100 8C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA_TB.v
 Z101 FC:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA_TB.v
 L0 1
 R8
 r1
+!s85 0
 31
+!s108 1456193249.172000
+!s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA_TB.v|
 Z102 !s90 -reportprogress|300|-work|work|C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA_TB.v|
+!s101 -O0
 R10
 Z103 n@u@l@a_@t@b
-Z104 !s100 P`:]Z3=:fXhLULX9WPRWm2
-Z105 !s108 1456073395.930000
-Z106 !s107 C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA_TB.v|
-!i10b 1
-!s85 0
-!s101 -O0

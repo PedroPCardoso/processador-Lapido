@@ -1,9 +1,23 @@
-C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v
+C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module IMEM
+
+Top level modules:
+	IMEM
+
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module fsm_using_single_always
 
 Top level modules:
 	fsm_using_single_always
+
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module sign_extend_tb
+
+Top level modules:
+	sign_extend_tb
 
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v {2 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -53,6 +67,13 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	Banco_Registro
 
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module ULA
+
+Top level modules:
+	ULA
+
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v {2 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module clockFSM
@@ -61,13 +82,6 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 
 Top level modules:
 	clockFSM
-
-} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module ULA
-
-Top level modules:
-	ULA
 
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -89,19 +103,6 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	sign_extend
 
-} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_function.v {0 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_function.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fsm_using_function
-** Error: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_function.v(40): Checker 'clockFSM' not found.  Instantiation 'clockFSM' must be of a visible checker.
-** Error: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_function.v(62): BEGIN - END required around task/function statements
-
-} {4.0 6.0} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module adder
-
-Top level modules:
-	adder
-
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module programcounter
@@ -109,4 +110,17 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	programcounter
 
-} {} {}}
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module adder
+
+Top level modules:
+	adder
+
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_function.v {0 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_function.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module fsm_using_function
+** Error: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_function.v(40): Checker 'clockFSM' not found.  Instantiation 'clockFSM' must be of a visible checker.
+** Error: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_function.v(62): BEGIN - END required around task/function statements
+
+} {4.0 6.0} {}}
