@@ -14,7 +14,7 @@ module Banco_Registro (
   input wire Habilita;
   output reg [bits_palavra-1:0] A, B;
   input wire [bits_palavra-1:0] E;
-  input wire  [2:0] IN_OUT_A, OUT_B;
+  input wire  [3:0] IN_OUT_A, OUT_B;
   input wire  reset, clock;
   wire  Hab_Escrita;
   reg [bits_palavra-1:0] registro [num_registros-1:0];	// Um vetor de "num_registros" palavras de "bits_palavra" bits

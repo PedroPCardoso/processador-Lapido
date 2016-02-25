@@ -2,13 +2,13 @@ module clockFSM();
 
   reg clk;
   initial begin
-    clk=0;
+    clk=1;
   end
 
-  always @ (clk) begin
+  always @ (posedge clk) begin
     #5;
     clk=~clk;
-  
+
   end
 
 endmodule;
