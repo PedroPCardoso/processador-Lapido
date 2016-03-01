@@ -1,14 +1,12 @@
 module adder_tb;
 
 reg[31:0] dataA;
-reg[31:0] dataB;
 reg cin;
 wire cout;
 wire[31:0] result;
 
 adder DUT (
 	.dataA(dataA),
-	.dataB(dataB),
 	.cin(cin),
 	.cout(cout),
 	.result(result)
@@ -16,10 +14,18 @@ adder DUT (
 
 initial begin
 	$display("----------------------\nFull-Adder\n----------------------\n");
-	dataA = 32'b11;
-	dataB = 32'b10;
+	dataA = 32'b0000;
 	cin = 0;
-	#50
+	$display("Esperado 0000 + 0100 = 100");
+	#100
+	$display("Resultado: %b", result);
+	#100
+	dataA = 32'b0100;
+	cin = 0;
+	$display("Esperado 0100 + 0100 = 1000");
+	#100
+	$display("Resultado: %b", result);
+	#100
 	$finish;
 end
 

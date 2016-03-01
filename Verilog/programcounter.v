@@ -1,16 +1,16 @@
-module programcounter (reset, CLK, D, Q);
-input reset;
-input CLK;
-input [31:0] D;
-output [31:0] Q;
-reg [31:0] Q;
+module programcounter (enablePC, memAddress, memAddressOut);
+input enablePC;
+input [31:0] memAddress;
+output [31:0] memAddressOut;
+reg [31:0] memAddressOut;
+	
+	initial begin
+		memAddressOut=32'b0;
+	end
 
-	always @(posedge CLK)
+	always @(posedge enablePC)
 	begin
-		if (reset)
-			Q = 0;
-		else
-			Q = D;
+		memAddressOut = memAddress;
 	end
 			
 endmodule
