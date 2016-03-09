@@ -1,13 +1,17 @@
-module MUX1( A, B, S, X);
+module  mux(
+din_0      , // Mux first input
+din_1      , // Mux second input
+sel        , // Select input
+mux_out      // Mux output
+);
 
-  input wire A, B; // As entradas sao A e B
-  input wire S; // O sinal de selecao é S
-  output wire X; // O sinal de saida é X
-  wire S0_inv, a1, b1;
+input [31:0] din_0, din_1;
+input sel;
 
-  not u1( S0_inv, S );
-  and u2( a1, S0_inv, A );
-  and u3( b1, S, B );
-  or  u4( X, a1, b1 );
+output [31:0] mux_out;
+
+wire [31:0] mux_out;
+
+assign mux_out = (sel) ? din_1 : din_0;
 
 endmodule

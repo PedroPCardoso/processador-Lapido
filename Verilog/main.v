@@ -8,10 +8,11 @@ reg CS;
 reg WE;
 reg OE;
 reg clock;
-reg [31:0] memAddress; // Entrada de PC
+reg [31:0] memAddress; 		// Entrada de PC
 wire [31:0] memAddressOutAdder;
 wire [31:0] memAddressOutPC;
-reg [31:0] memAddressOut; // Saida de PC
+reg [31:0] memAddressOut; 	// Saida de PC
+wire [31:0] muxOut;		// Saida de muxIF
 //-------------------------------------------------------
 // Signals
 //-------------------------------------------------------
@@ -39,6 +40,15 @@ reg enablePC;
 	bios bios(
 		.clock(clock),
 		.Data(Data)
+	);
+//-------------------------------------------------------
+// Mux Instruction Fetch
+//-------------------------------------------------------
+	mux muxIF (
+		.din_0(memAddressOutAdder),
+		.din_1(32'b1111),
+		.sel(1'b0),
+		.mux_out(muxOut)
 	);
 //-------------------------------------------------------
 // Adder
