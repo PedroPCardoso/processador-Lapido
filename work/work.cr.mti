@@ -97,13 +97,6 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	mux
 
-} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module ULA
-
-Top level modules:
-	ULA
-
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/bios.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/bios.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module bios
@@ -117,6 +110,15 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 
 Top level modules:
 	ULA_TB
+
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module meio_somador
+-- Compiling module SOMADOR
+-- Compiling module ripple_carry_adder
+
+Top level modules:
+	ripple_carry_adder
 
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
