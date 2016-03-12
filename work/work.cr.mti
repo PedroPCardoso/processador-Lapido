@@ -1,16 +1,71 @@
-C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v
+C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile_tb.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile_tb.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module registerFile_tb
+
+Top level modules:
+	registerFile_tb
+
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/MemoryI.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module IMEM
 
 Top level modules:
 	IMEM
 
-} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_single_always.v
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/RegistradorFlags.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/RegistradorFlags.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module fsm_using_single_always
+-- Compiling module RegistradorFlags
 
 Top level modules:
-	fsm_using_single_always
+	RegistradorFlags
+
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v {2 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module registerFile
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(26): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(27): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(28): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(29): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(30): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(31): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(32): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(33): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(35): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(36): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(37): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(38): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(39): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(40): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(41): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/registerFile.v(42): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+
+Top level modules:
+	registerFile
+
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v {2 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module adder_tb
+** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v(32): (vlog-2283) Extra semicolon in $unit (global) scope.
+
+
+Top level modules:
+	adder_tb
 
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend_tb.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -19,60 +74,12 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	sign_extend_tb
 
-} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v {2 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/TestadorFlag.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/TestadorFlag.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module adder_tb
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder_tb.v(26): (vlog-2283) Extra semicolon in $unit (global) scope.
-
+-- Compiling module TestadorFlag
 
 Top level modules:
-	adder_tb
-
-} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v {2 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module Banco_Registro
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(26): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(27): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(28): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(29): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(30): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(31): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(32): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(33): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(35): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(36): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(37): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(38): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(39): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(40): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(41): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-** Warning: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/banco_registrador.v(42): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
-
-
-Top level modules:
-	Banco_Registro
-
-} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module ULA
-
-Top level modules:
-	ULA
+	TestadorFlag
 
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v {2 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/clockFSM.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -85,23 +92,31 @@ Top level modules:
 
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/mux.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module MUX1
+-- Compiling module mux
 
 Top level modules:
-	MUX1
+	mux
 
-} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/bios.v {0 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/bios.v
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module ULA
+
+Top level modules:
+	ULA
+
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/bios.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/bios.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 -- Compiling module bios
-** Error: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/bios.v(4): In, out, or inout does not appear in port list: D.
-** Error: C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/bios.v(5): In, out, or inout does not appear in port list: Q.
-
-} {4.0 6.0} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v
-Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module sign_extend
 
 Top level modules:
-	sign_extend
+	bios
+
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA_TB.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/ULA_TB.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module ULA_TB
+
+Top level modules:
+	ULA_TB
 
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/programcounter.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
@@ -110,12 +125,12 @@ Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
 Top level modules:
 	programcounter
 
-} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/adder.v
+} {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v {1 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/sign_extend.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
--- Compiling module adder
+-- Compiling module sign_extend
 
 Top level modules:
-	adder
+	sign_extend
 
 } {} {}} C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_function.v {0 {vlog -work work C:/Users/Pedro/Documents/GitHub/processador-Lapido/Verilog/fsm_using_function.v
 Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
