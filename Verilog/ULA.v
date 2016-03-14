@@ -4,13 +4,13 @@
   input  [31:0] B;
   input  [7:0] opcode;
   output [31:0] Out;
-  output Flag;
+  output zero;
 
 
   wire signed [31:0] A, B; // dados para operacao
 	wire [4:0] opcode;
 	reg signed [31:0] Out;
-	reg Flag;
+	reg zero;
 
   initial begin
     Flag=0;
@@ -46,6 +46,10 @@
         8'b00111110:begin  Out = (~A)|(~B);end
         8'b00111111:begin  Out = 1;end //ones
 
+
+ // JUMP
+        //Jump True condição de igual dade
+        5'b1010100:begin if A==B: 
         default:;
         endcase
   end
