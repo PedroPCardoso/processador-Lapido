@@ -116,9 +116,9 @@ reg enablePC;
 	end
 
 	always @(negedge onBios) begin
-		Address = 32'b0;
 		WE = 1;
 		OE = 0;
+		//Address = 32'b1;
 	end
 
 	always @(posedge clock) begin
@@ -131,8 +131,8 @@ reg enablePC;
 
 	always @(negedge clock) begin
 		if(onBios == 0) begin
-			enablePC = 1'b0;
 			Address = memAddressOutPC;
+			enablePC = 1'b0;
 		end else begin
 			WE=0;
 			Address = Address + 32'b1;
