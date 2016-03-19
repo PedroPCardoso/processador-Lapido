@@ -1,4 +1,5 @@
-module meio_somador (S, C, A, B);
+// Nada disso que esta comentado era para estar aqui. Mudar para a ULA!
+/*module meio_somador (S, C, A, B);
 
 output S, C;
 input  A, B;
@@ -73,16 +74,15 @@ SOMADOR U31 (Soma[31], Cout,   A[31], B[31], C2);
 
 
 endmodule
+*/
 
-/*
-module adder(dataA/*, cin, cout*//*, result);/*
-/*
+module adder(dataA/*, cin, cout*/, result);
+
 input[31:0] dataA;
 /*input cin;
 output cout;*/
-/*
 output[31:0] result;
 
-assign /*{cout,*//*result/*}*/ /*= dataA + 32'b100/* + cin*//*;
+assign /*{cout,*/result/*}*/ = dataA + 32'b1/* + cin*/;
 
-/*endmodule */
+endmodule

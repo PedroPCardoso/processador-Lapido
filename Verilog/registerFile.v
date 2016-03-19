@@ -1,7 +1,8 @@
 module registerFile (
   enable, 	// Habilita a escrita no registrador
-  IN_OUT_A,    	// Endereco da entrada de dados e da saida de dados A, sua funcao depende do estado de "Hab_Escrita"
+  OUT_A,    	// Endereco da saida de dados A, sua funcao depende do estado de "Hab_Escrita"
   OUT_B,      	// Endereco da saida de dados B
+  IN_C,		// Endereco da entrada de dados C
   reset,       	// Limpa todos os registros
   clock,       	// Pulso de clock
   A,           	// Saida A do Banco de Registros
@@ -14,13 +15,12 @@ module registerFile (
   input wire enable;
   output reg [bits_palavra-1:0] A, B;
   input wire [bits_palavra-1:0] E;
-  input wire [2:0] IN_OUT_A, OUT_B;
+  input wire [3:0] OUT_A, OUT_B, IN_C;
   input wire  reset, clock;
   wire  Hab_Escrita;
   reg [bits_palavra-1:0] registro [num_registros-1:0];	// Um vetor de "num_registros" palavras de "bits_palavra" bits
 
-
-	always @(negedge clock, posedge reset) begin
+	always @(posedge clock, posedge reset) begin
 
 			if(reset) begin  // zera os registradores
 				registro[0] = 16'b00000000000000000000000000000000;
@@ -43,10 +43,10 @@ module registerFile (
 
 			end
 			else if(enable) begin
-				registro[IN_OUT_A] = E;
-				A = registro[IN_OUT_A];
+				registro[IN_C] = E;
+				//A = registro[IN_C];
 		    	end else begin
-				A = registro[IN_OUT_A];
+				A = registro[OUT_A];
 				B = registro[OUT_B];
 			end
 

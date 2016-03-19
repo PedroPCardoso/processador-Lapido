@@ -3,16 +3,23 @@ module main();
 // Memory Variables
 //-------------------------------------------------------
 reg [31:0] Address;
-wire [31:0] Data;
+wire [31:0] Data, DataOut;
 reg CS;
 reg WE;
 reg OE;
-reg clock;
+reg clock, onBios;
 reg [31:0] memAddress; 		// Entrada de PC
 wire [31:0] memAddressOutAdder;
 wire [31:0] memAddressOutPC;
 reg [31:0] memAddressOut; 	// Saida de PC
 wire [31:0] muxOut;		// Saida de muxIF
+wire [31:0] pcpp;
+wire [31:0] instruction;
+reg enableRegisterFile;
+reg resetRegisterFile;
+wire [31:0] registerFileDataA;
+wire [31:0] registerFileDataB;
+wire [31:0] WBMuxOut;		// Saida do mux do WB
 //-------------------------------------------------------
 // Signals
 //-------------------------------------------------------
@@ -32,14 +39,15 @@ reg enablePC;
 		.Data(Data),
 		.CS(CS),
 		.WE(WE),
-		.OE(OE)
+		.OE(OE),
+		.DataOut(DataOut)
 	);
 //-------------------------------------------------------
 // Bios
 //-------------------------------------------------------
 	bios bios(
 		.clock(clock),
-		.Data(Data)
+		.captured_data(Data)
 	);
 //-------------------------------------------------------
 // Mux Instruction Fetch
@@ -62,36 +70,72 @@ reg enablePC;
 //-------------------------------------------------------
 	programcounter programcounter (
 		.enablePC(enablePC),
-		.memAddress(memAddress),
+		.memAddress(muxOut),
 		.memAddressOut(memAddressOutPC)
+	);
+
+//-------------------------------------------------------
+// Register file
+//-------------------------------------------------------
+	registerFile registerFile(
+		.enable(enableRegisterFile),
+		.OUT_A(instruction[19:16]),
+		.OUT_B(instruction[15:12]),
+		.IN_C(instruction[23:20]),
+		.reset(resetRegisterFile),
+		.clock(clock),
+		.A(registerFileDataA),
+		.B(registerFileDataB),
+		.E(WBMuxOut)
+	);
+//-------------------------------------------------------
+// Pipeline registers
+//-------------------------------------------------------
+	if_id if_id (
+		.clock(clock),
+		.pcpp_in(memAddressOutAdder),
+		.instruction_in(DataOut),
+		.pcpp(pcpp),
+		.instruction(instruction)
 	);
 //-------------------------------------------------------
 	initial begin
-		clock=1;
+		onBios = 1;
+		clock = 1;
 		CS = 0;
 		OE = 1;
-		WE = 1;
+		WE = 0;
 		Address = 32'b0;
 		memAddress = 32'b0;
+		enableRegisterFile = 1'b0;
+		resetRegisterFile = 1'b1;
+		#60
+		onBios = 0;
+		enableRegisterFile = 1'b0;
+		resetRegisterFile = 1'b0;
+	end
+
+	always @(negedge onBios) begin
+		Address = 32'b0;
+		WE = 1;
+		OE = 0;
 	end
 
 	always @(posedge clock) begin
-		WE=1;
+		if(onBios == 0) begin
+			enablePC = 1'b1;
+		end else begin
+			WE=1;
+		end
 	end
 
 	always @(negedge clock) begin
-		WE=0;
-		Address = Address + 32'b100;
-	end
-//-------------------------------------------------------
-// Depois que a bios encerra as atividades
-//-------------------------------------------------------
-	always #100 @(posedge clock) begin
-		enablePC = 1'b1;
-		Address = memAddressOut;
-	end
-
-	always #100 @(negedge clock) begin
-		enablePC = 1'b0;
+		if(onBios == 0) begin
+			enablePC = 1'b0;
+			Address = memAddressOutPC;
+		end else begin
+			WE=0;
+			Address = Address + 32'b1;
+		end
 	end
 endmodule;
