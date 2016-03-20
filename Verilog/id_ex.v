@@ -1,4 +1,14 @@
-module id_ex(clock, registerFileDataA_in, registerFileDataB_in, registerFileWrite_in, pcpp_in, extendedSignal_in, registerFileDataA, registerFileDataB, registerFileWrite, pcpp, extendedSignal);
+module id_ex(clock,
+	registerFileDataA_in,
+	registerFileDataB_in,
+	registerFileWrite_in,
+	pcpp_in,
+	extendedSignal_in,
+	registerFileDataA,
+	registerFileDataB,
+	registerFileWrite,
+	pcpp,
+	extendedSignal);
 
 input clock;
 input [31:0] registerFileDataA_in;
@@ -8,7 +18,7 @@ input [31:0] pcpp_in;
 input [31:0] extendedSignal_in;
 output reg [31:0] registerFileDataA;
 output reg [31:0] registerFileDataB;
-output reg [31:0] registerFileWrite;
+output reg [3:0] registerFileWrite;
 output reg [31:0] pcpp;
 output reg [31:0] extendedSignal;
 

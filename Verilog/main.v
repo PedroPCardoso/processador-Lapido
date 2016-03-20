@@ -4,22 +4,29 @@ module main();
 //-------------------------------------------------------
 reg [31:0] Address;
 wire [31:0] Data, DataOut;
-reg CS;
-reg WE;
-reg OE;
-reg clock, onBios;
-reg [31:0] memAddress; 		// Entrada de PC
-wire [31:0] memAddressOutAdder;
-wire [31:0] memAddressOutPC;
-reg [31:0] memAddressOut; 	// Saida de PC
-wire [31:0] muxOut;		// Saida de muxIF
-wire [31:0] pcpp;
-wire [31:0] instruction;
+reg CS;					// Chip select
+reg WE;					// Write enable
+reg OE;					// Output enable
+reg clock;
+reg onBios;				// Sinal que diz se a bios esta executando
+reg [31:0] memAddress; 			// Entrada de PC
+wire [31:0] memAddressOutAdder;		// Saida do somador (pc++)
+wire [31:0] memAddressOutPC;		// Saida de PC
+//reg [31:0] memAddressOut;
+wire [31:0] muxOut;			// Saida de muxIF
+wire [31:0] pcpp;			// pc++
+wire [31:0] pcpp_id_ex;			// pc++ armazenado em if_id
+wire [31:0] instruction;		// Instrucao
+wire [31:0] extended;			// Sinal extendido
+wire [31:0] extendedSignal_id_ex;		// Sinal extendido armazenado em id_ex
 reg enableRegisterFile;
 reg resetRegisterFile;
-wire [31:0] registerFileDataA;
-wire [31:0] registerFileDataB;
-wire [31:0] WBMuxOut;		// Saida do mux do WB
+wire [31:0] registerFileDataA;		// Saida do registrador A
+wire [31:0] registerFileDataA_id_ex;	// Saida do registrador A armazenada em id_ex
+wire [31:0] registerFileDataB;		// Saida do registrador B
+wire [31:0] registerFileDataB_id_ex;	// Saida do registrador B armazenada em id_ex
+wire [3:0] registerFileWrite;		// Id do registrador de escrita
+wire [31:0] WBMuxOut;			// Saida do mux do WB
 //-------------------------------------------------------
 // Signals
 //-------------------------------------------------------
@@ -89,6 +96,13 @@ reg enablePC;
 		.E(WBMuxOut)
 	);
 //-------------------------------------------------------
+// Sign Extend
+//-------------------------------------------------------
+	sign_extend sign_extend(
+		.extend(instruction[15:0]),
+		.extended(extended)
+	);
+//-------------------------------------------------------
 // Pipeline registers
 //-------------------------------------------------------
 	if_id if_id (
@@ -97,6 +111,20 @@ reg enablePC;
 		.instruction_in(DataOut),
 		.pcpp(pcpp),
 		.instruction(instruction)
+	);
+
+	id_ex id_ex(
+		.clock(clock),
+		.registerFileDataA_in(registerFileDataA),
+		.registerFileDataB_in(registerFileDataB),
+		.registerFileWrite_in(32'b0),
+		.pcpp_in(pcpp),
+		.extendedSignal_in(extended),
+		.registerFileDataA(registerFileDataA_id_ex),
+		.registerFileDataB(registerFileDataB_id_ex),
+		.registerFileWrite(registerFileWrite),
+		.pcpp(pcpp_id_ex),
+		.extendedSignal(extendedSignal_id_ex)
 	);
 //-------------------------------------------------------
 	initial begin
