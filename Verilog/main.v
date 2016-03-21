@@ -14,6 +14,7 @@ wire [31:0] memAddressOutAdder;		// Saida do somador (pc++)
 wire [31:0] memAddressOutPC;		// Saida de PC
 //reg [31:0] memAddressOut;
 wire [31:0] muxOut;			// Saida de muxIF
+wire [31:0] muxULABOut;			// Saida de mux dado B para ULA
 wire [31:0] pcpp;			// pc++
 wire [31:0] pcpp_id_ex;			// pc++ armazenado em if_id
 wire [31:0] instruction;		// Instrucao
@@ -27,10 +28,17 @@ wire [31:0] registerFileDataB;		// Saida do registrador B
 wire [31:0] registerFileDataB_id_ex;	// Saida do registrador B armazenada em id_ex
 wire [3:0] registerFileWrite;		// Id do registrador de escrita
 wire [31:0] WBMuxOut;			// Saida do mux do WB
+wire [31:0] ALUResult;			// Resultado da ULA
 //-------------------------------------------------------
 // Signals
 //-------------------------------------------------------
 reg enablePC;
+wire memRead, branch, memWrite, memToReg, ALUSrc, regWrite/*, enablePC*/;
+wire [4:0] ALUOp, ALUOp_id_ex;
+//-------------------------------------------------------
+// Flags
+//-------------------------------------------------------
+wire zero;
 //-------------------------------------------------------
 // Clock
 //-------------------------------------------------------
@@ -57,13 +65,21 @@ reg enablePC;
 		.captured_data(Data)
 	);
 //-------------------------------------------------------
-// Mux Instruction Fetch
+// Mux
 //-------------------------------------------------------
+	// Instruction Fetch
 	mux muxIF (
 		.din_0(memAddressOutAdder),
 		.din_1(32'b1111),
 		.sel(1'b0),
 		.mux_out(muxOut)
+	);
+	// Mux ULA data B
+	mux muxULAB (
+		.din_0(registerFileDataA_id_ex),
+		.din_1(extendedSignal_id_ex),
+		.sel(1'b1),
+		.mux_out(muxULABOut)
 	);
 //-------------------------------------------------------
 // Adder
@@ -103,6 +119,31 @@ reg enablePC;
 		.extended(extended)
 	);
 //-------------------------------------------------------
+// ULA
+//-------------------------------------------------------
+	ULA ULA (
+		.A(registerFileDataA_id_ex),
+		.B(muxULABOut),
+		.opcode(ALUOp_id_ex),
+		.zero(zero),
+		.Out(ALUResult)
+	);
+//-------------------------------------------------------
+// Control Unit
+//-------------------------------------------------------
+	control control(
+		.clock(clock),
+		.instruction(instruction),
+		.branch(branch),
+		.memRead(memRead),
+		.memWrite(memWrite),
+		.memToReg(memToReg),
+		.ALUOp(ALUOp),
+		.ALUSrc(ALUSrc),
+		.regWrite(regWrite)/*,
+		.enablePC(enablePC)*/
+	);
+//-------------------------------------------------------
 // Pipeline registers
 //-------------------------------------------------------
 	if_id if_id (
@@ -120,11 +161,13 @@ reg enablePC;
 		.registerFileWrite_in(32'b0),
 		.pcpp_in(pcpp),
 		.extendedSignal_in(extended),
+		.ALUOp_in(ALUOp),
 		.registerFileDataA(registerFileDataA_id_ex),
 		.registerFileDataB(registerFileDataB_id_ex),
 		.registerFileWrite(registerFileWrite),
 		.pcpp(pcpp_id_ex),
-		.extendedSignal(extendedSignal_id_ex)
+		.extendedSignal(extendedSignal_id_ex),
+		.ALUOp(ALUOp_id_ex)
 	);
 //-------------------------------------------------------
 	initial begin
@@ -146,7 +189,7 @@ reg enablePC;
 	always @(negedge onBios) begin
 		WE = 1;
 		OE = 0;
-		//Address = 32'b1;
+		//Address = 32'b0;
 	end
 
 	always @(posedge clock) begin
@@ -166,4 +209,4 @@ reg enablePC;
 			Address = Address + 32'b1;
 		end
 	end
-endmodule;
+endmodule
