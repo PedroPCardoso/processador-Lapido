@@ -19,7 +19,7 @@ wire [31:0] pcpp;			// pc++
 wire [31:0] pcpp_id_ex;			// pc++ armazenado em if_id
 wire [31:0] instruction;		// Instrucao
 wire [31:0] extended;			// Sinal extendido
-wire [31:0] extendedSignal_id_ex;		// Sinal extendido armazenado em id_ex
+wire [31:0] extendedSignal_id_ex;	// Sinal extendido armazenado em id_ex
 reg enableRegisterFile;
 reg resetRegisterFile;
 wire [31:0] registerFileDataA;		// Saida do registrador A
@@ -27,9 +27,10 @@ wire [31:0] registerFileDataA_id_ex;	// Saida do registrador A armazenada em id_
 wire [31:0] registerFileDataB;		// Saida do registrador B
 wire [31:0] registerFileDataB_id_ex;	// Saida do registrador B armazenada em id_ex
 wire [3:0] registerFileWrite;		// Id do registrador de escrita
-wire [31:0] WBMuxOut;			// Saida do mux do WB
+wire [31:0] muxWBOut;			// Saida do mux do WB
 wire [31:0] ALUResult;			// Resultado da ULA
 wire [31:0] ALUResult_ex_mem;		// Resultado da ULA em ex_mem
+wire [31:0] ALUResult_mem_wb;		// Resultado da ULA em mem_wb
 //-------------------------------------------------------
 // Signals
 //-------------------------------------------------------
@@ -96,6 +97,13 @@ wire zero;
 		.sel(1'b1),
 		.mux_out(muxULABOut)
 	);
+	// Write Back
+	mux muxWB (
+		.din_0(ALUResult_mem_wb),
+		.din_1(DataOutDataMemory_mem_wb),
+		.sel(memToReg_mem_wb),
+		.mux_out(muxWBOut)
+	);
 //-------------------------------------------------------
 // Adder
 //-------------------------------------------------------
@@ -124,7 +132,7 @@ wire zero;
 		.clock(clock),
 		.A(registerFileDataA),
 		.B(registerFileDataB),
-		.E(WBMuxOut)
+		.E(muxWBOut)
 	);
 //-------------------------------------------------------
 // Sign Extend
@@ -207,8 +215,10 @@ wire zero;
 		.clock(clock),
 		.DataOutDataMemory_in(DataOutDataMemory),
 		.memToReg_in(memToReg_ex_mem),
+		.ALUResult_in(ALUResult_ex_mem),
 		.DataOutDataMemory(DataOutDataMemory_mem_wb),
-		.memToReg(memToReg_mem_wb)
+		.memToReg(memToReg_mem_wb),
+		.ALUResult(ALUResult_mem_wb)
 	);
 //-------------------------------------------------------
 	initial begin
