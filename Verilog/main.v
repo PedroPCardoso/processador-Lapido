@@ -29,11 +29,14 @@ wire [31:0] registerFileDataB_id_ex;	// Saida do registrador B armazenada em id_
 wire [3:0] registerFileWrite;		// Id do registrador de escrita
 wire [31:0] WBMuxOut;			// Saida do mux do WB
 wire [31:0] ALUResult;			// Resultado da ULA
+wire [31:0] ALUResult_ex_mem;		// Resultado da ULA em ex_mem
 //-------------------------------------------------------
 // Signals
 //-------------------------------------------------------
 reg enablePC;
 wire memRead, branch, memWrite, memToReg, ALUSrc, regWrite/*, enablePC*/;
+wire memRead_id_ex, memRead_ex_mem;
+wire memWrite_id_ex, memWrite_ex_mem;
 wire [4:0] ALUOp, ALUOp_id_ex;
 //-------------------------------------------------------
 // Flags
@@ -162,12 +165,26 @@ wire zero;
 		.pcpp_in(pcpp),
 		.extendedSignal_in(extended),
 		.ALUOp_in(ALUOp),
+		.memRead_in(memRead),
+		.memWrite_in(memWrite),
 		.registerFileDataA(registerFileDataA_id_ex),
 		.registerFileDataB(registerFileDataB_id_ex),
 		.registerFileWrite(registerFileWrite),
 		.pcpp(pcpp_id_ex),
 		.extendedSignal(extendedSignal_id_ex),
-		.ALUOp(ALUOp_id_ex)
+		.ALUOp(ALUOp_id_ex),
+		.memRead(memRead_id_ex),
+		.memWrite(memWrite_id_ex)
+	);
+
+	ex_mem ex_mem(
+		.clock(clock),
+		.ALUResult_in(ALUResult),
+		.memRead_in(memRead_id_ex),
+		.memWrite_in(memWrite_id_ex),
+		.ALUResult(ALUResult_ex_mem),
+		.memRead(memRead_ex_mem),
+		.memWrite(memWrite_ex_mem)
 	);
 //-------------------------------------------------------
 	initial begin

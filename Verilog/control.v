@@ -22,8 +22,8 @@ output reg regWrite;
 
 	initial begin
 		branch = 1'b0;
-		memRead = 1'b0;
-		memWrite = 1'b0;
+		memRead = 1'b1;
+		memWrite = 1'b1;
 		memToReg = 1'b0;
 		ALUSrc = 1'b0;
 		regWrite = 1'b0;
@@ -42,6 +42,8 @@ output reg regWrite;
 				ALUSrc = 1'b1;
 				ALUOp = 5'b00000;
 				regWrite = 1'b1;
+				memRead = 1'b0;
+				memWrite = 1'b1;
 			end else begin
 				$display("Instrucao: Store");
 			end
