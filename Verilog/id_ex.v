@@ -22,7 +22,7 @@ module id_ex(clock,
 input clock;
 input [31:0] registerFileDataA_in;
 input [31:0] registerFileDataB_in;
-input [31:0] registerFileWrite_in;
+input [3:0] registerFileWrite_in;
 input [31:0] pcpp_in;
 input [31:0] extendedSignal_in;
 input [4:0] ALUOp_in;

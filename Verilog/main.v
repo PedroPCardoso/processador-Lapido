@@ -12,7 +12,6 @@ reg onBios;				// Sinal que diz se a bios esta executando
 reg [31:0] memAddress; 			// Entrada de PC
 wire [31:0] memAddressOutAdder;		// Saida do somador (pc++)
 wire [31:0] memAddressOutPC;		// Saida de PC
-//reg [31:0] memAddressOut;
 wire [31:0] muxOut;			// Saida de muxIF
 wire [31:0] muxULABOut;			// Saida de mux dado B para ULA
 wire [31:0] pcpp;			// pc++
@@ -20,13 +19,14 @@ wire [31:0] pcpp_id_ex;			// pc++ armazenado em if_id
 wire [31:0] instruction;		// Instrucao
 wire [31:0] extended;			// Sinal extendido
 wire [31:0] extendedSignal_id_ex;	// Sinal extendido armazenado em id_ex
-reg enableRegisterFile;
 reg resetRegisterFile;
 wire [31:0] registerFileDataA;		// Saida do registrador A
 wire [31:0] registerFileDataA_id_ex;	// Saida do registrador A armazenada em id_ex
 wire [31:0] registerFileDataB;		// Saida do registrador B
 wire [31:0] registerFileDataB_id_ex;	// Saida do registrador B armazenada em id_ex
-wire [3:0] registerFileWrite;		// Id do registrador de escrita
+wire [3:0] registerFileWrite_id_ex;	// Id do registrador de escrita em id_ex
+wire [3:0] registerFileWrite_ex_mem;	// Id do registrador de escrita em ex_mem
+wire [3:0] registerFileWrite_mem_wb;	// Id do registrador de escrita em mem_wb
 wire [31:0] muxWBOut;			// Saida do mux do WB
 wire [31:0] ALUResult;			// Resultado da ULA
 wire [31:0] ALUResult_ex_mem;		// Resultado da ULA em ex_mem
@@ -124,10 +124,10 @@ wire zero;
 // Register file
 //-------------------------------------------------------
 	registerFile registerFile(
-		.enable(enableRegisterFile),
+		.enable(regWrite),
 		.OUT_A(instruction[19:16]),
 		.OUT_B(instruction[15:12]),
-		.IN_C(instruction[23:20]),
+		.IN_C(registerFileWrite_mem_wb),
 		.reset(resetRegisterFile),
 		.clock(clock),
 		.A(registerFileDataA),
@@ -181,7 +181,7 @@ wire zero;
 		.clock(clock),
 		.registerFileDataA_in(registerFileDataA),
 		.registerFileDataB_in(registerFileDataB),
-		.registerFileWrite_in(32'b0),
+		.registerFileWrite_in(instruction[23:20]),
 		.pcpp_in(pcpp),
 		.extendedSignal_in(extended),
 		.ALUOp_in(ALUOp),
@@ -190,7 +190,7 @@ wire zero;
 		.memToReg_in(memToReg),
 		.registerFileDataA(registerFileDataA_id_ex),
 		.registerFileDataB(registerFileDataB_id_ex),
-		.registerFileWrite(registerFileWrite),
+		.registerFileWrite(registerFileWrite_id_ex),
 		.pcpp(pcpp_id_ex),
 		.extendedSignal(extendedSignal_id_ex),
 		.ALUOp(ALUOp_id_ex),
@@ -205,10 +205,12 @@ wire zero;
 		.memRead_in(memRead_id_ex),
 		.memWrite_in(memWrite_id_ex),
 		.memToReg_in(memToReg_id_ex),
+		.registerFileWrite_in(registerFileWrite_id_ex),
 		.ALUResult(ALUResult_ex_mem),
 		.memRead(memRead_ex_mem),
 		.memWrite(memWrite_ex_mem),
-		.memToReg(memToReg_ex_mem)
+		.memToReg(memToReg_ex_mem),
+		.registerFileWrite(registerFileWrite_ex_mem)
 	);
 
 	mem_wb mem_wb(
@@ -216,9 +218,11 @@ wire zero;
 		.DataOutDataMemory_in(DataOutDataMemory),
 		.memToReg_in(memToReg_ex_mem),
 		.ALUResult_in(ALUResult_ex_mem),
+		.registerFileWrite_in(registerFileWrite_ex_mem),
 		.DataOutDataMemory(DataOutDataMemory_mem_wb),
 		.memToReg(memToReg_mem_wb),
-		.ALUResult(ALUResult_mem_wb)
+		.ALUResult(ALUResult_mem_wb),
+		.registerFileWrite(registerFileWrite_mem_wb)
 	);
 //-------------------------------------------------------
 	initial begin
@@ -229,11 +233,9 @@ wire zero;
 		WE = 0;
 		Address = 32'b0;
 		memAddress = 32'b0;
-		enableRegisterFile = 1'b0;
 		resetRegisterFile = 1'b1;
 		#60
 		onBios = 0;
-		enableRegisterFile = 1'b0;
 		resetRegisterFile = 1'b0;
 	end
 
