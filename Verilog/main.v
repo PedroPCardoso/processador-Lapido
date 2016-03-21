@@ -3,7 +3,7 @@ module main();
 // Memory Variables
 //-------------------------------------------------------
 reg [31:0] Address;
-wire [31:0] Data, DataOut;
+wire [31:0] Data, DataOut, DataOutDataMemory;
 reg CS;					// Chip select
 reg WE;					// Write enable
 reg OE;					// Output enable
@@ -50,7 +50,7 @@ wire zero;
 		clock=~clock;
 	end
 //-------------------------------------------------------
-// Memory
+// Instruction Memory
 //-------------------------------------------------------
 	memory memory(
 		.Address(Address),
@@ -59,6 +59,17 @@ wire zero;
 		.WE(WE),
 		.OE(OE),
 		.DataOut(DataOut)
+	);
+//-------------------------------------------------------
+// Data Memory
+//-------------------------------------------------------
+	memory dataMemory(
+		.Address(ALUResult_ex_mem),
+		.Data(32'b0),
+		.CS(1'b0),
+		.WE(memWrite_ex_mem),
+		.OE(memRead_ex_mem),
+		.DataOut(DataOutDataMemory)
 	);
 //-------------------------------------------------------
 // Bios
