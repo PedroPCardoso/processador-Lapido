@@ -3,7 +3,7 @@ module main();
 // Memory Variables
 //-------------------------------------------------------
 reg [31:0] Address;
-wire [31:0] Data, DataOut, DataOutDataMemory;
+wire [31:0] Data, DataOut, DataOutDataMemory, DataOutDataMemory_mem_wb;
 reg CS;					// Chip select
 reg WE;					// Write enable
 reg OE;					// Output enable
@@ -36,7 +36,8 @@ wire [31:0] ALUResult_ex_mem;		// Resultado da ULA em ex_mem
 reg enablePC;
 wire memRead, branch, memWrite, memToReg, ALUSrc, regWrite/*, enablePC*/;
 wire memRead_id_ex, memRead_ex_mem;
-wire memWrite_id_ex, memWrite_ex_mem;
+wire memToReg_id_ex, memToReg_ex_mem, memToReg_mem_wb;
+wire regWrite_id_ex, regWrite_ex_mem;
 wire [4:0] ALUOp, ALUOp_id_ex;
 //-------------------------------------------------------
 // Flags
@@ -178,6 +179,7 @@ wire zero;
 		.ALUOp_in(ALUOp),
 		.memRead_in(memRead),
 		.memWrite_in(memWrite),
+		.memToReg_in(memToReg),
 		.registerFileDataA(registerFileDataA_id_ex),
 		.registerFileDataB(registerFileDataB_id_ex),
 		.registerFileWrite(registerFileWrite),
@@ -185,7 +187,8 @@ wire zero;
 		.extendedSignal(extendedSignal_id_ex),
 		.ALUOp(ALUOp_id_ex),
 		.memRead(memRead_id_ex),
-		.memWrite(memWrite_id_ex)
+		.memWrite(memWrite_id_ex),
+		.memToReg(memToReg_id_ex)
 	);
 
 	ex_mem ex_mem(
@@ -193,9 +196,19 @@ wire zero;
 		.ALUResult_in(ALUResult),
 		.memRead_in(memRead_id_ex),
 		.memWrite_in(memWrite_id_ex),
+		.memToReg_in(memToReg_id_ex),
 		.ALUResult(ALUResult_ex_mem),
 		.memRead(memRead_ex_mem),
-		.memWrite(memWrite_ex_mem)
+		.memWrite(memWrite_ex_mem),
+		.memToReg(memToReg_ex_mem)
+	);
+
+	mem_wb mem_wb(
+		.clock(clock),
+		.DataOutDataMemory_in(DataOutDataMemory),
+		.memToReg_in(memToReg_ex_mem),
+		.DataOutDataMemory(DataOutDataMemory_mem_wb),
+		.memToReg(memToReg_mem_wb)
 	);
 //-------------------------------------------------------
 	initial begin

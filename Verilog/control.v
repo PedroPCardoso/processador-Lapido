@@ -30,7 +30,7 @@ output reg regWrite;
 	end
 
 	always @(posedge clock) begin
-		// Se for logica ou aritimetica
+		// Se for logica ou aritmetica
 		if(instruction[29] == 0 && instruction[30] == 0 && instruction[31] == 1) begin
 			$display("Tipo: ULA");
 		end
@@ -41,9 +41,10 @@ output reg regWrite;
 				$display("Instrucao: Load");
 				ALUSrc = 1'b1;
 				ALUOp = 5'b00000;
-				regWrite = 1'b1;
 				memRead = 1'b0;
 				memWrite = 1'b1;
+				memToReg = 1'b1;
+				regWrite = 1'b1;
 			end else begin
 				$display("Instrucao: Store");
 			end
