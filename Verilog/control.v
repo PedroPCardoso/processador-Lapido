@@ -34,7 +34,6 @@ output reg regWrite;
 		if(instruction[31] == 0 && instruction[30] == 0 && instruction[29] == 1) begin
 			$display("Tipo: ULA");
 			ALUSrc = 1'b0;
-			ALUOp = 5'b00000;
 			memRead = 1'b1;
 			memWrite = 1'b1;
 			memToReg = 1'b0;
@@ -42,6 +41,7 @@ output reg regWrite;
 
 			if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 0) begin
 				$display("Instrucao: Add");
+				ALUOp = 5'b00000;
 			end
 		end
 		// Se for instrucao de memoria
@@ -63,6 +63,19 @@ output reg regWrite;
 				memWrite = 1'b0;
 				memToReg = 1'b0;
 				regWrite = 1'b0;
+			end
+		end
+		// Se for instrucao com constante
+		else if(instruction[31] == 0 && instruction[30] == 1 && instruction[29] == 0) begin
+			$display("Tipo: Constante");
+			if(instruction[25] == 1 && instruction[24] == 0) begin
+				$display("Instrucao: Loadlit");
+				ALUSrc = 1'b1;
+				ALUOp = 5'b00000;
+				memRead = 1'b1;
+				memWrite = 1'b1;
+				memToReg = 1'b0;
+				regWrite = 1'b1;
 			end
 		end
 		// Se for tipo desconhecido
