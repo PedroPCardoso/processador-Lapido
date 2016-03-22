@@ -78,6 +78,17 @@ output reg regWrite;
 				regWrite = 1'b1;
 			end
 		end
+		// Se for instrucao NOP
+		else if(instruction[31] == 0 && instruction[30] == 0 && instruction[29] == 0) begin
+			$display("Tipo: NOP");
+			$display("Instrucao: Nop");
+			ALUSrc = 1'b1;
+			ALUOp = 5'b00000;
+			memRead = 1'b1;
+			memWrite = 1'b1;
+			memToReg = 1'b0;
+			regWrite = 1'b0;
+		end
 		// Se for tipo desconhecido
 		else begin
 			$display("Instrucao tipo: Desconhecido");
