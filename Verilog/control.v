@@ -33,6 +33,16 @@ output reg regWrite;
 		// Se for logica ou aritmetica
 		if(instruction[31] == 0 && instruction[30] == 0 && instruction[29] == 1) begin
 			$display("Tipo: ULA");
+			ALUSrc = 1'b0;
+			ALUOp = 5'b00000;
+			memRead = 1'b1;
+			memWrite = 1'b1;
+			memToReg = 1'b0;
+			regWrite = 1'b1;
+
+			if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 0) begin
+				$display("Instrucao: Add");
+			end
 		end
 		// Se for instrucao de memoria
 		else if(instruction[31] == 1 && instruction[30] == 0 && instruction[29] == 0) begin

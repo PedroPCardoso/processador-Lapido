@@ -38,8 +38,9 @@ wire [31:0] ALUResult_mem_wb;		// Resultado da ULA em mem_wb
 reg enablePC;
 wire memRead, branch, memWrite, memToReg, ALUSrc, regWrite/*, enablePC*/;
 wire memRead_id_ex, memRead_ex_mem;
+wire ALUSrc_id_ex;
 wire memToReg_id_ex, memToReg_ex_mem, memToReg_mem_wb;
-wire regWrite_id_ex, regWrite_ex_mem;
+wire regWrite_id_ex, regWrite_ex_mem, regWrite_mem_wb;
 wire [4:0] ALUOp, ALUOp_id_ex;
 //-------------------------------------------------------
 // Flags
@@ -95,7 +96,7 @@ wire zero;
 	mux muxULAB (
 		.din_0(registerFileDataA_id_ex),
 		.din_1(extendedSignal_id_ex),
-		.sel(1'b1),
+		.sel(ALUSrc_id_ex),
 		.mux_out(muxULABOut)
 	);
 	// Write Back
@@ -125,7 +126,7 @@ wire zero;
 // Register file
 //-------------------------------------------------------
 	registerFile registerFile(
-		.enable(regWrite),
+		.enable(regWrite_mem_wb),
 		.OUT_A(instruction[19:16]),
 		.OUT_B(instruction[15:12]),
 		.IN_C(registerFileWrite_mem_wb),
@@ -187,18 +188,22 @@ wire zero;
 		.pcpp_in(pcpp),
 		.extendedSignal_in(extended),
 		.ALUOp_in(ALUOp),
+		.ALUSrc_in(ALUSrc),
 		.memRead_in(memRead),
 		.memWrite_in(memWrite),
 		.memToReg_in(memToReg),
+		.regWrite_in(regWrite),
 		.registerFileDataA(registerFileDataA_id_ex),
 		.registerFileDataB(registerFileDataB_id_ex),
 		.registerFileWrite(registerFileWrite_id_ex),
 		.pcpp(pcpp_id_ex),
 		.extendedSignal(extendedSignal_id_ex),
 		.ALUOp(ALUOp_id_ex),
+		.ALUSrc(ALUSrc_id_ex),
 		.memRead(memRead_id_ex),
 		.memWrite(memWrite_id_ex),
-		.memToReg(memToReg_id_ex)
+		.memToReg(memToReg_id_ex),
+		.regWrite(regWrite_id_ex)
 	);
 
 	ex_mem ex_mem(
@@ -209,12 +214,14 @@ wire zero;
 		.memToReg_in(memToReg_id_ex),
 		.registerFileDataB_in(registerFileDataB_id_ex),
 		.registerFileWrite_in(registerFileWrite_id_ex),
+		.regWrite_in(regWrite_id_ex),
 		.ALUResult(ALUResult_ex_mem),
 		.memRead(memRead_ex_mem),
 		.memWrite(memWrite_ex_mem),
 		.memToReg(memToReg_ex_mem),
 		.registerFileDataB(registerFileDataB_ex_mem),
-		.registerFileWrite(registerFileWrite_ex_mem)
+		.registerFileWrite(registerFileWrite_ex_mem),
+		.regWrite(regWrite_ex_mem)
 	);
 
 	mem_wb mem_wb(
@@ -223,10 +230,12 @@ wire zero;
 		.memToReg_in(memToReg_ex_mem),
 		.ALUResult_in(ALUResult_ex_mem),
 		.registerFileWrite_in(registerFileWrite_ex_mem),
+		.regWrite_in(regWrite_ex_mem),
 		.DataOutDataMemory(DataOutDataMemory_mem_wb),
 		.memToReg(memToReg_mem_wb),
 		.ALUResult(ALUResult_mem_wb),
-		.registerFileWrite(registerFileWrite_mem_wb)
+		.registerFileWrite(registerFileWrite_mem_wb),
+		.regWrite(regWrite_mem_wb)
 	);
 //-------------------------------------------------------
 	initial begin

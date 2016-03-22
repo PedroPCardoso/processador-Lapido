@@ -5,18 +5,22 @@ module id_ex(clock,
 	pcpp_in,
 	extendedSignal_in,
 	ALUOp_in,
+	ALUSrc_in,
 	memRead_in,
 	memWrite_in,
 	memToReg_in,
+	regWrite_in,
 	registerFileDataA,
 	registerFileDataB,
 	registerFileWrite,
 	pcpp,
 	extendedSignal,
 	ALUOp,
+	ALUSrc,
 	memRead,
 	memWrite,
-	memToReg
+	memToReg,
+	regWrite
 );
 
 input clock;
@@ -26,18 +30,22 @@ input [3:0] registerFileWrite_in;
 input [31:0] pcpp_in;
 input [31:0] extendedSignal_in;
 input [4:0] ALUOp_in;
+input ALUSrc_in;
 input memRead_in;
 input memWrite_in;
 input memToReg_in;
+input regWrite_in;
 output reg [31:0] registerFileDataA;
 output reg [31:0] registerFileDataB;
 output reg [3:0] registerFileWrite;
 output reg [31:0] pcpp;
 output reg [31:0] extendedSignal;
 output reg [4:0] ALUOp;
+output reg ALUSrc;
 output reg memRead;
 output reg memWrite;
 output reg memToReg;
+output reg regWrite;
 
 always @(negedge clock) begin
 	registerFileDataA = registerFileDataA_in;
@@ -46,9 +54,11 @@ always @(negedge clock) begin
 	pcpp = pcpp_in;
 	extendedSignal = extendedSignal_in;
 	ALUOp = ALUOp_in;
+	ALUSrc = ALUSrc_in;
 	memRead = memRead_in;
 	memWrite = memWrite_in;
 	memToReg = memToReg_in;
+	regWrite = regWrite_in;
 end
 
 endmodule
