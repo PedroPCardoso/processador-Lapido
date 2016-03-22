@@ -1,8 +1,9 @@
-  module  ULA (A, B, opcode, zero, Out);
+  module  ULA (A, B, opcode, clock, zero, Out);
 
   input  [31:0] A;
   input  [31:0] B;
   input  [4:0] opcode;
+  input clock;
   output [31:0] Out;
   output reg zero;
 
@@ -14,7 +15,7 @@
     zero=0;
   end
 
-  always @ ( opcode ) begin
+  always @ ( clock ) begin
 
 
     case ( opcode )

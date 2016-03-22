@@ -24,6 +24,7 @@ wire [31:0] registerFileDataA;		// Saida do registrador A
 wire [31:0] registerFileDataA_id_ex;	// Saida do registrador A armazenada em id_ex
 wire [31:0] registerFileDataB;		// Saida do registrador B
 wire [31:0] registerFileDataB_id_ex;	// Saida do registrador B armazenada em id_ex
+wire [31:0] registerFileDataB_ex_mem;	// Saida do registrador B armazenada em ex_mem
 wire [3:0] registerFileWrite_id_ex;	// Id do registrador de escrita em id_ex
 wire [3:0] registerFileWrite_ex_mem;	// Id do registrador de escrita em ex_mem
 wire [3:0] registerFileWrite_mem_wb;	// Id do registrador de escrita em mem_wb
@@ -67,7 +68,7 @@ wire zero;
 //-------------------------------------------------------
 	memory dataMemory(
 		.Address(ALUResult_ex_mem),
-		.Data(32'b0),
+		.Data(registerFileDataB_ex_mem),
 		.CS(1'b0),
 		.WE(memWrite_ex_mem),
 		.OE(memRead_ex_mem),
@@ -148,6 +149,7 @@ wire zero;
 		.A(registerFileDataA_id_ex),
 		.B(muxULABOut),
 		.opcode(ALUOp_id_ex),
+		.clock(clock),
 		.zero(zero),
 		.Out(ALUResult)
 	);
@@ -205,11 +207,13 @@ wire zero;
 		.memRead_in(memRead_id_ex),
 		.memWrite_in(memWrite_id_ex),
 		.memToReg_in(memToReg_id_ex),
+		.registerFileDataB_in(registerFileDataB_id_ex),
 		.registerFileWrite_in(registerFileWrite_id_ex),
 		.ALUResult(ALUResult_ex_mem),
 		.memRead(memRead_ex_mem),
 		.memWrite(memWrite_ex_mem),
 		.memToReg(memToReg_ex_mem),
+		.registerFileDataB(registerFileDataB_ex_mem),
 		.registerFileWrite(registerFileWrite_ex_mem)
 	);
 
