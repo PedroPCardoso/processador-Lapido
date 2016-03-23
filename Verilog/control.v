@@ -183,6 +183,18 @@ output reg updateB;
 		// Se for instrucao de tranferencia de controle
 		else if(instruction[31] == 1 && instruction[30] == 0 && instruction[29] == 1) begin
 			$display("Tipo: Transferencia de controle");
+			if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 0) begin
+				$display("Instrucao: Jump");
+				branch = 1'b1;
+				ALUSrc = 1'b0;
+				ALUOp = 5'b01010;
+				memRead = 1'b1;
+				memWrite = 1'b1;
+				memToReg = 1'b0;
+				regWrite = 1'b0;
+				registerB = 1'b1;
+				updateB = ~updateB;
+			end else 
 			if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 1) begin
 				$display("Instrucao: Beq");
 				branch = 1'b1;

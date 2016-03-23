@@ -43,7 +43,7 @@
         5'b11101:begin  Out = A|(~B); end
         5'b11110:begin  Out = (~A)|(~B);end
         5'b11111:begin  Out = 32'b1;end //ones
-	
+	// beq
 	5'b00010:begin
 		if(A==B) begin
 			$display("Condicao verdadeira");
@@ -53,6 +53,7 @@
 			zero = 0;
 		end
 	end
+	// bne
 	5'b00111:begin
 		if(A!=B) begin
 			$display("Condicao verdadeira");
@@ -61,6 +62,10 @@
 			$display("Condicao falsa");
 			zero = 0;
 		end
+	end
+	// jump
+	5'b01010:begin
+		zero = 1;
 	end
         default:;
         endcase
