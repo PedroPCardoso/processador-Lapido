@@ -47,8 +47,15 @@
 	5'b00010:begin
 		if(A==B) begin
 			$display("Condicao verdadeira");
-			$display("A %b",A);
-			$display("B %b",B);
+			zero = 1;
+		end else begin
+			$display("Condicao falsa");
+			zero = 0;
+		end
+	end
+	5'b00111:begin
+		if(A!=B) begin
+			$display("Condicao verdadeira");
 			zero = 1;
 		end else begin
 			$display("Condicao falsa");

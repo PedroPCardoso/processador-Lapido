@@ -194,6 +194,18 @@ output reg updateB;
 				regWrite = 1'b0;
 				registerB = 1'b1;
 				updateB = ~updateB;
+			end else 
+			if(instruction[28] == 0 && instruction[27] == 1 && instruction[26] == 0) begin
+				$display("Instrucao: Bne");
+				branch = 1'b1;
+				ALUSrc = 1'b0;
+				ALUOp = 5'b00111;
+				memRead = 1'b1;
+				memWrite = 1'b1;
+				memToReg = 1'b0;
+				regWrite = 1'b0;
+				registerB = 1'b1;
+				updateB = ~updateB;
 			end
 		end
 		// Se for tipo desconhecido
