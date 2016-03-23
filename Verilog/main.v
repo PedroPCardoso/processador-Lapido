@@ -43,6 +43,7 @@ wire ALUSrc_id_ex;
 wire memToReg_id_ex, memToReg_ex_mem, memToReg_mem_wb;
 wire regWrite_id_ex, regWrite_ex_mem, regWrite_mem_wb;
 wire [4:0] ALUOp, ALUOp_id_ex;
+wire branch_id_ex, branchResult;
 //-------------------------------------------------------
 // Flags
 //-------------------------------------------------------
@@ -54,6 +55,10 @@ wire zero;
 		#5;
 		clock=~clock;
 	end
+//-------------------------------------------------------
+// Branch Result
+//-------------------------------------------------------
+	assign branchResult = zero & branch_id_ex;
 //-------------------------------------------------------
 // Instruction Memory
 //-------------------------------------------------------
@@ -90,7 +95,7 @@ wire zero;
 	mux muxIF (
 		.din_0(memAddressOutAdder),
 		.din_1(extendedSignal_id_ex),
-		.sel(1'b0),
+		.sel(branchResult),
 		.mux_out(muxOut)
 	);
 	// Mux data B register file
@@ -203,6 +208,7 @@ wire zero;
 		.memWrite_in(memWrite),
 		.memToReg_in(memToReg),
 		.regWrite_in(regWrite),
+		.branch_in(branch),
 		.registerFileDataA(registerFileDataA_id_ex),
 		.registerFileDataB(registerFileDataB_id_ex),
 		.registerFileWrite(registerFileWrite_id_ex),
@@ -213,7 +219,8 @@ wire zero;
 		.memRead(memRead_id_ex),
 		.memWrite(memWrite_id_ex),
 		.memToReg(memToReg_id_ex),
-		.regWrite(regWrite_id_ex)
+		.regWrite(regWrite_id_ex),
+		.branch(branch_id_ex)
 	);
 
 	ex_mem ex_mem(

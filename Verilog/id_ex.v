@@ -10,6 +10,7 @@ module id_ex(clock,
 	memWrite_in,
 	memToReg_in,
 	regWrite_in,
+	branch_in,
 	registerFileDataA,
 	registerFileDataB,
 	registerFileWrite,
@@ -20,7 +21,8 @@ module id_ex(clock,
 	memRead,
 	memWrite,
 	memToReg,
-	regWrite
+	regWrite,
+	branch
 );
 
 input clock;
@@ -35,6 +37,7 @@ input memRead_in;
 input memWrite_in;
 input memToReg_in;
 input regWrite_in;
+input branch_in;
 output reg [31:0] registerFileDataA;
 output reg [31:0] registerFileDataB;
 output reg [3:0] registerFileWrite;
@@ -46,6 +49,7 @@ output reg memRead;
 output reg memWrite;
 output reg memToReg;
 output reg regWrite;
+output reg branch;
 
 always @(negedge clock) begin
 	registerFileDataA = registerFileDataA_in;
@@ -59,6 +63,7 @@ always @(negedge clock) begin
 	memWrite = memWrite_in;
 	memToReg = memToReg_in;
 	regWrite = regWrite_in;
+	branch = branch_in;
 end
 
 endmodule
