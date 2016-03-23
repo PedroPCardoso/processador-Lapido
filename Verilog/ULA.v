@@ -3,7 +3,7 @@
   input  [31:0] A;
   input  [31:0] B;
   input  [4:0] opcode;
-  input clock;
+  input  clock;
   output [31:0] Out;
   output reg zero;
 
@@ -12,11 +12,10 @@
 	reg signed [31:0] Out;
 
   initial begin
-    zero=0;
+	zero=0;
   end
 
   always @ ( clock ) begin
-
 
     case ( opcode )
 
@@ -43,7 +42,19 @@
         5'b11100:begin  Out = ~B; end  // passnotb
         5'b11101:begin  Out = A|(~B); end
         5'b11110:begin  Out = (~A)|(~B);end
-        5'b11111:begin  Out = 1;end //ones
+        5'b11111:begin  Out = 32'b1;end //ones
+	
+	5'b00010:begin
+		if(A==B) begin
+			$display("Condicao verdadeira");
+			$display("A %b",A);
+			$display("B %b",B);
+			zero = 1;
+		end else begin
+			$display("Condicao falsa");
+			zero = 0;
+		end
+	end
         default:;
         endcase
   end

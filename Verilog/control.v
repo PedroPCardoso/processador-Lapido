@@ -114,6 +114,7 @@ output reg updateB;
 				ALUOp = 5'b11111;
 			end
 
+			branch = 1'b0;
 			ALUSrc = 1'b0;
 			memRead = 1'b1;
 			memWrite = 1'b1;
@@ -127,6 +128,7 @@ output reg updateB;
 			$display("Tipo: Memoria");
 			if(instruction[24] == 0) begin
 				$display("Instrucao: Load");
+				branch = 1'b0;
 				ALUSrc = 1'b1;
 				ALUOp = 5'b00000;
 				memRead = 1'b0;
@@ -137,6 +139,7 @@ output reg updateB;
 				updateB = ~updateB;
 			end else begin
 				$display("Instrucao: Store");
+				branch = 1'b0;
 				ALUSrc = 1'b1;
 				ALUOp = 5'b00000;
 				memRead = 1'b1;
@@ -152,6 +155,7 @@ output reg updateB;
 			$display("Tipo: Constante");
 			if(instruction[25] == 1 && instruction[24] == 0) begin
 				$display("Instrucao: Loadlit");
+				branch = 1'b0;
 				ALUSrc = 1'b1;
 				ALUOp = 5'b00000;
 				memRead = 1'b1;
@@ -166,6 +170,7 @@ output reg updateB;
 		else if(instruction[31] == 0 && instruction[30] == 0 && instruction[29] == 0) begin
 			$display("Tipo: NOP");
 			$display("Instrucao: Nop");
+			branch = 1'b0;
 			ALUSrc = 1'b1;
 			ALUOp = 5'b00000;
 			memRead = 1'b1;
@@ -174,6 +179,22 @@ output reg updateB;
 			regWrite = 1'b0;
 			registerB = 1'b0;
 			updateB = ~updateB;
+		end
+		// Se for instrucao de tranferencia de controle
+		else if(instruction[31] == 1 && instruction[30] == 0 && instruction[29] == 1) begin
+			$display("Tipo: Transferencia de controle");
+			if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 1) begin
+				$display("Instrucao: Beq");
+				branch = 1'b1;
+				ALUSrc = 1'b0;
+				ALUOp = 5'b00010;
+				memRead = 1'b1;
+				memWrite = 1'b1;
+				memToReg = 1'b0;
+				regWrite = 1'b0;
+				registerB = 1'b1;
+				updateB = ~updateB;
+			end
 		end
 		// Se for tipo desconhecido
 		else begin

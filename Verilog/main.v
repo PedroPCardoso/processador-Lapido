@@ -89,7 +89,7 @@ wire zero;
 	// Instruction Fetch
 	mux muxIF (
 		.din_0(memAddressOutAdder),
-		.din_1(32'b1111),
+		.din_1(extendedSignal_id_ex),
 		.sel(1'b0),
 		.mux_out(muxOut)
 	);
@@ -102,7 +102,7 @@ wire zero;
 	);
 	// Mux ULA data B
 	mux muxULAB (
-		.din_0(registerFileDataA_id_ex),
+		.din_0(registerFileDataB_id_ex),
 		.din_1(extendedSignal_id_ex),
 		.sel(ALUSrc_id_ex),
 		.mux_out(muxULABOut)
