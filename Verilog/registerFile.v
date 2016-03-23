@@ -4,7 +4,7 @@ module registerFile (
   OUT_B,      	// Endereco da saida de dados B
   IN_C,		// Endereco da entrada de dados C
   reset,       	// Limpa todos os registros
-  clock,       	// Pulso de clock
+  updateB,	// Sinal que indica ao bloco de registradores que os dados da entrada estao prontos
   A,           	// Saida A do Banco de Registros
   B,           	// Saida B do Banco de Registros
   E);          	// Entrada E do Banco de Registros - novo registro a ser armazenado
@@ -16,11 +16,12 @@ module registerFile (
   output reg [bits_palavra-1:0] A, B;
   input wire [bits_palavra-1:0] E;
   input wire [3:0] OUT_A, OUT_B, IN_C;
-  input wire  reset, clock;
+  input wire  reset;
+  input updateB;
   wire  Hab_Escrita;
   reg [bits_palavra-1:0] registro [num_registros-1:0];	// Um vetor de "num_registros" palavras de "bits_palavra" bits
 
-	always @(posedge clock, posedge reset) begin
+	always @(posedge reset, updateB) begin
 
 			if(reset) begin  // zera os registradores
 				registro[0] = 16'b00000000000000000000000000000000;

@@ -6,7 +6,9 @@ module control(clock,
 	memToReg,
 	ALUOp,
 	ALUSrc,
-	regWrite/*,
+	regWrite,
+	registerB,
+	updateB/*,
 	enablePC*/);
 
 input clock;
@@ -18,6 +20,8 @@ output reg memToReg;
 output reg [0:4] ALUOp;
 output reg ALUSrc;
 output reg regWrite;
+output reg registerB;
+output reg updateB;
 /*output enablePC;*/
 
 	initial begin
@@ -27,17 +31,14 @@ output reg regWrite;
 		memToReg = 1'b0;
 		ALUSrc = 1'b0;
 		regWrite = 1'b0;
+		registerB = 1'b0;
+		updateB = 1'b0;
 	end
 
 	always @(posedge clock) begin
 		// Se for logica ou aritmetica
 		if(instruction[31] == 0 && instruction[30] == 0 && instruction[29] == 1) begin
 			$display("Tipo: ULA");
-			ALUSrc = 1'b0;
-			memRead = 1'b1;
-			memWrite = 1'b1;
-			memToReg = 1'b0;
-			regWrite = 1'b1;
 
 			if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 0) begin
 				$display("Instrucao: Add");
@@ -112,6 +113,14 @@ output reg regWrite;
 				$display("Instrucao: Ones");
 				ALUOp = 5'b11111;
 			end
+
+			ALUSrc = 1'b0;
+			memRead = 1'b1;
+			memWrite = 1'b1;
+			memToReg = 1'b0;
+			regWrite = 1'b1;
+			registerB = 1'b0;
+			updateB = ~updateB;
 		end
 		// Se for instrucao de memoria
 		else if(instruction[31] == 1 && instruction[30] == 0 && instruction[29] == 0) begin
@@ -124,6 +133,8 @@ output reg regWrite;
 				memWrite = 1'b1;
 				memToReg = 1'b1;
 				regWrite = 1'b1;
+				registerB = 1'b0;
+				updateB = ~updateB;
 			end else begin
 				$display("Instrucao: Store");
 				ALUSrc = 1'b1;
@@ -132,6 +143,8 @@ output reg regWrite;
 				memWrite = 1'b0;
 				memToReg = 1'b0;
 				regWrite = 1'b0;
+				registerB = 1'b1;
+				updateB = ~updateB;
 			end
 		end
 		// Se for instrucao com constante
@@ -145,6 +158,8 @@ output reg regWrite;
 				memWrite = 1'b1;
 				memToReg = 1'b0;
 				regWrite = 1'b1;
+				registerB = 1'b0;
+				updateB = ~updateB;
 			end
 		end
 		// Se for instrucao NOP
@@ -157,6 +172,8 @@ output reg regWrite;
 			memWrite = 1'b1;
 			memToReg = 1'b0;
 			regWrite = 1'b0;
+			registerB = 1'b0;
+			updateB = ~updateB;
 		end
 		// Se for tipo desconhecido
 		else begin

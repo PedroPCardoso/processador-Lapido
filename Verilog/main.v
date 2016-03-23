@@ -32,11 +32,12 @@ wire [31:0] muxWBOut;			// Saida do mux do WB
 wire [31:0] ALUResult;			// Resultado da ULA
 wire [31:0] ALUResult_ex_mem;		// Resultado da ULA em ex_mem
 wire [31:0] ALUResult_mem_wb;		// Resultado da ULA em mem_wb
+wire [3:0] muxDataBRegisterFileOut;	// Resultado do mux que decide o endereco do registrador de leitura B
 //-------------------------------------------------------
 // Signals
 //-------------------------------------------------------
 reg enablePC;
-wire memRead, branch, memWrite, memToReg, ALUSrc, regWrite/*, enablePC*/;
+wire memRead, branch, memWrite, memToReg, ALUSrc, regWrite, registerB, updateB/*, enablePC*/;
 wire memRead_id_ex, memRead_ex_mem;
 wire ALUSrc_id_ex;
 wire memToReg_id_ex, memToReg_ex_mem, memToReg_mem_wb;
@@ -92,6 +93,13 @@ wire zero;
 		.sel(1'b0),
 		.mux_out(muxOut)
 	);
+	// Mux data B register file
+	mux4bits muxDataBRegisterFile (
+		.din_0(instruction[15:12]),
+		.din_1(instruction[23:20]),
+		.sel(registerB),
+		.mux_out(muxDataBRegisterFileOut)
+	);
 	// Mux ULA data B
 	mux muxULAB (
 		.din_0(registerFileDataA_id_ex),
@@ -128,10 +136,10 @@ wire zero;
 	registerFile registerFile(
 		.enable(regWrite_mem_wb),
 		.OUT_A(instruction[19:16]),
-		.OUT_B(instruction[15:12]),
+		.OUT_B(muxDataBRegisterFileOut),
 		.IN_C(registerFileWrite_mem_wb),
 		.reset(resetRegisterFile),
-		.clock(clock),
+		.updateB(updateB),
 		.A(registerFileDataA),
 		.B(registerFileDataB),
 		.E(muxWBOut)
@@ -166,7 +174,9 @@ wire zero;
 		.memToReg(memToReg),
 		.ALUOp(ALUOp),
 		.ALUSrc(ALUSrc),
-		.regWrite(regWrite)/*,
+		.regWrite(regWrite),
+		.registerB(registerB),
+		.updateB(updateB)/*,
 		.enablePC(enablePC)*/
 	);
 //-------------------------------------------------------
