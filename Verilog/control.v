@@ -157,7 +157,7 @@ output reg updateB;
 				$display("Instrucao: Loadlit");
 				branch = 1'b0;
 				ALUSrc = 1'b1;
-				ALUOp = 5'b00000;
+				ALUOp = 5'b10011;
 				memRead = 1'b1;
 				memWrite = 1'b1;
 				memToReg = 1'b0;
