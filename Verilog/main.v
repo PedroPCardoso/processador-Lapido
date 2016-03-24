@@ -14,8 +14,10 @@ wire [31:0] memAddressOutAdder;		// Saida do somador (pc++)
 wire [31:0] memAddressOutPC;		// Saida de PC
 wire [31:0] muxOut;			// Saida de muxIF
 wire [31:0] muxULABOut;			// Saida de mux dado B para ULA
-wire [31:0] pcpp;			// pc++
-wire [31:0] pcpp_id_ex;			// pc++ armazenado em if_id
+wire [31:0] pcpp;			// pc++ armazenado em if_id
+wire [31:0] pcpp_id_ex;			// pc++ armazenado em id_ex
+wire [31:0] pcpp_ex_mem;		// pc++ armazenado em ex_mem
+wire [31:0] pcpp_mem_wb;		// pc++ armazenado em mem_wb
 wire [31:0] instruction;		// Instrucao
 wire [31:0] extended;			// Sinal extendido
 wire [31:0] extendedSignal_id_ex;	// Sinal extendido armazenado em id_ex
@@ -33,14 +35,17 @@ wire [31:0] ALUResult;			// Resultado da ULA
 wire [31:0] ALUResult_ex_mem;		// Resultado da ULA em ex_mem
 wire [31:0] ALUResult_mem_wb;		// Resultado da ULA em mem_wb
 wire [3:0] muxDataBRegisterFileOut;	// Resultado do mux que decide o endereco do registrador de leitura B
+wire [31:0] muxJumpRegisterOut;		// Resultado do mux do jump register
+//wire [1:0] wb_mux_selector;		// Seletor do MUX tri-state do WB
 //-------------------------------------------------------
 // Signals
 //-------------------------------------------------------
 reg enablePC;
-wire memRead, branch, memWrite, memToReg, ALUSrc, regWrite, registerB, updateB/*, enablePC*/;
+wire memRead, branch, memWrite, ALUSrc, regWrite, registerB, updateB/*, enablePC*/;
 wire memRead_id_ex, memRead_ex_mem;
+wire jumpRegister, jumpRegister_id_ex;
 wire ALUSrc_id_ex;
-wire memToReg_id_ex, memToReg_ex_mem, memToReg_mem_wb;
+wire [1:0] memToReg, memToReg_id_ex, memToReg_ex_mem, memToReg_mem_wb;
 wire regWrite_id_ex, regWrite_ex_mem, regWrite_mem_wb;
 wire [4:0] ALUOp, ALUOp_id_ex;
 wire branch_id_ex, branchResult;
@@ -94,7 +99,7 @@ wire zero;
 	// Instruction Fetch
 	mux muxIF (
 		.din_0(memAddressOutAdder),
-		.din_1(extendedSignal_id_ex),
+		.din_1(muxJumpRegisterOut),
 		.sel(branchResult),
 		.mux_out(muxOut)
 	);
@@ -113,11 +118,19 @@ wire zero;
 		.mux_out(muxULABOut)
 	);
 	// Write Back
-	mux muxWB (
+	triStateMux32Bit triStateMux32BitWb(
 		.din_0(ALUResult_mem_wb),
 		.din_1(DataOutDataMemory_mem_wb),
+		.din_2(pcpp_mem_wb),
 		.sel(memToReg_mem_wb),
 		.mux_out(muxWBOut)
+	);
+	// Mux do jump register
+	mux jumpRegisterMux (
+		.din_0(extendedSignal_id_ex),
+		.din_1(ALUResult),
+		.sel(jumpRegister_id_ex),
+		.mux_out(muxJumpRegisterOut)
 	);
 //-------------------------------------------------------
 // Adder
@@ -181,6 +194,7 @@ wire zero;
 		.ALUSrc(ALUSrc),
 		.regWrite(regWrite),
 		.registerB(registerB),
+		.jumpRegister(jumpRegister),
 		.updateB(updateB)/*,
 		.enablePC(enablePC)*/
 	);
@@ -209,6 +223,7 @@ wire zero;
 		.memToReg_in(memToReg),
 		.regWrite_in(regWrite),
 		.branch_in(branch),
+		.jumpRegister_in(jumpRegister),
 		.registerFileDataA(registerFileDataA_id_ex),
 		.registerFileDataB(registerFileDataB_id_ex),
 		.registerFileWrite(registerFileWrite_id_ex),
@@ -220,7 +235,8 @@ wire zero;
 		.memWrite(memWrite_id_ex),
 		.memToReg(memToReg_id_ex),
 		.regWrite(regWrite_id_ex),
-		.branch(branch_id_ex)
+		.branch(branch_id_ex),
+		.jumpRegister(jumpRegister_id_ex)
 	);
 
 	ex_mem ex_mem(
@@ -232,13 +248,15 @@ wire zero;
 		.registerFileDataB_in(registerFileDataB_id_ex),
 		.registerFileWrite_in(registerFileWrite_id_ex),
 		.regWrite_in(regWrite_id_ex),
+		.pcpp_in(pcpp_id_ex),
 		.ALUResult(ALUResult_ex_mem),
 		.memRead(memRead_ex_mem),
 		.memWrite(memWrite_ex_mem),
 		.memToReg(memToReg_ex_mem),
 		.registerFileDataB(registerFileDataB_ex_mem),
 		.registerFileWrite(registerFileWrite_ex_mem),
-		.regWrite(regWrite_ex_mem)
+		.regWrite(regWrite_ex_mem),
+		.pcpp(pcpp_ex_mem)
 	);
 
 	mem_wb mem_wb(
@@ -248,11 +266,13 @@ wire zero;
 		.ALUResult_in(ALUResult_ex_mem),
 		.registerFileWrite_in(registerFileWrite_ex_mem),
 		.regWrite_in(regWrite_ex_mem),
+		.pcpp_in(pcpp_ex_mem),
 		.DataOutDataMemory(DataOutDataMemory_mem_wb),
 		.memToReg(memToReg_mem_wb),
 		.ALUResult(ALUResult_mem_wb),
 		.registerFileWrite(registerFileWrite_mem_wb),
-		.regWrite(regWrite_mem_wb)
+		.regWrite(regWrite_mem_wb),
+		.pcpp(pcpp_mem_wb)
 	);
 //-------------------------------------------------------
 	initial begin
