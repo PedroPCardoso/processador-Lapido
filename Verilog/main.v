@@ -30,12 +30,16 @@ wire [31:0] registerFileDataB_ex_mem;	// Saida do registrador B armazenada em ex
 wire [3:0] registerFileWrite_id_ex;	// Id do registrador de escrita em id_ex
 wire [3:0] registerFileWrite_ex_mem;	// Id do registrador de escrita em ex_mem
 wire [3:0] registerFileWrite_mem_wb;	// Id do registrador de escrita em mem_wb
+wire [3:0] registerA_id_ex;		// Id do registrador de leitura A em id_ex
+wire [3:0] registerB_id_ex;		// Id do registrador de leitura B em id_ex
 wire [31:0] muxWBOut;			// Saida do mux do WB
 wire [31:0] ALUResult;			// Resultado da ULA
 wire [31:0] ALUResult_ex_mem;		// Resultado da ULA em ex_mem
 wire [31:0] ALUResult_mem_wb;		// Resultado da ULA em mem_wb
 wire [3:0] muxDataBRegisterFileOut;	// Resultado do mux que decide o endereco do registrador de leitura B
 wire [31:0] muxJumpRegisterOut;		// Resultado do mux do jump register
+wire [31:0] muxForwardAOut;		// Resultado do mux forward A
+wire [31:0] muxForwardBOut;		// Resultado do mux forward B
 //wire [1:0] wb_mux_selector;		// Seletor do MUX tri-state do WB
 //-------------------------------------------------------
 // Signals
@@ -49,6 +53,8 @@ wire [1:0] memToReg, memToReg_id_ex, memToReg_ex_mem, memToReg_mem_wb;
 wire regWrite_id_ex, regWrite_ex_mem, regWrite_mem_wb;
 wire [4:0] ALUOp, ALUOp_id_ex;
 wire branch_id_ex, branchResult;
+// --
+wire [1:0] forwardA, forwardB;
 //-------------------------------------------------------
 // Flags
 //-------------------------------------------------------
@@ -117,6 +123,22 @@ wire zero;
 		.sel(ALUSrc_id_ex),
 		.mux_out(muxULABOut)
 	);
+	// Mux ULA data A - Forwarding A
+	triStateMux32Bit triStateMux32BitULADataA(
+		.din_0(registerFileDataA_id_ex),
+		.din_1(muxWBOut),
+		.din_2(ALUResult_ex_mem),
+		.sel(forwardA),
+		.mux_out(muxForwardAOut)
+	);
+	// Mux ULA data B - Forwarding B
+	triStateMux32Bit triStateMux32BitULADataB(
+		.din_0(muxULABOut),
+		.din_1(muxWBOut),
+		.din_2(ALUResult_ex_mem),
+		.sel(forwardB),
+		.mux_out(muxForwardBOut)
+	);
 	// Write Back
 	triStateMux32Bit triStateMux32BitWb(
 		.din_0(ALUResult_mem_wb),
@@ -173,8 +195,8 @@ wire zero;
 // ULA
 //-------------------------------------------------------
 	ULA ULA (
-		.A(registerFileDataA_id_ex),
-		.B(muxULABOut),
+		.A(muxForwardAOut),
+		.B(muxForwardBOut),
 		.opcode(ALUOp_id_ex),
 		.clock(clock),
 		.zero(zero),
@@ -199,6 +221,19 @@ wire zero;
 		.enablePC(enablePC)*/
 	);
 //-------------------------------------------------------
+// Forwarding Unit
+//-------------------------------------------------------
+	FU FU(
+		.ex_mem_regWrite(regWrite_ex_mem),
+		.ex_mem_registerRD(registerFileWrite_ex_mem),
+		.mem_wb_regWrite(regWrite_mem_wb),
+		.mem_wb_registerRD(registerFileWrite_mem_wb),
+		.id_ex_registerA(registerA_id_ex),
+		.id_ex_registerB(registerB_id_ex),
+		.forwardA(forwardA),
+		.forwardB(forwardB)
+	);
+//-------------------------------------------------------
 // Pipeline registers
 //-------------------------------------------------------
 	if_id if_id (
@@ -214,6 +249,8 @@ wire zero;
 		.registerFileDataA_in(registerFileDataA),
 		.registerFileDataB_in(registerFileDataB),
 		.registerFileWrite_in(instruction[23:20]),
+		.registerA_in(instruction[19:16]),
+		.registerB_in(muxDataBRegisterFileOut),
 		.pcpp_in(pcpp),
 		.extendedSignal_in(extended),
 		.ALUOp_in(ALUOp),
@@ -227,6 +264,8 @@ wire zero;
 		.registerFileDataA(registerFileDataA_id_ex),
 		.registerFileDataB(registerFileDataB_id_ex),
 		.registerFileWrite(registerFileWrite_id_ex),
+		.registerA(registerA_id_ex),
+		.registerB(registerB_id_ex),
 		.pcpp(pcpp_id_ex),
 		.extendedSignal(extendedSignal_id_ex),
 		.ALUOp(ALUOp_id_ex),
