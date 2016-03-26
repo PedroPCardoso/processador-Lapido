@@ -8,10 +8,11 @@ entity registerFile is
     );
     port(
         enable          : in     vl_logic;
-        IN_OUT_A        : in     vl_logic_vector(2 downto 0);
-        OUT_B           : in     vl_logic_vector(2 downto 0);
+        OUT_A           : in     vl_logic_vector(3 downto 0);
+        OUT_B           : in     vl_logic_vector(3 downto 0);
+        IN_C            : in     vl_logic_vector(3 downto 0);
         reset           : in     vl_logic;
-        clock           : in     vl_logic;
+        updateB         : in     vl_logic;
         A               : out    vl_logic_vector;
         B               : out    vl_logic_vector;
         E               : in     vl_logic_vector

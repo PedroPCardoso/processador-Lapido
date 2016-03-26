@@ -48,73 +48,73 @@ output reg updateB;
 				ALUOp = 5'b00000;
 			end else if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 1) begin
 				$display("Instrucao: addinc");
-				ALUOp = 5'b00001;
+				ALUOp = 8'b00100001;
 			end else if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 1 && instruction[24] == 1) begin
 				$display("Instrucao: inca");
-				ALUOp = 5'b00011;
+				ALUOp = 8'b00100011;
 			end else if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 1 && instruction[25] == 0 && instruction[24] == 0) begin
 				$display("Instrucao: subdec");
-				ALUOp = 5'b00100;
+				ALUOp = 8'b00100100;
 			end else if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 1 && instruction[25] == 0 && instruction[24] == 1) begin
 				$display("Instrucao: sub");
-				ALUOp = 5'b00101;
+				ALUOp = 8'b00100101;
 			end else if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 1 && instruction[25] == 1 && instruction[24] == 0) begin
 				$display("Instrucao: deca");
-				ALUOp = 5'b00110;
+				ALUOp = 8'b00100110;
 			end else if(instruction[28] == 0 && instruction[27] == 1 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 0) begin
 				$display("Instrucao: lsl");
-				ALUOp = 5'b01000;
+				ALUOp = 8'b00101000;
 			end else if(instruction[28] == 0 && instruction[27] == 1 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 1) begin
 				$display("Instrucao: asr");
-				ALUOp = 5'b01001;
+				ALUOp = 8'b00101001;
 			end else if(instruction[28] == 1 && instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 0) begin
 				$display("Instrucao: zeros");
-				ALUOp = 5'b10000;
+				ALUOp = 8'b00110000;
 			end else if(instruction[28] == 1 && instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 1) begin
 				$display("Instrucao: and");
-				ALUOp = 5'b10001;
+				ALUOp = 8'b00110001;
 			end else if(instruction[28] == 1 && instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 1 && instruction[24] == 0) begin
 				$display("Instrucao: andnota");
-				ALUOp = 5'b10010;
+				ALUOp = 8'b00110010;
 			end else if(instruction[28] == 1 && instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 1 && instruction[24] == 1) begin
 				$display("Instrucao: passb");
-				ALUOp = 5'b10011;
+				ALUOp = 8'b00110011;
 			end else if(instruction[28] == 1 && instruction[27] == 0 && instruction[26] == 1 && instruction[25] == 0 && instruction[24] == 0) begin
 				$display("Instrucao: andnotb");
-				ALUOp = 5'b10100;
+				ALUOp = 8'b00110100;
 			end else if(instruction[28] == 1 && instruction[27] == 0 && instruction[26] == 1 && instruction[25] == 0 && instruction[24] == 1) begin
 				$display("Instrucao: passa");
-				ALUOp = 5'b10101;
+				ALUOp = 8'b00110101;
 			end else if(instruction[28] == 1 && instruction[27] == 0 && instruction[26] == 1 && instruction[25] == 1 && instruction[24] == 0) begin
 				$display("Instrucao: xor");
-				ALUOp = 5'b10110;
+				ALUOp = 8'b00110110;
 			end else if(instruction[28] == 1 && instruction[27] == 0 && instruction[26] == 1 && instruction[25] == 1 && instruction[24] == 1) begin
 				$display("Instrucao: or");
-				ALUOp = 5'b10111;
+				ALUOp = 8'b00110111;
 			end else if(instruction[28] == 1 && instruction[27] == 1 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 0) begin
 				$display("Instrucao: nand");
-				ALUOp = 5'b11000;
+				ALUOp = 8'b00111000;
 			end else if(instruction[28] == 1 && instruction[27] == 1 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 1) begin
 				$display("Instrucao: xnor");
-				ALUOp = 5'b11001;
+				ALUOp = 8'b00111001;
 			end else if(instruction[28] == 1 && instruction[27] == 1 && instruction[26] == 0 && instruction[25] == 1 && instruction[24] == 0) begin
 				$display("Instrucao: passnota");
-				ALUOp = 5'b11010;
+				ALUOp = 8'b00111010;
 			end else if(instruction[28] == 1 && instruction[27] == 1 && instruction[26] == 0 && instruction[25] == 1 && instruction[24] == 1) begin
 				$display("Instrucao: ornota");
-				ALUOp = 5'b11011;
+				ALUOp = 8'b00111011;
 			end else if(instruction[28] == 1 && instruction[27] == 1 && instruction[26] == 1 && instruction[25] == 0 && instruction[24] == 0) begin
 				$display("Instrucao: passnotb");
-				ALUOp = 5'b11100;
+				ALUOp = 8'b00111100;
 			end else if(instruction[28] == 1 && instruction[27] == 1 && instruction[26] == 1 && instruction[25] == 0 && instruction[24] == 1) begin
 				$display("Instrucao: ornotb");
-				ALUOp = 5'b11101;
+				ALUOp = 8'b00111101;
 			end else if(instruction[28] == 1 && instruction[27] == 1 && instruction[26] == 1 && instruction[25] == 1 && instruction[24] == 0) begin
 				$display("Instrucao: nor");
-				ALUOp = 5'b11110;
+				ALUOp = 8'b00111110;
 			end else if(instruction[28] == 1 && instruction[27] == 1 && instruction[26] == 1 && instruction[25] == 1 && instruction[24] == 1) begin
 				$display("Instrucao: ones");
-				ALUOp = 5'b11111;
+				ALUOp = 8'b00111111;
 			end
 
 			branch = 1'b0;
@@ -134,7 +134,7 @@ output reg updateB;
 				$display("Instrucao: load");
 				branch = 1'b0;
 				ALUSrc = 1'b1;
-				ALUOp = 5'b00000;
+				ALUOp = 8'b10000000;
 				memRead = 1'b0;
 				memWrite = 1'b1;
 				memToReg = 2'b01;
@@ -146,7 +146,7 @@ output reg updateB;
 				$display("Instrucao: store");
 				branch = 1'b0;
 				ALUSrc = 1'b1;
-				ALUOp = 5'b00000;
+				ALUOp = 8'b10000000;
 				memRead = 1'b1;
 				memWrite = 1'b0;
 				memToReg = 2'b00;
@@ -203,7 +203,7 @@ output reg updateB;
 				registerB = 1'b0;
 				jumpRegister = 1'b0;
 				updateB = ~updateB;
-			end else 
+			end else
 			if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 1) begin
 				$display("Instrucao: beq");
 				branch = 1'b1;
@@ -216,7 +216,7 @@ output reg updateB;
 				registerB = 1'b1;
 				jumpRegister = 1'b0;
 				updateB = ~updateB;
-			end else 
+			end else
 			if(instruction[28] == 0 && instruction[27] == 1 && instruction[26] == 0) begin
 				$display("Instrucao: bne");
 				branch = 1'b1;
@@ -229,7 +229,7 @@ output reg updateB;
 				registerB = 1'b1;
 				jumpRegister = 1'b0;
 				updateB = ~updateB;
-			end else 
+			end else
 			if(instruction[28] == 0 && instruction[27] == 1 && instruction[26] == 1) begin
 				$display("Instrucao: jal");
 				branch = 1'b1;
@@ -242,7 +242,7 @@ output reg updateB;
 				registerB = 1'b0;
 				jumpRegister = 1'b0;
 				updateB = ~updateB;
-			end else 
+			end else
 			if(instruction[28] == 1 && instruction[27] == 0 && instruction[26] == 0) begin
 				$display("Instrucao: jr");
 				branch = 1'b1;
