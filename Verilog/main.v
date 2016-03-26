@@ -40,12 +40,13 @@ wire [3:0] muxDataBRegisterFileOut;	// Resultado do mux que decide o endereco do
 wire [31:0] muxJumpRegisterOut;		// Resultado do mux do jump register
 wire [31:0] muxForwardAOut;		// Resultado do mux forward A
 wire [31:0] muxForwardBOut;		// Resultado do mux forward B
-//wire [1:0] wb_mux_selector;		// Seletor do MUX tri-state do WB
+wire [14:0] control_signals;		// Sinais de controle
+wire [14:0] control_signals_mux_out;	// Sinais de controle resultado do mux controlado pela HDU
 //-------------------------------------------------------
 // Signals
 //-------------------------------------------------------
 reg enablePC;
-wire memRead, branch, memWrite, ALUSrc, regWrite, registerB, updateB/*, enablePC*/;
+wire memRead, branch, memWrite, ALUSrc, regWrite, registerB, updateB;
 wire memRead_id_ex, memRead_ex_mem;
 wire jumpRegister, jumpRegister_id_ex;
 wire ALUSrc_id_ex;
@@ -55,6 +56,7 @@ wire [4:0] ALUOp, ALUOp_id_ex;
 wire branch_id_ex, branchResult;
 // --
 wire [1:0] forwardA, forwardB;
+wire controlSignalsMuxSelector;
 //-------------------------------------------------------
 // Flags
 //-------------------------------------------------------
@@ -113,7 +115,7 @@ wire zero;
 	mux4bits muxDataBRegisterFile (
 		.din_0(instruction[15:12]),
 		.din_1(instruction[23:20]),
-		.sel(registerB),
+		.sel(control_signals[12]),
 		.mux_out(muxDataBRegisterFileOut)
 	);
 	// Mux ULA data B
@@ -154,6 +156,13 @@ wire zero;
 		.sel(jumpRegister_id_ex),
 		.mux_out(muxJumpRegisterOut)
 	);
+	// Mux de sinais de controle
+	mux15bits controlSignalsMux(
+		.din_0(control_signals),
+		.din_1(15'b011000000000000),
+		.sel(controlSignalsMuxSelector),
+		.mux_out(control_signals_mux_out)
+	);
 //-------------------------------------------------------
 // Adder
 //-------------------------------------------------------
@@ -165,7 +174,7 @@ wire zero;
 // Program Counter
 //-------------------------------------------------------
 	programcounter programcounter (
-		.enablePC(enablePC),
+		.enablePC(enablePCResult),
 		.memAddress(muxOut),
 		.memAddressOut(memAddressOutPC)
 	);
@@ -179,7 +188,7 @@ wire zero;
 		.OUT_B(muxDataBRegisterFileOut),
 		.IN_C(registerFileWrite_mem_wb),
 		.reset(resetRegisterFile),
-		.updateB(updateB),
+		.updateB(control_signals[14]),
 		.A(registerFileDataA),
 		.B(registerFileDataB),
 		.E(muxWBOut)
@@ -205,7 +214,7 @@ wire zero;
 //-------------------------------------------------------
 // Control Unit
 //-------------------------------------------------------
-	control control(
+	/*control control(
 		.clock(clock),
 		.instruction(instruction),
 		.branch(branch),
@@ -217,8 +226,31 @@ wire zero;
 		.regWrite(regWrite),
 		.registerB(registerB),
 		.jumpRegister(jumpRegister),
-		.updateB(updateB)/*,
-		.enablePC(enablePC)*/
+		.updateB(updateB)
+	);
+	assign control_signals[0] = branch;
+	assign control_signals[1] = memRead;
+	assign control_signals[2] = memWrite;
+	assign control_signals[4:3] = memToReg;
+	assign control_signals[9:5] = ALUOp;
+	assign control_signals[10] = ALUSrc;
+	assign control_signals[11] = regWrite;
+	assign control_signals[12] = registerB;
+	assign control_signals[13] = jumpRegister;
+	assign control_signals[14] = updateB;*/
+	control control(
+		.clock(clock),
+		.instruction(instruction),
+		.branch(control_signals[0]),
+		.memRead(control_signals[1]),
+		.memWrite(control_signals[2]),
+		.memToReg(control_signals[4:3]),
+		.ALUOp(control_signals[9:5]),
+		.ALUSrc(control_signals[10]),
+		.regWrite(control_signals[11]),
+		.registerB(control_signals[12]),
+		.jumpRegister(control_signals[13]),
+		.updateB(control_signals[14])
 	);
 //-------------------------------------------------------
 // Forwarding Unit
@@ -232,6 +264,17 @@ wire zero;
 		.id_ex_registerB(registerB_id_ex),
 		.forwardA(forwardA),
 		.forwardB(forwardB)
+	);
+//-------------------------------------------------------
+// Hazard Detection Unit
+//-------------------------------------------------------
+	HDU HDU(
+		.id_ex_memRead(memRead_id_ex),
+		.id_ex_registerRD(registerFileWrite_id_ex),
+		.if_id_registerA(instruction[19:16]),
+		.if_id_registerB(muxDataBRegisterFileOut),
+		.enablePC(enablePC2),
+		.muxSelector(controlSignalsMuxSelector)
 	);
 //-------------------------------------------------------
 // Pipeline registers
@@ -253,14 +296,14 @@ wire zero;
 		.registerB_in(muxDataBRegisterFileOut),
 		.pcpp_in(pcpp),
 		.extendedSignal_in(extended),
-		.ALUOp_in(ALUOp),
-		.ALUSrc_in(ALUSrc),
-		.memRead_in(memRead),
-		.memWrite_in(memWrite),
-		.memToReg_in(memToReg),
-		.regWrite_in(regWrite),
-		.branch_in(branch),
-		.jumpRegister_in(jumpRegister),
+		.ALUOp_in(control_signals[9:5]),
+		.ALUSrc_in(control_signals[10]),
+		.memRead_in(control_signals[1]),
+		.memWrite_in(control_signals[2]),
+		.memToReg_in(control_signals[4:3]),
+		.regWrite_in(control_signals[11]),
+		.branch_in(control_signals[0]),
+		.jumpRegister_in(control_signals[13]),
 		.registerFileDataA(registerFileDataA_id_ex),
 		.registerFileDataB(registerFileDataB_id_ex),
 		.registerFileWrite(registerFileWrite_id_ex),
@@ -351,4 +394,6 @@ wire zero;
 			Address = Address + 32'b1;
 		end
 	end
+
+	assign enablePCResult = enablePC & enablePC2;
 endmodule
