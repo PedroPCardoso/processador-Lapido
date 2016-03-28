@@ -273,6 +273,7 @@ wire zero;
 		.id_ex_registerRD(registerFileWrite_id_ex),
 		.if_id_registerA(instruction[19:16]),
 		.if_id_registerB(muxDataBRegisterFileOut),
+		.branch(branchResult),
 		.enablePC(enablePC2),
 		.muxSelector(controlSignalsMuxSelector)
 	);
