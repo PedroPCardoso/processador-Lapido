@@ -1,11 +1,12 @@
-module  ULA (A, B, opcode, zero, Out,carry);
+module  ULA (A, B, opcode, zero, Out,overflow,carry,clock);
 
   input  [31:0] A;
   input  [31:0] B;
+  input  clock;
   input  [4:0] opcode;
   output  [31:0] Out;
   output reg carry;
-  reg overflow;
+  output reg overflow;
   output reg zero;
   reg [32:0] Outest;
   wire signed [31:0] A, B; // dados para operacao
@@ -18,7 +19,7 @@ module  ULA (A, B, opcode, zero, Out,carry);
   end
 
 
-  always @ ( opcode ) begin
+  always @ ( clock ) begin
 
 
     case ( opcode )
