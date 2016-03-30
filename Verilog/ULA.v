@@ -1,4 +1,4 @@
-module  ULA (A, B, opcode, zero, Out,overflow,carry,clock);
+module  ULA (A, B, opcode, zero, Out, overflow, carry, clock);
 
   input  [31:0] A;
   input  [31:0] B;
@@ -89,6 +89,30 @@ module  ULA (A, B, opcode, zero, Out,overflow,carry,clock);
         5'b11101:begin  Out = A|(~B); end
         5'b11110:begin  Out = (~A)|(~B);end
         5'b11111:begin  Out = 1;end //ones
+	// beq
+	5'b00010:begin
+		if(A==B) begin
+			$display("Condicao verdadeira");
+			zero = 1;
+		end else begin
+			$display("Condicao falsa");
+			zero = 0;
+		end
+	end
+	// bne
+	5'b00111:begin
+		if(A!=B) begin
+			$display("Condicao verdadeira");
+			zero = 1;
+		end else begin
+			$display("Condicao falsa");
+			zero = 0;
+		end
+	end
+	// jump
+	5'b01010:begin
+		zero = 1;
+	end
         default:;
         endcase
   end
