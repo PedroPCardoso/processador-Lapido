@@ -1,6 +1,6 @@
 module sign_extend(opcode, extend, extended);
 
-	input opcode;
+	input [1:0] opcode;
 	input [15:0] extend;
 	output [31:0] extended;
 

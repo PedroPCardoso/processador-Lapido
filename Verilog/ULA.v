@@ -1,4 +1,4 @@
-module  ULA (A, B, opcode, zero, Out, overflow, carry, clock);
+module  ULA (A, B, opcode, clock, zero, Out, overflow, carry);
 
   input  [31:0] A;
   input  [31:0] B;
@@ -113,18 +113,15 @@ module  ULA (A, B, opcode, zero, Out, overflow, carry, clock);
 	5'b01010:begin
 		zero = 1;
 	end
-  5'b01100:begin Out[15:0]= A[15:0];
-                 Out[31:16] = B[31:16];
-                 end   // Atribuicao menos sig A
-  5'b01011:begin Out[31:16] = A[31:16];
-                 Out[15:0] = B[15:0];
-                  end // Atribuicao menos sig B
+	5'b01011:begin Out[15:0]= A[15:0];
+			Out[31:16] = B[31:16];
+		end	// Atribuicao menos sig A
+	5'b01100:begin Out[31:16] = A[31:16];
+			Out[15:0] = B[15:0];
+		end	// Atribuicao menos sig B
         default:;
         endcase
   end
 
-
-
-
-
 endmodule
+

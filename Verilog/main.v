@@ -42,6 +42,7 @@ wire [31:0] muxForwardAOut;		// Resultado do mux forward A
 wire [31:0] muxForwardBOut;		// Resultado do mux forward B
 wire [14:0] control_signals;		// Sinais de controle
 wire [14:0] control_signals_mux_out;	// Sinais de controle resultado do mux controlado pela HDU
+wire [1:0] opcodeSignExtend;		// Opcode do modo de operacao do extensor de sinal
 //-------------------------------------------------------
 // Signals
 //-------------------------------------------------------
@@ -60,7 +61,7 @@ wire controlSignalsMuxSelector;
 //-------------------------------------------------------
 // Flags
 //-------------------------------------------------------
-wire zero;
+wire zero, overflow, carry;
 //-------------------------------------------------------
 // Clock
 //-------------------------------------------------------
@@ -197,6 +198,7 @@ wire zero;
 // Sign Extend
 //-------------------------------------------------------
 	sign_extend sign_extend(
+		.opcode(opcodeSignExtend),
 		.extend(instruction[15:0]),
 		.extended(extended)
 	);
@@ -209,35 +211,13 @@ wire zero;
 		.opcode(ALUOp_id_ex),
 		.clock(clock),
 		.zero(zero),
-		.Out(ALUResult)
+		.Out(ALUResult),
+		.overflow(overflow),
+		.carry(carry)
 	);
 //-------------------------------------------------------
 // Control Unit
 //-------------------------------------------------------
-	/*control control(
-		.clock(clock),
-		.instruction(instruction),
-		.branch(branch),
-		.memRead(memRead),
-		.memWrite(memWrite),
-		.memToReg(memToReg),
-		.ALUOp(ALUOp),
-		.ALUSrc(ALUSrc),
-		.regWrite(regWrite),
-		.registerB(registerB),
-		.jumpRegister(jumpRegister),
-		.updateB(updateB)
-	);
-	assign control_signals[0] = branch;
-	assign control_signals[1] = memRead;
-	assign control_signals[2] = memWrite;
-	assign control_signals[4:3] = memToReg;
-	assign control_signals[9:5] = ALUOp;
-	assign control_signals[10] = ALUSrc;
-	assign control_signals[11] = regWrite;
-	assign control_signals[12] = registerB;
-	assign control_signals[13] = jumpRegister;
-	assign control_signals[14] = updateB;*/
 	control control(
 		.clock(clock),
 		.instruction(instruction),
@@ -250,7 +230,8 @@ wire zero;
 		.regWrite(control_signals[11]),
 		.registerB(control_signals[12]),
 		.jumpRegister(control_signals[13]),
-		.updateB(control_signals[14])
+		.updateB(control_signals[14]),
+		.opcodeSignExtend(opcodeSignExtend)
 	);
 //-------------------------------------------------------
 // Forwarding Unit

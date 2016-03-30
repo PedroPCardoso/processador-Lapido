@@ -9,8 +9,8 @@ module control(clock,
 	regWrite,
 	registerB,
 	jumpRegister,
-	updateB/*,
-	enablePC*/);
+	updateB,
+	opcodeSignExtend);
 
 input clock;
 input [31:0] instruction;
@@ -24,7 +24,7 @@ output reg regWrite;
 output reg registerB;
 output reg jumpRegister;
 output reg updateB;
-/*output enablePC;*/
+output reg [1:0] opcodeSignExtend;
 
 	initial begin
 		branch = 1'b0;
@@ -35,6 +35,7 @@ output reg updateB;
 		regWrite = 1'b0;
 		registerB = 1'b0;
 		jumpRegister = 1'b0;
+		opcodeSignExtend = 2'b00;
 		updateB = 1'b0;
 	end
 
@@ -125,6 +126,7 @@ output reg updateB;
 			regWrite = 1'b1;
 			registerB = 1'b0;
 			jumpRegister = 1'b0;
+			opcodeSignExtend = 2'b00;
 			updateB = ~updateB;
 		end
 		// Se for instrucao de memoria
@@ -141,6 +143,7 @@ output reg updateB;
 				regWrite = 1'b1;
 				registerB = 1'b0;
 				jumpRegister = 1'b0;
+				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
 			end else begin
 				$display("Instrucao: store");
@@ -153,13 +156,14 @@ output reg updateB;
 				regWrite = 1'b0;
 				registerB = 1'b1;
 				jumpRegister = 1'b0;
+				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
 			end
 		end
 		// Se for instrucao com constante
 		else if(instruction[31] == 0 && instruction[30] == 1 && instruction[29] == 0) begin
 			$display("Tipo: Constante");
-			if(instruction[25] == 1 && instruction[24] == 0) begin
+			if(instruction[25] == 0 && instruction[24] == 0) begin
 				$display("Instrucao: loadlit");
 				branch = 1'b0;
 				ALUSrc = 1'b1;
@@ -170,6 +174,35 @@ output reg updateB;
 				regWrite = 1'b1;
 				registerB = 1'b0;
 				jumpRegister = 1'b0;
+				opcodeSignExtend = 2'b00;
+				updateB = ~updateB;
+			end
+			if(instruction[25] == 0 && instruction[24] == 1) begin
+				$display("Instrucao: lch");
+				branch = 1'b0;
+				ALUSrc = 1'b1;
+				ALUOp = 5'b01011;
+				memRead = 1'b1;
+				memWrite = 1'b1;
+				memToReg = 2'b00;
+				regWrite = 1'b1;
+				registerB = 1'b0;
+				jumpRegister = 1'b0;
+				opcodeSignExtend = 2'b01;
+				updateB = ~updateB;
+			end
+			if(instruction[25] == 1 && instruction[24] == 0) begin
+				$display("Instrucao: lcl");
+				branch = 1'b0;
+				ALUSrc = 1'b1;
+				ALUOp = 5'b01100;
+				memRead = 1'b1;
+				memWrite = 1'b1;
+				memToReg = 2'b00;
+				regWrite = 1'b1;
+				registerB = 1'b0;
+				jumpRegister = 1'b0;
+				opcodeSignExtend = 2'b10;
 				updateB = ~updateB;
 			end
 		end
@@ -186,6 +219,7 @@ output reg updateB;
 			regWrite = 1'b0;
 			registerB = 1'b0;
 			jumpRegister = 1'b0;
+			opcodeSignExtend = 2'b00;
 			updateB = ~updateB;
 		end
 		// Se for instrucao de tranferencia de controle
@@ -202,6 +236,7 @@ output reg updateB;
 				regWrite = 1'b0;
 				registerB = 1'b0;
 				jumpRegister = 1'b0;
+				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
 			end else 
 			if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 1) begin
@@ -215,6 +250,7 @@ output reg updateB;
 				regWrite = 1'b0;
 				registerB = 1'b1;
 				jumpRegister = 1'b0;
+				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
 			end else 
 			if(instruction[28] == 0 && instruction[27] == 1 && instruction[26] == 0) begin
@@ -228,6 +264,7 @@ output reg updateB;
 				regWrite = 1'b0;
 				registerB = 1'b1;
 				jumpRegister = 1'b0;
+				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
 			end else 
 			if(instruction[28] == 0 && instruction[27] == 1 && instruction[26] == 1) begin
@@ -241,6 +278,7 @@ output reg updateB;
 				regWrite = 1'b1;
 				registerB = 1'b0;
 				jumpRegister = 1'b0;
+				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
 			end else 
 			if(instruction[28] == 1 && instruction[27] == 0 && instruction[26] == 0) begin
@@ -254,6 +292,7 @@ output reg updateB;
 				regWrite = 1'b0;
 				registerB = 1'b0;
 				jumpRegister = 1'b1;
+				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
 			end
 		end
