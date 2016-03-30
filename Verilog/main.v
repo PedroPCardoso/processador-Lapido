@@ -8,7 +8,7 @@ reg CS;					// Chip select
 reg WE;					// Write enable
 reg OE;					// Output enable
 reg clock;
-reg onBios;				// Sinal que diz se a bios esta executando
+wire onBios;				// Sinal que diz se a bios esta executando
 reg [31:0] memAddress; 			// Entrada de PC
 wire [31:0] memAddressOutAdder;		// Saida do somador (pc++)
 wire [31:0] memAddressOutPC;		// Saida de PC
@@ -100,7 +100,8 @@ wire zero, overflow, carry;
 //-------------------------------------------------------
 	bios bios(
 		.clock(clock),
-		.captured_data(Data)
+		.captured_data(Data),
+		.active(onBios)
 	);
 //-------------------------------------------------------
 // Mux
@@ -340,7 +341,6 @@ wire zero, overflow, carry;
 	);
 //-------------------------------------------------------
 	initial begin
-		onBios = 1;
 		clock = 1;
 		CS = 0;
 		OE = 1;
@@ -348,9 +348,6 @@ wire zero, overflow, carry;
 		Address = 32'b0;
 		memAddress = 32'b0;
 		resetRegisterFile = 1'b1;
-		#60
-		onBios = 0;
-		resetRegisterFile = 1'b0;
 	end
 
 	always @(negedge onBios) begin
