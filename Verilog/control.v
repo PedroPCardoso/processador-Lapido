@@ -229,7 +229,7 @@ output reg [1:0] opcodeSignExtend;
 				$display("Instrucao: jump");
 				branch = 1'b1;
 				ALUSrc = 1'b1;
-				ALUOp = 5'b00000;
+				ALUOp = 5'b01010;
 				memRead = 1'b1;
 				memWrite = 1'b1;
 				memToReg = 2'b00;

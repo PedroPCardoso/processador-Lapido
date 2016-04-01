@@ -353,6 +353,7 @@ wire zero, overflow, carry;
 	always @(negedge onBios) begin
 		WE = 1;
 		OE = 0;
+		resetRegisterFile = 1'b0;
 		//Address = 32'b0;
 	end
 
