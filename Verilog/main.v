@@ -161,7 +161,7 @@ wire zero, overflow, carry;
 	// Mux de sinais de controle
 	mux15bits controlSignalsMux(
 		.din_0(control_signals),
-		.din_1(15'b011000000000000),
+		.din_1(15'b000000000000110),
 		.sel(controlSignalsMuxSelector),
 		.mux_out(control_signals_mux_out)
 	);

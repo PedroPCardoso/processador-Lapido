@@ -18,7 +18,7 @@ output reg branch;
 output reg memRead;
 output reg memWrite;
 output reg [1:0] memToReg;
-output reg [0:4] ALUOp;
+output reg [4:0] ALUOp;
 output reg ALUSrc;
 output reg regWrite;
 output reg registerB;
@@ -211,7 +211,7 @@ output reg [1:0] opcodeSignExtend;
 			$display("Tipo: NOP");
 			$display("Instrucao: nop");
 			branch = 1'b0;
-			ALUSrc = 1'b1;
+			ALUSrc = 1'b0;
 			ALUOp = 5'b00000;
 			memRead = 1'b1;
 			memWrite = 1'b1;
@@ -222,10 +222,10 @@ output reg [1:0] opcodeSignExtend;
 			opcodeSignExtend = 2'b00;
 			updateB = ~updateB;
 		end
-		// Se for instrucao de tranferencia de controle
+		// Se for branch
 		else if(instruction[31] == 1 && instruction[30] == 0 && instruction[29] == 1) begin
 			$display("Tipo: Transferencia de controle");
-			if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 0) begin
+			/*if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 0) begin
 				$display("Instrucao: jump");
 				branch = 1'b1;
 				ALUSrc = 1'b1;
@@ -238,7 +238,7 @@ output reg [1:0] opcodeSignExtend;
 				jumpRegister = 1'b0;
 				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
-			end else 
+			end else */
 			if(instruction[28] == 0 && instruction[27] == 0 && instruction[26] == 1) begin
 				$display("Instrucao: beq");
 				branch = 1'b1;
@@ -266,7 +266,7 @@ output reg [1:0] opcodeSignExtend;
 				jumpRegister = 1'b0;
 				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
-			end else 
+			end/* else 
 			if(instruction[28] == 0 && instruction[27] == 1 && instruction[26] == 1) begin
 				$display("Instrucao: jal");
 				branch = 1'b1;
@@ -294,7 +294,88 @@ output reg [1:0] opcodeSignExtend;
 				jumpRegister = 1'b1;
 				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
+			end*/
+		end
+		// Se for jump
+		else if(instruction[31] == 1 && instruction[30] == 1 && instruction[29] == 0) begin
+			$display("Tipo: Transferencia de controle");
+			if(instruction[28] == 0) begin // Jump incondicional
+				if(instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 0) begin
+					$display("Instrucao: jump");
+					branch = 1'b1;
+					ALUSrc = 1'b1;
+					ALUOp = 5'b01010;
+					memRead = 1'b1;
+					memWrite = 1'b1;
+					memToReg = 2'b00;
+					regWrite = 1'b0;
+					registerB = 1'b0;
+					jumpRegister = 1'b0;
+					opcodeSignExtend = 2'b00;
+					updateB = ~updateB;					
+				end
+				else if(instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 0 && instruction[24] == 1) begin
+					$display("Instrucao: jal");
+					branch = 1'b1;
+					ALUSrc = 1'b0;
+					ALUOp = 5'b00000;
+					memRead = 1'b1;
+					memWrite = 1'b1;
+					memToReg = 2'b10;
+					regWrite = 1'b1;
+					registerB = 1'b0;
+					jumpRegister = 1'b0;
+					opcodeSignExtend = 2'b00;
+					updateB = ~updateB;
+				end
+				else if(instruction[27] == 0 && instruction[26] == 0 && instruction[25] == 1 && instruction[24] == 0) begin
+					$display("Instrucao: jr");
+					branch = 1'b1;
+					ALUSrc = 1'b0;
+					ALUOp = 5'b10101;
+					memRead = 1'b1;
+					memWrite = 1'b1;
+					memToReg = 2'b00;
+					regWrite = 1'b0;
+					registerB = 1'b0;
+					jumpRegister = 1'b1;
+					opcodeSignExtend = 2'b00;
+					updateB = ~updateB;
+				end
 			end
+			else begin // Jump condicional
+				if (instruction[25] == 0 && instruction[24] == 0 && instruction[23] == 0 && instruction[22] == 0) begin
+					$display("Instrucao: jt - Cond: zero");
+				end
+				else if (instruction[25] == 0 && instruction[24] == 0 && instruction[23] == 0 && instruction[22] == 1) begin
+					$display("Instrucao: jt - Cond: overflow");
+				end
+				else if (instruction[25] == 0 && instruction[24] == 0 && instruction[23] == 1 && instruction[22] == 0) begin
+					$display("Instrucao: jt - Cond: neg");
+				end
+				else if (instruction[25] == 0 && instruction[24] == 0 && instruction[23] == 1 && instruction[22] == 1) begin
+					$display("Instrucao: jt - Cond: negzero");
+				end
+				else if (instruction[25] == 0 && instruction[24] == 1 && instruction[23] == 0 && instruction[22] == 0) begin
+					$display("Instrucao: jt - Cond: carry");
+				end
+				else if (instruction[25] == 0 && instruction[24] == 1 && instruction[23] == 0 && instruction[22] == 1) begin
+					$display("Instrucao: jf - Cond: zero");
+				end
+				else if (instruction[25] == 0 && instruction[24] == 1 && instruction[23] == 1 && instruction[22] == 0) begin
+					$display("Instrucao: jf - Cond: overflow");
+				end
+				else if (instruction[25] == 0 && instruction[24] == 1 && instruction[23] == 1 && instruction[22] == 1) begin
+					$display("Instrucao: jf - Cond: neg");
+				end
+				else if (instruction[25] == 1 && instruction[24] == 0 && instruction[23] == 0 && instruction[22] == 0) begin
+					$display("Instrucao: jf - Cond: negzero");
+				end
+				else if (instruction[25] == 1 && instruction[24] == 0 && instruction[23] == 0 && instruction[22] == 1) begin
+					$display("Instrucao: jf - Cond: carry");
+				end
+			end
+
 		end
 		// Se for tipo desconhecido
 		else begin

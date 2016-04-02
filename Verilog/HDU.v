@@ -16,6 +16,6 @@ output enablePC, muxSelector;
 assign muxSelector = (branch || (!id_ex_memRead &&
 		((id_ex_registerRD == if_id_registerA) || (id_ex_registerRD == if_id_registerB)))) ? 1'b1
 		: 1'b0;
-assign enablePC = ~muxSelector;
+assign enablePC = branch ? 1'b1 : ~muxSelector;
 
 endmodule
