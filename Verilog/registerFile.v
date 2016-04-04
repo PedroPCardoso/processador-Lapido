@@ -11,7 +11,7 @@ module registerFile (
 
   parameter bits_palavra = 32;
   parameter end_registros = 4; // Quantidade de bits necessarios para enderecar os registros
-  parameter num_registros = 16; // Quantidade de registros do Banco de Registros (num_registros = (end_registros^2)-1;)
+  parameter num_registros = 32; // Quantidade de registros do Banco de Registros (num_registros = (end_registros^2)-1;)
   input wire enable;
   output reg [bits_palavra-1:0] A, B;
   input wire [bits_palavra-1:0] E;
@@ -24,29 +24,30 @@ module registerFile (
 	always @(posedge reset, updateB) begin
 
 			if(reset) begin  // zera os registradores
-				registro[0] = 16'b00000000000000000000000000000000;
-				registro[1] = 16'b00000000000000000000000000000000;
-				registro[2] = 16'b00000000000000000000000000000000;
-				registro[3] = 16'b00000000000000000000000000000000;
-				registro[4] = 16'b00000000000000000000000000000000;
-				registro[5] = 16'b00000000000000000000000000000000;
-				registro[6] = 16'b00000000000000000000000000000000;
-				registro[7] = 16'b00000000000000000000000000000000;
+				registro[0] = 32'b00000000000000000000000000000000;
+				registro[1] = 32'b00000000000000000000000000000000;
+				registro[2] = 32'b00000000000000000000000000000000;
+				registro[3] = 32'b00000000000000000000000000000000;
+				registro[4] = 32'b00000000000000000000000000000000;
+				registro[5] = 32'b00000000000000000000000000000000;
+				registro[6] = 32'b00000000000000000000000000000000;
+				registro[7] = 32'b00000000000000000000000000000000;
 
-        			registro[8] = 16'b00000000000000000000000000000000;
-        			registro[9] = 16'b00000000000000000000000000000000;
-        			registro[10] = 16'b00000000000000000000000000000000;
-        			registro[11] = 16'b00000000000000000000000000000000;
-        			registro[12] = 16'b00000000000000000000000000000000;
-        			registro[13] = 16'b00000000000000000000000000000000;
-        			registro[14] = 16'b00000000000000000000000000000000;
-        			registro[15] = 16'b00000000000000000000000000000000;
+        			registro[8] = 32'b00000000000000000000000000000000;
+        			registro[9] = 32'b00000000000000000000000000000000;
+        			registro[10] = 32'b00000000000000000000000000000000;
+        			registro[11] = 32'b00000000000000000000000000000000;
+        			registro[12] = 32'b00000000000000000000000000000000;
+        			registro[13] = 32'b00000000000000000000000000000000;
+        			registro[14] = 32'b00000000000000000000000000000000;
+        			registro[15] = 32'b00000000000000000000000000000000;
 
 			end
 			else if(enable) begin
 				registro[IN_C] = E;
 				//A = registro[IN_C];
-		    	end else begin
+		    	end 
+			begin
 				A = registro[OUT_A];
 				B = registro[OUT_B];
 			end
