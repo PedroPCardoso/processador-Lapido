@@ -61,7 +61,7 @@ wire controlSignalsMuxSelector;
 //-------------------------------------------------------
 // Flags
 //-------------------------------------------------------
-wire zero, overflow, carry;
+wire zero, overflow, carry, neg;
 //-------------------------------------------------------
 // Clock
 //-------------------------------------------------------
@@ -214,7 +214,8 @@ wire zero, overflow, carry;
 		.zero(zero),
 		.Out(ALUResult),
 		.overflow(overflow),
-		.carry(carry)
+		.carry(carry),
+		.neg(neg)
 	);
 //-------------------------------------------------------
 // Control Unit
@@ -222,6 +223,10 @@ wire zero, overflow, carry;
 	control control(
 		.clock(clock),
 		.instruction(instruction),
+		.zero(zero),
+		.overflow(overflow),
+		.carry(carry),
+		.neg(neg),
 		.branch(control_signals[0]),
 		.memRead(control_signals[1]),
 		.memWrite(control_signals[2]),

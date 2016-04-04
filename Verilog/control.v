@@ -1,5 +1,9 @@
 module control(clock,
 	instruction,
+	zero,
+	overflow,
+	carry,
+	neg,
 	branch,
 	memRead,
 	memWrite,
@@ -12,7 +16,7 @@ module control(clock,
 	updateB,
 	opcodeSignExtend);
 
-input clock;
+input clock, zero, overflow, carry, neg;
 input [31:0] instruction;
 output reg branch;
 output reg memRead;
@@ -346,33 +350,223 @@ output reg [1:0] opcodeSignExtend;
 			else begin // Jump condicional
 				if (instruction[25] == 0 && instruction[24] == 0 && instruction[23] == 0 && instruction[22] == 0) begin
 					$display("Instrucao: jt - Cond: zero");
+					if (zero == 1) begin
+						branch = 1'b1;
+						ALUSrc = 1'bz;
+						ALUOp = 5'b01010;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						memToReg = 2'b00;
+						regWrite = 1'b0;
+						registerB = 1'b0;
+						jumpRegister = 1'b0;
+						opcodeSignExtend = 2'b00;
+						updateB = ~updateB;
+					end else begin
+						branch = 1'b0;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						regWrite = 1'b0;
+						updateB = ~updateB;
+					end
 				end
 				else if (instruction[25] == 0 && instruction[24] == 0 && instruction[23] == 0 && instruction[22] == 1) begin
 					$display("Instrucao: jt - Cond: overflow");
+					if (overflow == 1) begin
+						branch = 1'b1;
+						ALUSrc = 1'bz;
+						ALUOp = 5'b01010;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						memToReg = 2'b00;
+						regWrite = 1'b0;
+						registerB = 1'b0;
+						jumpRegister = 1'b0;
+						opcodeSignExtend = 2'b00;
+						updateB = ~updateB;
+					end else begin
+						branch = 1'b0;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						regWrite = 1'b0;
+						updateB = ~updateB;
+					end
 				end
 				else if (instruction[25] == 0 && instruction[24] == 0 && instruction[23] == 1 && instruction[22] == 0) begin
 					$display("Instrucao: jt - Cond: neg");
+					if (neg == 1) begin
+						branch = 1'b1;
+						ALUSrc = 1'bz;
+						ALUOp = 5'b01010;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						memToReg = 2'b00;
+						regWrite = 1'b0;
+						registerB = 1'b0;
+						jumpRegister = 1'b0;
+						opcodeSignExtend = 2'b00;
+						updateB = ~updateB;
+					end else begin
+						branch = 1'b0;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						regWrite = 1'b0;
+						updateB = ~updateB;
+					end
 				end
 				else if (instruction[25] == 0 && instruction[24] == 0 && instruction[23] == 1 && instruction[22] == 1) begin
 					$display("Instrucao: jt - Cond: negzero");
+					if (neg == 1 || zero == 1) begin
+						branch = 1'b1;
+						ALUSrc = 1'bz;
+						ALUOp = 5'b01010;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						memToReg = 2'b00;
+						regWrite = 1'b0;
+						registerB = 1'b0;
+						jumpRegister = 1'b0;
+						opcodeSignExtend = 2'b00;
+						updateB = ~updateB;
+					end else begin
+						branch = 1'b0;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						regWrite = 1'b0;
+						updateB = ~updateB;
+					end
 				end
 				else if (instruction[25] == 0 && instruction[24] == 1 && instruction[23] == 0 && instruction[22] == 0) begin
 					$display("Instrucao: jt - Cond: carry");
+					if (carry == 1) begin
+						branch = 1'b1;
+						ALUSrc = 1'bz;
+						ALUOp = 5'b01010;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						memToReg = 2'b00;
+						regWrite = 1'b0;
+						registerB = 1'b0;
+						jumpRegister = 1'b0;
+						opcodeSignExtend = 2'b00;
+						updateB = ~updateB;
+					end else begin
+						branch = 1'b0;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						regWrite = 1'b0;
+						updateB = ~updateB;
+					end
 				end
 				else if (instruction[25] == 0 && instruction[24] == 1 && instruction[23] == 0 && instruction[22] == 1) begin
 					$display("Instrucao: jf - Cond: zero");
+					if (zero == 0) begin
+						branch = 1'b1;
+						ALUSrc = 1'bz;
+						ALUOp = 5'b01010;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						memToReg = 2'b00;
+						regWrite = 1'b0;
+						registerB = 1'b0;
+						jumpRegister = 1'b0;
+						opcodeSignExtend = 2'b00;
+						updateB = ~updateB;
+					end else begin
+						branch = 1'b0;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						regWrite = 1'b0;
+						updateB = ~updateB;
+					end
 				end
 				else if (instruction[25] == 0 && instruction[24] == 1 && instruction[23] == 1 && instruction[22] == 0) begin
 					$display("Instrucao: jf - Cond: overflow");
+					if (overflow == 0) begin
+						branch = 1'b1;
+						ALUSrc = 1'bz;
+						ALUOp = 5'b01010;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						memToReg = 2'b00;
+						regWrite = 1'b0;
+						registerB = 1'b0;
+						jumpRegister = 1'b0;
+						opcodeSignExtend = 2'b00;
+						updateB = ~updateB;
+					end else begin
+						branch = 1'b0;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						regWrite = 1'b0;
+						updateB = ~updateB;
+					end
 				end
 				else if (instruction[25] == 0 && instruction[24] == 1 && instruction[23] == 1 && instruction[22] == 1) begin
 					$display("Instrucao: jf - Cond: neg");
+					if (neg == 0) begin
+						branch = 1'b1;
+						ALUSrc = 1'bz;
+						ALUOp = 5'b01010;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						memToReg = 2'b00;
+						regWrite = 1'b0;
+						registerB = 1'b0;
+						jumpRegister = 1'b0;
+						opcodeSignExtend = 2'b00;
+						updateB = ~updateB;
+					end else begin
+						branch = 1'b0;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						regWrite = 1'b0;
+						updateB = ~updateB;
+					end
 				end
 				else if (instruction[25] == 1 && instruction[24] == 0 && instruction[23] == 0 && instruction[22] == 0) begin
 					$display("Instrucao: jf - Cond: negzero");
+					if (neg == 0 || zero == 0) begin
+						branch = 1'b1;
+						ALUSrc = 1'bz;
+						ALUOp = 5'b01010;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						memToReg = 2'b00;
+						regWrite = 1'b0;
+						registerB = 1'b0;
+						jumpRegister = 1'b0;
+						opcodeSignExtend = 2'b00;
+						updateB = ~updateB;
+					end else begin
+						branch = 1'b0;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						regWrite = 1'b0;
+						updateB = ~updateB;
+					end
 				end
 				else if (instruction[25] == 1 && instruction[24] == 0 && instruction[23] == 0 && instruction[22] == 1) begin
 					$display("Instrucao: jf - Cond: carry");
+					if (carry == 0) begin
+						branch = 1'b1;
+						ALUSrc = 1'bz;
+						ALUOp = 5'b01010;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						memToReg = 2'b00;
+						regWrite = 1'b0;
+						registerB = 1'b0;
+						jumpRegister = 1'b0;
+						opcodeSignExtend = 2'b00;
+						updateB = ~updateB;
+					end else begin
+						branch = 1'b0;
+						memRead = 1'b1;
+						memWrite = 1'b1;
+						regWrite = 1'b0;
+						updateB = ~updateB;
+					end
 				end
 			end
 
