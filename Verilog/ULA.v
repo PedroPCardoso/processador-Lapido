@@ -28,7 +28,7 @@ module  ULA (A, B, opcode, clock, zero, Out, overflow, carry,neg);
         5'b00000:begin  Outest = (A+B);
             Out = Outest;
 
-            overflow = B > 0 ? (4294967295 - B) < A : (-4294967296 - B) > A;
+            overflow = B > 0 ? (2147483647 - B) < A : (-2147483648 - B) > A;
 
 
             if (A[31] & B [31] || ( A[31] & B [31] && A [30] & B [30] ) )  begin
@@ -41,7 +41,7 @@ module  ULA (A, B, opcode, clock, zero, Out, overflow, carry,neg);
             Out = Outest;
             zero = Out == 0;
             neg = Out < 0;
-            overflow = B > 0 ? (4294967295 - B) < A : (-4294967296 - B) > A;
+            overflow = B > 0  ? (2147483647 - B) < A : (-2147483648 - B) > A;
 
             if (A[31] & B [31] || ( A[31] & B [31] && A [30] & B [30] ) )  begin
               $display("carry");
@@ -55,7 +55,7 @@ module  ULA (A, B, opcode, clock, zero, Out, overflow, carry,neg);
             Out = Outest;
             zero = Out == 0 ? 1 : 0;
             neg = Out < 0 ? 1 : 0;
-            overflow = B > 0 ? (4294967295 - B) < A : (-4294967296 - B) > A;
+            overflow = B > 0 ? (2147483647 - B) < A : (-2147483648 - B) > A;
 
          end // inca
         5'b00100:begin  Out= (A-B-32'b01);
@@ -64,13 +64,13 @@ module  ULA (A, B, opcode, clock, zero, Out, overflow, carry,neg);
         5'b00101:begin  Out = (A-B);
             zero = Out == 0;
             neg = Out < 0;
-            overflow = B > 0 ? (4294967295 - B) < A : (-4294967296 - B) > A
+            overflow = B > 0 ? (2147483647 - B) < A : (-2147483648 - B) > A;
 
         end // Sub
         5'b00110:begin  Out = (A-32'b01);
             zero = Out == 0 ? 1 : 0;
             neg = Out < 0 ? 1 : 0;
-            overflow = B > 0 ? (4294967295 - B) < A : (-4294967296 - B) > A;
+            overflow = B > 0 ? (2147483647 - B) < A : (-2147483648 - B) > A;
         end // deca
 
 
@@ -82,7 +82,9 @@ module  ULA (A, B, opcode, clock, zero, Out, overflow, carry,neg);
         end  // lsl
         5'b01001:begin  Out = (A>>>1); end // asr
         5'b10000:begin  Out = 32'b0;
-            neg=carry=overflow=0;
+            neg=0;
+            carry=0;
+            overflow=0;
             zero=1;
           end // zeros
         5'b10001:begin  Out = (A&B); end// and
@@ -138,7 +140,10 @@ module  ULA (A, B, opcode, clock, zero, Out, overflow, carry,neg);
             carry = 0;
         end // passnota
         5'b11011:begin  Out = (~A)|B;
-            neg=zero=carry=overflow=0;
+            neg=0;
+            zero=0;
+            carry=0;
+            overflow=0;
         end
         5'b11100:begin  Out = ~B;
             neg = Out < 0;
@@ -160,7 +165,9 @@ module  ULA (A, B, opcode, clock, zero, Out, overflow, carry,neg);
             carry = 0;
           end
         5'b11111:begin  Out = 1;
-            neg=zero=carry=overflow=0;
+            neg=0;zero=0;
+            carry=0;
+            overflow=0;
 
               end //ones
       	// beq
