@@ -11,7 +11,7 @@ module registerFile (
 
   parameter bits_palavra = 32;
   parameter end_registros = 4; // Quantidade de bits necessarios para enderecar os registros
-  parameter num_registros = 32; // Quantidade de registros do Banco de Registros (num_registros = (end_registros^2)-1;)
+  parameter num_registros = 16; // Quantidade de registros do Banco de Registros (num_registros = (end_registros^2)-1;)
   input wire enable;
   output reg [bits_palavra-1:0] A, B;
   input wire [bits_palavra-1:0] E;
