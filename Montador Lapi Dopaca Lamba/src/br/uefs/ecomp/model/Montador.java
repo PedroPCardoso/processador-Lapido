@@ -43,6 +43,7 @@ public class Montador {
 			 aux2 = aux.substring(0,1);
 			
 			  
+			 if (aux2.charAt(0)!= ';'){
 				 
 				 if (aux2.charAt(0)!= '.'){
 		
@@ -163,7 +164,9 @@ public class Montador {
 				
 		p.gravar(gravar, arquivoWave + "_instruction.txt");
 		p.gravar(memoria, arquivoWave + "_data.txt");
+		
 	}
+
 	public String getGravar(int i) {
 		
 		return gravar.get(i);
