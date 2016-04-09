@@ -1,14 +1,25 @@
 //Modulo do Registrador de Flags
 
+
+
 module RegistradorFlags(r,cond, flagsE, flagsO);
 
 
+
+
 input r; //reseta
-input [4:0]cond;
+input 
+[4:0]cond;
 input [3:0] flagsE; //z, c, s, o
 
 
-output reg [3:0] flagsO; //saida z, c, s, o
+
+output reg [3:0] flagsO; //saida z, c, s, 
+
+
+
+
+o
 
 always 
 
