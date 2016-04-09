@@ -43,13 +43,15 @@ import java.util.Scanner;
   }
     
  
+  
+  
   /**
    * Le o arquivo e armazena as palavras encontradas
    * @param titulo
    * @return
    * @throws FileNotFoundException
    */
-  public ArrayList<String>  paser(String titulo) throws FileNotFoundException{
+    public ArrayList<String>  paser(String titulo) throws FileNotFoundException{
 		
 		ArrayList<String> paser = new ArrayList<>();
 		File arquivo = new File(titulo);
@@ -61,7 +63,7 @@ import java.util.Scanner;
 		String linha = scanner.nextLine();
 		
 		
-		//System.out.printf(linha + "\n");
+		
 		paser.add(linha);
 		}
 		
@@ -79,10 +81,12 @@ import java.util.Scanner;
 		while (!l.isEmpty()){ 
 			
 			b = l.remove(0);
+			
 			gravarArq.printf(b);
 		
 		}
 		  
+		arq.close();
 	  
 	  
   }

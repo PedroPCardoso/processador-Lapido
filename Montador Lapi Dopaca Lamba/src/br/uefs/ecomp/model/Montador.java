@@ -29,7 +29,7 @@ public class Montador {
 		String aux, aux2, aux3 ;
 		
 		
-		procurarLabel(a);
+		l = procurarLabel(a);
 		
 		op.setLabel(label);
 			
@@ -43,32 +43,48 @@ public class Montador {
 			 aux2 = aux.substring(0,1);
 			
 			  
-			 if (!aux2.equals(";")){
 				 
-				 if (!aux2.equals(".")){
+				 if (aux2.charAt(0)!= '.'){
 		
-					aux3 = op.intrucao(aux);
-					
-					gravar.add(aux3);
-			 
+					 aux3 = op.intrucao(aux);
+					 gravar.add(aux3);
+										 
 				 }
 				 
-				 else {
+				 else{
 					 
-					 aux2 = aux.substring(0,5);
-					 
-					 if (aux2.equals(".word")){
-						 
-						 aux = aux.substring(aux2.length(), aux.length());
-						 
-						 aux.trim();
-						 
-						 memoria.add(op.binario(Integer.parseInt(aux), 16));
-						 
+					 if(!aux.equals(".end")){
+					
+						
+						 if (aux.charAt(1) == 'w'){
+							 
+							 int i = 5;
+							 String aux5 = ""; 
+							 while(i < aux.length()){
+								
+								 if (aux.charAt(i) != ';'){
+									 
+									 if (aux.charAt(i) != ' ' && aux.charAt(i) != '	'){
+											 
+									 aux5 =  aux5 + aux.charAt(i);
+									 }
+								 
+								 }else break;
+								 
+								 i++;
+							 }
+							 
+							 memoria.add(op.binario(Integer.parseInt(aux5), 16));
+							 
+						 }
 					 }
 				 }
+				 
+				
 			 }
+			 
 		}
+		
 		
 		
 		
@@ -77,12 +93,12 @@ public class Montador {
 	}
 	
 	//procura label
-	public void procurarLabel(ArrayList<String> a) {
+	public ArrayList<String> procurarLabel(ArrayList<String> a) {
 		
 		 ArrayList<String> c2 = new  ArrayList<String>();
 		  String aux, aux2; 
 		int cont = 0; 
-		 
+		int h =0;
 		while(!a.isEmpty()){
 			
 			 aux =  a.remove(0); 
@@ -97,6 +113,7 @@ public class Montador {
 				 if (!aux2.equals(".")){
 		
 					 int i = 0;
+					 
 						String f = "";
 						
 						while(i < aux.length()){
@@ -119,6 +136,8 @@ public class Montador {
 									
 									label.add(new Label(f,op.binario(cont, 4)));
 									
+									 if (aux.equals(f)){ h =1; }
+									 else h=0;
 								
 							}
 								
@@ -128,18 +147,26 @@ public class Montador {
 						cont++;	
 				 }
 			 }
-		 c2.add(aux);
+			 if (h==0){ c2.add(aux);}
+			 
+		
 		
 	}
+		return c2;
 	}
 
 	public void gravar(String arquivoWave) throws IOException {
 		
 		Paser p = Paser.getEstance();
 		
-		p.gravar(gravar, arquivoWave + "_instruction");
-		p.gravar(memoria, arquivoWave + "_data");
 		
+				
+		p.gravar(gravar, arquivoWave + "_instruction.txt");
+		p.gravar(memoria, arquivoWave + "_data.txt");
+	}
+	public String getGravar(int i) {
+		
+		return gravar.get(i);
 	}
 
 }

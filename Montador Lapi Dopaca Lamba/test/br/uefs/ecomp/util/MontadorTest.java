@@ -23,14 +23,31 @@ import org.junit.Test;
 
 import br.uefs.ecomp.model.Montador;
 
-/**
- * Testa o funcionamento do Paser, se estar consegundo lê do arquovo e jogar 
- * memoria
- * @author Henderson
- *
- */
 public class MontadorTest {
 	
+	
+	  
+    @Test
+    public void testMontar(){
+    	Montador m = new Montador();
+    	ArrayList<String> c2 = new  ArrayList<String>();
+    	
+    	c2.add("LOOP:   inca r1,r1	;");
+    	c2.add("load r3,r1	;");
+    	c2.add("sub r6,r2,r3	;r6 nao e utilizado apenas interessa o resultado presente à saida da ALU para as flags");
+    	c2.add("jt.negzero TROCA	;r2<=r3 faz troca de posicao no array");
+    	c2.add("nop");
+    	c2.add(".word   10");
+    	c2.add(".word   -1");
+    	c2.add(".word   6");
+    	c2.add(".word   3");
+    	
+    	m.montar(c2);
+    	
+    	assertEquals("L1", m.getGravar(0));
+    	
+    	
+    }
 	
 	  
     @Test
@@ -47,16 +64,16 @@ public class MontadorTest {
     	m.procurarLabel(c2);
     	
     	assertEquals("L1", m.getLabel().get(0).getNome());
-    	assertEquals(0, m.getLabel().get(0).getLinha());
+    	assertEquals("0000", m.getLabel().get(0).getLinha());
 
     	assertEquals("LOOP", m.getLabel().get(1).getNome());
-    	assertEquals(1, m.getLabel().get(1).getLinha());
+    	assertEquals("0001", m.getLabel().get(1).getLinha());
       
     	assertEquals("DIV", m.getLabel().get(2).getNome());
-    	assertEquals(2, m.getLabel().get(2).getLinha());
+    	assertEquals("0010", m.getLabel().get(2).getLinha());
       
     	assertEquals("FIM", m.getLabel().get(3).getNome());
-    	assertEquals(3, m.getLabel().get(3).getLinha());
+    	assertEquals("0011", m.getLabel().get(3).getLinha());
       
    
     }

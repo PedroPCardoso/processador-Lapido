@@ -5,7 +5,7 @@ public class Dicionario {
 	
 public String operar(String s){
 		
-		
+	
 		switch(s){
 		
 			case "jal":		return "101011xx";

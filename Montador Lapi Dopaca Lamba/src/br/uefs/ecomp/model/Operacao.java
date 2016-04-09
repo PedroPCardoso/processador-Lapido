@@ -19,6 +19,8 @@ public class Operacao {
 	public String intrucao(String aux) {
 		
 		ArrayList<String> c = cortar(aux);
+		
+		
 		String aux2 = "";
 		String aux3, aux4;
 		
@@ -42,9 +44,18 @@ public class Operacao {
 			}
 		}
 		
+		if(aux3.equals("nop")){
+			aux2 = "00000000000000000000000000000000";
+		}
+		
+		else{
 		aux4 = d.operar(aux3);
 		
+		if(aux4 != null){
+			
+			
 		    if (aux4.equals("110XXXX0XXXXXXXX")|| aux4.equals("110XXXX1XXXXXXXX")){
+		    	
 		    	
 		    	aux2 = aux4 + buscarLabel(c.get(1)) + "XXXXXXXXXXXX";
 		    	
@@ -53,12 +64,13 @@ public class Operacao {
 			
 			if(aux4.equals("00100011") || aux4.equals("00100110")){
 				
-				
+			
 				aux2 = aux4 + d.operar(c.get(1)) + d.operar(c.get(1))+ "1111"+ "xxxxxxxxxxx";
 				
 			}
 			else if (aux4.equals("00110000")){
 				
+			
 				aux2 = aux4 + d.operar(c.get(1)) + "0000" + "0000" + "xxxxxxxxxxx";
 				
 			}
@@ -68,18 +80,27 @@ public class Operacao {
 				aux2 = aux4 + d.operar(c.get(1)) + d.operar(c.get(1)) + "0000" + "xxxxxxxxxxx";
 				
 				
-			}	
+			}
+			
+			else if (aux4.equals("00111010")){
+				
+				
+				aux2 = aux4 + d.operar(c.get(1)) + d.operar(c.get(2))+ "xxxxxxxxxxx";;		
+			}
 			
 			
+			else if (aux4.equals("00101001") || aux4.equals("00100011")){
+				
+				
+				aux2 = aux4 + d.operar(c.get(1)) + d.operar(c.get(2))+ "xxxxxxxxxxx";;		
+			}
 			
 			
 			else{
-			switch(aux4.substring(0,2)){
+				
+			switch(aux4.substring(0,3)){
 			
-			case "000": 
-				
-				aux2 = aux4;
-				
+						
 			case "001": 				
 							
 				aux2 = aux4 + d.operar(c.get(1)) + d.operar(c.get(2)) + d.operar(c.get(3))+ "xxxxxxxxxxx";
@@ -89,14 +110,22 @@ public class Operacao {
 				
 				aux2 = aux4	+ d.operar(c.get(1))+ "xxxx" + "?????";
 				
-			case "":	
+			case "100":	
+				aux2 = aux4	+ d.operar(c.get(1))+ (c.get(2)) + "?????";
+			
+			case "110":	
+				aux2 = aux4 + this.buscarLabel(c.get(1));
+				
+			case "101":
+				aux2 = aux4 + this.buscarLabel(c.get(1));
+				
 			}
 			}
 		}
 		
 		
-		
-		
+		}
+		}
 		
 		return aux2;
 		
@@ -123,23 +152,30 @@ public String buscarLabel(String string) {
 
 public static ArrayList<String> cortar(String a) {
 		
-		int i = 0;
+		
 		String f = "";
+		
 		ArrayList<String> c = new ArrayList<String>();
-		while(i < a.length()){
+		for(int i = 0; i <= a.length();i++){
 			
-			if (a.charAt(i) != ' ' && a.charAt(i) != '	'){
+			if(i== a.length()){
+				c.add(f);
 				
-				if (a.charAt(i) != ','){
+			}
+			else{
+			
+			if (a.charAt(i) != ',' && a.charAt(i) != ' ' && a.charAt(i) != '	'){
+				
 				f = f + a.charAt(i); 
-				}
+					
 			}
 			
 			else {
-				c.add(f);				
-				f = "";
+				c.add(f);
+				f ="";
 			}
-		i++;
+		
+		}
 		}
 		
 		return c;
@@ -195,15 +231,6 @@ public static ArrayList<String> cortar(String a) {
 	
 
 
-
-	public String salvarRegistradores(String aux) {
-
-     //int i = aux.algumacoisa;
-				
-		//	String a = operar("r"+reg) + binario(i);	
-		 //   reg++;
-		return aux;
-	}
 
 
 

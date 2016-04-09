@@ -65,6 +65,7 @@ public class Interface {
 					}	
 					
 					
+					
 					while(!l.isEmpty()){					
 					String w = l.remove(0);
 					palavras.setText(palavras.getText()+ w + "\n" );
@@ -72,8 +73,8 @@ public class Interface {
 					
 					}
 				
-					m.montar(l2);
 					
+					m.montar(l2);
 								
 					
 					
@@ -137,5 +138,7 @@ public class Interface {
 		cb.setVisible(true);
 		
 	}
+
+	
 
 }
