@@ -6,11 +6,12 @@ module FU(
 	mem_wb_registerRD,
 	id_ex_registerA,
 	id_ex_registerB,
+	ALUSrc,
 	forwardA,
 	forwardB
 );
 
-input ex_mem_regWrite, mem_wb_regWrite;
+input ex_mem_regWrite, mem_wb_regWrite, ALUSrc;
 input [3:0] ex_mem_registerRD, mem_wb_registerRD;
 input [3:0] id_ex_registerA, id_ex_registerB;
 output [1:0] forwardA;
@@ -20,8 +21,8 @@ assign forwardA = ((ex_mem_regWrite && (ex_mem_registerRD == id_ex_registerA)) ?
 		:  (mem_wb_regWrite && (mem_wb_registerRD == id_ex_registerA)) ? 2'b01
 		:  2'b00);
 
-assign forwardB = ((ex_mem_regWrite && (ex_mem_registerRD == id_ex_registerB)) ? 2'b10 
-		:  (mem_wb_regWrite && (mem_wb_registerRD == id_ex_registerB)) ? 2'b01
+assign forwardB = ((ALUSrc == 1'b0 && ex_mem_regWrite && (ex_mem_registerRD == id_ex_registerB)) ? 2'b10 
+		:  (ALUSrc == 1'b0 && mem_wb_regWrite && (mem_wb_registerRD == id_ex_registerB)) ? 2'b01
 		:  2'b00);
 
 endmodule

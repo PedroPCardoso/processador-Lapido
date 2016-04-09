@@ -249,6 +249,7 @@ wire zero, overflow, carry, neg;
 		.mem_wb_registerRD(registerFileWrite_mem_wb),
 		.id_ex_registerA(registerA_id_ex),
 		.id_ex_registerB(registerB_id_ex),
+		.ALUSrc(ALUSrc_id_ex),
 		.forwardA(forwardA),
 		.forwardB(forwardB)
 	);
