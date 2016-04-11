@@ -47,6 +47,7 @@ wire [1:0] opcodeSignExtend;		// Opcode do modo de operacao do extensor de sinal
 // Signals
 //-------------------------------------------------------
 reg enablePC;
+wire enablePC2; 
 wire memRead, branch, memWrite, ALUSrc, regWrite, registerB, updateB;
 wire memRead_id_ex, memRead_ex_mem;
 wire jumpRegister, jumpRegister_id_ex;
@@ -250,6 +251,7 @@ wire zero, overflow, carry, neg;
 		.id_ex_registerA(registerA_id_ex),
 		.id_ex_registerB(registerB_id_ex),
 		.ALUSrc(ALUSrc_id_ex),
+		.dataBRegisterFileSelector(dataBRegisterFileSelector_id_ex),
 		.forwardA(forwardA),
 		.forwardB(forwardB)
 	);
@@ -285,14 +287,15 @@ wire zero, overflow, carry, neg;
 		.registerB_in(muxDataBRegisterFileOut),
 		.pcpp_in(pcpp),
 		.extendedSignal_in(extended),
-		.ALUOp_in(control_signals[9:5]),
-		.ALUSrc_in(control_signals[10]),
-		.memRead_in(control_signals[1]),
-		.memWrite_in(control_signals[2]),
-		.memToReg_in(control_signals[4:3]),
-		.regWrite_in(control_signals[11]),
-		.branch_in(control_signals[0]),
-		.jumpRegister_in(control_signals[13]),
+		.ALUOp_in(control_signals_mux_out[9:5]),
+		.ALUSrc_in(control_signals_mux_out[10]),
+		.memRead_in(control_signals_mux_out[1]),
+		.memWrite_in(control_signals_mux_out[2]),
+		.memToReg_in(control_signals_mux_out[4:3]),
+		.regWrite_in(control_signals_mux_out[11]),
+		.branch_in(control_signals_mux_out[0]),
+		.jumpRegister_in(control_signals_mux_out[13]),
+		.dataBRegisterFileSelector_in(control_signals_mux_out[12]),
 		.registerFileDataA(registerFileDataA_id_ex),
 		.registerFileDataB(registerFileDataB_id_ex),
 		.registerFileWrite(registerFileWrite_id_ex),
@@ -307,7 +310,8 @@ wire zero, overflow, carry, neg;
 		.memToReg(memToReg_id_ex),
 		.regWrite(regWrite_id_ex),
 		.branch(branch_id_ex),
-		.jumpRegister(jumpRegister_id_ex)
+		.jumpRegister(jumpRegister_id_ex),
+		.dataBRegisterFileSelector(dataBRegisterFileSelector_id_ex)
 	);
 
 	ex_mem ex_mem(
@@ -366,6 +370,7 @@ wire zero, overflow, carry, neg;
 	always @(posedge clock) begin
 		if(onBios == 0) begin
 			enablePC = 1'b1;
+			//Address = memAddressOutPC;
 		end else begin
 			WE=1;
 		end

@@ -19,7 +19,6 @@ module  ULA (A, B, opcode, clock, zero, Out, overflow, carry,neg);
     zero=0;
   end
 
-
   always @ ( clock ) begin
 
 
@@ -164,8 +163,9 @@ module  ULA (A, B, opcode, clock, zero, Out, overflow, carry,neg);
             overflow = 0;
             carry = 0;
           end
-        5'b11111:begin  Out = 1;
-            neg=0;zero=0;
+        5'b11111:begin  Out = 32'b11111111111111111111111111111111;
+            neg=0;
+	    zero=0;
             carry=0;
             overflow=0;
 

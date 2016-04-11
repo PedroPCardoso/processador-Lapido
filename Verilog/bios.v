@@ -23,7 +23,7 @@ output reg active;
 
 	initial begin
 		active = 1'b1;
-		data_file = $fopen("instructions.dat", "r");
+		data_file = $fopen("work/instructions.dat", "r");
 		if (data_file == `NULL) begin
 			$display("data_file handle was NULL");
 			$finish;

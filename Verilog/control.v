@@ -181,7 +181,7 @@ output reg [1:0] opcodeSignExtend;
 				opcodeSignExtend = 2'b00;
 				updateB = ~updateB;
 			end
-			if(instruction[25] == 0 && instruction[24] == 1) begin
+			if(instruction[25] == 1 && instruction[24] == 0) begin
 				$display("Instrucao: lch");
 				branch = 1'b0;
 				ALUSrc = 1'b1;
@@ -195,7 +195,7 @@ output reg [1:0] opcodeSignExtend;
 				opcodeSignExtend = 2'b01;
 				updateB = ~updateB;
 			end
-			if(instruction[25] == 1 && instruction[24] == 0) begin
+			if(instruction[25] == 0 && instruction[24] == 1) begin
 				$display("Instrucao: lcl");
 				branch = 1'b0;
 				ALUSrc = 1'b1;
@@ -352,7 +352,7 @@ output reg [1:0] opcodeSignExtend;
 					$display("Instrucao: jt - Cond: zero");
 					if (zero == 1) begin
 						branch = 1'b1;
-						ALUSrc = 1'bz;
+						ALUSrc = 1'b0;
 						ALUOp = 5'b01010;
 						memRead = 1'b1;
 						memWrite = 1'b1;
@@ -374,7 +374,7 @@ output reg [1:0] opcodeSignExtend;
 					$display("Instrucao: jt - Cond: overflow");
 					if (overflow == 1) begin
 						branch = 1'b1;
-						ALUSrc = 1'bz;
+						ALUSrc = 1'b0;
 						ALUOp = 5'b01010;
 						memRead = 1'b1;
 						memWrite = 1'b1;
@@ -396,7 +396,7 @@ output reg [1:0] opcodeSignExtend;
 					$display("Instrucao: jt - Cond: neg");
 					if (neg == 1) begin
 						branch = 1'b1;
-						ALUSrc = 1'bz;
+						ALUSrc = 1'b0;
 						ALUOp = 5'b01010;
 						memRead = 1'b1;
 						memWrite = 1'b1;
@@ -418,7 +418,7 @@ output reg [1:0] opcodeSignExtend;
 					$display("Instrucao: jt - Cond: negzero");
 					if (neg == 1 || zero == 1) begin
 						branch = 1'b1;
-						ALUSrc = 1'bz;
+						ALUSrc = 1'b0;
 						ALUOp = 5'b01010;
 						memRead = 1'b1;
 						memWrite = 1'b1;
@@ -440,7 +440,7 @@ output reg [1:0] opcodeSignExtend;
 					$display("Instrucao: jt - Cond: carry");
 					if (carry == 1) begin
 						branch = 1'b1;
-						ALUSrc = 1'bz;
+						ALUSrc = 1'b0;
 						ALUOp = 5'b01010;
 						memRead = 1'b1;
 						memWrite = 1'b1;
@@ -462,7 +462,7 @@ output reg [1:0] opcodeSignExtend;
 					$display("Instrucao: jf - Cond: zero");
 					if (zero == 0) begin
 						branch = 1'b1;
-						ALUSrc = 1'bz;
+						ALUSrc = 1'b0;
 						ALUOp = 5'b01010;
 						memRead = 1'b1;
 						memWrite = 1'b1;
@@ -484,7 +484,7 @@ output reg [1:0] opcodeSignExtend;
 					$display("Instrucao: jf - Cond: overflow");
 					if (overflow == 0) begin
 						branch = 1'b1;
-						ALUSrc = 1'bz;
+						ALUSrc = 1'b0;
 						ALUOp = 5'b01010;
 						memRead = 1'b1;
 						memWrite = 1'b1;
@@ -506,7 +506,7 @@ output reg [1:0] opcodeSignExtend;
 					$display("Instrucao: jf - Cond: neg");
 					if (neg == 0) begin
 						branch = 1'b1;
-						ALUSrc = 1'bz;
+						ALUSrc = 1'b0;
 						ALUOp = 5'b01010;
 						memRead = 1'b1;
 						memWrite = 1'b1;
@@ -528,7 +528,7 @@ output reg [1:0] opcodeSignExtend;
 					$display("Instrucao: jf - Cond: negzero");
 					if (neg == 0 || zero == 0) begin
 						branch = 1'b1;
-						ALUSrc = 1'bz;
+						ALUSrc = 1'b0;
 						ALUOp = 5'b01010;
 						memRead = 1'b1;
 						memWrite = 1'b1;
@@ -550,7 +550,7 @@ output reg [1:0] opcodeSignExtend;
 					$display("Instrucao: jf - Cond: carry");
 					if (carry == 0) begin
 						branch = 1'b1;
-						ALUSrc = 1'bz;
+						ALUSrc = 1'b0;
 						ALUOp = 5'b01010;
 						memRead = 1'b1;
 						memWrite = 1'b1;
